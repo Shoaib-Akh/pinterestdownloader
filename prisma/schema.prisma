@@ -1,0 +1,55 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String     @id @default(cuid())
+  name          String?
+  email         String     @unique
+  image         String?
+  plan          Plan       @default(FREE)
+  createdAt     DateTime   @default(now())
+  downloads     Download[]
+  favorites     Favorite[]
+  apiKeys       ApiKey[]
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+model Download {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pinterestUrl String
+  mediaUrl     String
+  mediaType    String   // 'video' | 'image' | 'gif'
+  title        String?
+  createdAt    DateTime @default(now())
+}
+
+model Favorite {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pinterestUrl String
+  mediaUrl     String
+  mediaType    String
+  title        String?
+  createdAt    DateTime @default(now())
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  key       String   @unique
+  createdAt DateTime @default(now())
+}

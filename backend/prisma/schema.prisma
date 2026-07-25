@@ -1,0 +1,77 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      String   @default("USER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Download {
+  id        String   @id @default(cuid())
+  url       String
+  pinId     String?
+  mediaType String   // image | video | gif | carousel
+  quality   String   @default("original")
+  country   String?
+  browser   String?
+  device    String?
+  ipHash    String?  // hashed IP for analytics
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([mediaType])
+}
+
+model Analytics {
+  id        String   @id @default(cuid())
+  page      String
+  views     Int      @default(0)
+  downloads Int      @default(0)
+  date      DateTime @default(now())
+
+  @@unique([page, date])
+}
+
+model Blog {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String?
+  content     String
+  coverImage  String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([published])
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

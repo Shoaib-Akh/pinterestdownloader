@@ -1,0 +1,48 @@
+{
+  "name": "pinflow-backend",
+  "version": "1.0.0",
+  "description": "PinFlow Express Backend API",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "nodemon --exec tsx src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "prisma db push && prisma generate && tsx prisma/seed.ts",
+    "admin:create": "prisma db push && prisma generate && tsx src/scripts/createAdmin.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0-rc.12",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "winston": "^3.13.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.11.30",
+    "nodemon": "^3.1.0",
+    "prisma": "^5.11.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3"
+  }
+}
