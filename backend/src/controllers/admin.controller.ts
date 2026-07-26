@@ -39,6 +39,11 @@ export async function handleGetAdminStats(req: Request, res: Response) {
       prisma.download.groupBy({
         by: ['country'],
         _count: { country: true },
+        orderBy: {
+          _count: {
+            country: 'desc',
+          },
+        },
         take: 5,
       }),
     ]);
