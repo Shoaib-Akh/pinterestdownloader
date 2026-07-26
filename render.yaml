@@ -22,19 +22,4 @@ services:
       - key: JWT_SECRET
         generateValue: true
 
-  # Frontend Next.js Web App Service (Optional if hosting Next.js on Render)
-  - type: web
-    name: pintsave-frontend
-    env: node
-    region: oregon
-    plan: free
-    buildCommand: npm install --include=dev && npm run build
-    startCommand: npm run start
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: pintsave-backend
-          property: url
+
