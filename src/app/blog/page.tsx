@@ -5,6 +5,8 @@ import CTABanner from '@/components/CTABanner';
 import { getBlogPosts } from '@/lib/api';
 import { BookOpen, Calendar, ArrowRight } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'PintSave Blog — Tutorials, Guides & Pinterest Downloading Tips',
   description:

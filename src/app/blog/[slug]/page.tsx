@@ -6,6 +6,8 @@ import CTABanner from '@/components/CTABanner';
 import { getBlogPostBySlug, SAMPLE_BLOG_POSTS } from '@/lib/api';
 import { Calendar, ArrowLeft, BookOpen, Clock, Tag } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
   params: { slug: string };
 }

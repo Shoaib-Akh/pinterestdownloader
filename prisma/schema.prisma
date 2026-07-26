@@ -8,48 +8,70 @@ generator client {
 }
 
 model User {
-  id            String     @id @default(cuid())
-  name          String?
-  email         String     @unique
-  image         String?
-  plan          Plan       @default(FREE)
-  createdAt     DateTime   @default(now())
-  downloads     Download[]
-  favorites     Favorite[]
-  apiKeys       ApiKey[]
-}
-
-enum Plan {
-  FREE
-  PRO
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      String   @default("USER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Download {
-  id           String   @id @default(cuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  pinterestUrl String
-  mediaUrl     String
-  mediaType    String   // 'video' | 'image' | 'gif'
-  title        String?
-  createdAt    DateTime @default(now())
-}
-
-model Favorite {
-  id           String   @id @default(cuid())
-  userId       String
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  pinterestUrl String
-  mediaUrl     String
-  mediaType    String
-  title        String?
-  createdAt    DateTime @default(now())
-}
-
-model ApiKey {
   id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  key       String   @unique
+  url       String
+  pinId     String?
+  mediaType String   // image | video | gif | carousel
+  quality   String   @default("original")
+  country   String?
+  browser   String?
+  device    String?
+  ipHash    String?  // hashed IP for analytics
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([mediaType])
+}
+
+model Analytics {
+  id        String   @id @default(cuid())
+  page      String
+  views     Int      @default(0)
+  downloads Int      @default(0)
+  date      DateTime @default(now())
+
+  @@unique([page, date])
+}
+
+model Blog {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String?
+  content     String
+  coverImage  String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([published])
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  read      Boolean  @default(false)
   createdAt DateTime @default(now())
 }

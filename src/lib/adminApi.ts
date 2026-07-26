@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
 
 export interface AdminStats {
   totalDownloads: number;
@@ -90,9 +90,12 @@ export async function loginAdmin(email: string, password: string) {
       body: JSON.stringify({ email, password }),
     });
     const data = await res.json();
-    if (res.ok && data.success && data.data?.token) {
-      setAuthToken(data.data.token);
-      return { success: true, token: data.data.token, user: data.data.user };
+    const token = data.data?.token || data.token;
+    const user = data.data?.user || data.user;
+
+    if (res.ok && data.success && token) {
+      setAuthToken(token);
+      return { success: true, token, user };
     }
     return { success: false, error: data.error || 'Invalid credentials' };
   } catch {

@@ -72,7 +72,12 @@ export async function extractPinterestMedia(inputUrl: string): Promise<Pinterest
       fullResImage = thumbnail.replace(/\/(236x|474x|564x|736x)\//, '/originals/');
     }
 
-    // 4. Return result structure
+    // 4. Extract Pin ID from final URL if available
+    const finalUrl = response.request?.res?.responseUrl || cleanUrl;
+    const pinIdMatch = finalUrl.match(/\/pin\/([0-9a-zA-Z_-]+)/);
+    const pinId = pinIdMatch ? pinIdMatch[1] : undefined;
+
+    // 5. Return result structure
     if (videoUrl) {
       return {
         success: true,
@@ -80,6 +85,7 @@ export async function extractPinterestMedia(inputUrl: string): Promise<Pinterest
         title,
         thumbnail: fullResImage || thumbnail,
         mediaUrl: videoUrl,
+        pinId,
       };
     }
 
@@ -91,6 +97,7 @@ export async function extractPinterestMedia(inputUrl: string): Promise<Pinterest
       title,
       thumbnail: fullResImage,
       mediaUrl: fullResImage,
+      pinId,
     };
   } catch (error: any) {
     console.error('Pinterest extraction error:', error.message);

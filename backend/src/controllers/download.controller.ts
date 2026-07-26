@@ -34,7 +34,7 @@ export async function handleDownload(req: Request, res: Response) {
     }
 
     // Cache successful result for 1 hour (3600 seconds)
-    const targetPinId = result.pinId || pinId;
+    const targetPinId = result?.pinId || pinId;
     if (targetPinId) {
       await setCache(`download:${targetPinId}`, 3600, JSON.stringify(result));
     }
@@ -86,7 +86,7 @@ async function logDownloadAndAnalytics(url: string, result: any, req: Request) {
     await prisma.download.create({
       data: {
         url,
-        pinId: result.pinId || null,
+        pinId: result?.pinId || null,
         mediaType: result.type || 'unknown',
         quality: 'original',
         country,

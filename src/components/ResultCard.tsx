@@ -35,7 +35,7 @@ export function ResultCard({ result }: ResultCardProps) {
     }
   };
 
-  const filename = `pintsave_${result.pinId || Date.now()}.${
+  const filename = `pintsave_${result?.pinId || Date.now()}.${
     result.type === 'video' ? 'mp4' : result.type === 'gif' ? 'gif' : 'jpg'
   }`;
 

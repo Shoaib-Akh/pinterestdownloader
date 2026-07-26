@@ -4,6 +4,7 @@ export interface PinterestMediaResult {
   title: string;
   thumbnail: string;
   mediaUrl: string;
+  pinId?: string;
   error?: string;
 }
 
