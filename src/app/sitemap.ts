@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { SAMPLE_BLOG_POSTS } from '@/lib/api';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pintsave.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pintsave.site';
 
   const blogUrls = SAMPLE_BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,

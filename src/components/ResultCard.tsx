@@ -120,7 +120,10 @@ export function ResultCard({ result }: ResultCardProps) {
 
           {/* Action Buttons */}
           <div className="pt-4 flex flex-wrap items-center justify-center md:justify-start gap-3">
-            <a href={result.mediaUrl} target="_blank" rel="noreferrer" download={filename}>
+            <a
+              href={`/api/proxy-download?url=${encodeURIComponent(result.mediaUrl || '')}&filename=${encodeURIComponent(filename)}`}
+              download={filename}
+            >
               <Button size="lg" className="w-full sm:w-auto">
                 <Download className="w-5 h-5" />
                 <span>Download HD {result.type?.toUpperCase()}</span>

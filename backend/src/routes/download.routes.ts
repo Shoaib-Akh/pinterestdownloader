@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { handleDownload, handlePreview, handleHealth } from '../controllers/download.controller.js';
+import { handleDownload, handlePreview, handleHealth, handleProxyDownload } from '../controllers/download.controller.js';
 import { downloadRateLimiter } from '../middlewares/rateLimiter.js';
 import { validateBody } from '../middlewares/validateRequest.js';
 
@@ -12,6 +12,7 @@ const downloadSchema = z.object({
 
 router.post('/download', downloadRateLimiter, validateBody(downloadSchema), handleDownload);
 router.post('/preview', downloadRateLimiter, validateBody(downloadSchema), handlePreview);
+router.get('/proxy-download', handleProxyDownload);
 router.get('/health', handleHealth);
 
 export default router;

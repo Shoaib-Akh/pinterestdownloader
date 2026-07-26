@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import crypto from 'crypto';
+import axios from 'axios';
 import { extractMedia } from '../helpers/extractMedia.js';
 import { getCache, setCache } from '../config/redis.js';
 import { prisma } from '../config/database.js';
@@ -74,6 +75,37 @@ export async function handleHealth(req: Request, res: Response) {
     status: 'ok',
     timestamp: new Date().toISOString(),
   });
+}
+
+export async function handleProxyDownload(req: Request, res: Response) {
+  try {
+    const mediaUrl = req.query.url as string;
+    const filename = (req.query.filename as string) || 'pinterest_video.mp4';
+
+    if (!mediaUrl) {
+      return errorResponse(res, 'Media URL query parameter is required.', 400);
+    }
+
+    const response = await axios({
+      method: 'GET',
+      url: mediaUrl,
+      responseType: 'stream',
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+        'Referer': 'https://www.pinterest.com/',
+      },
+    });
+
+    const contentType = String(response.headers['content-type'] || 'video/mp4');
+    res.setHeader('Content-Type', contentType);
+    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
+
+    response.data.pipe(res);
+  } catch (error: any) {
+    logger.error(`Proxy download error: ${error.message}`);
+    return errorResponse(res, 'Failed to fetch media stream for download.', 500);
+  }
 }
 
 async function logDownloadAndAnalytics(url: string, result: any, req: Request) {

@@ -13,7 +13,7 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: [env.CORS_ORIGIN, 'http://localhost:3000', 'http://127.0.0.1:3000'],
+    origin: true,
     credentials: true,
   })
 );
