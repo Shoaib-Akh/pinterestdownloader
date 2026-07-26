@@ -37,11 +37,7 @@ export async function fetchPinData(pinId: string, canonicalUrl: string): Promise
         return result;
       }
     }
-  } catch (err: any) {
-    logger.warn(`PinResource API failed for Pin ID ${pinId}: ${err.message}`);
-  }
-
-  // Strategy 2: HTML Script Scraping (__PJS_DATA__ / __INITIAL_STATE__)
+  // Strategy 2: HTML Script Scraping & Relay completed requests
   try {
     logger.info(`Attempting HTML JSON extraction for Pin ID ${pinId}`);
     const htmlRes = await axios.get(canonicalUrl, {
@@ -53,33 +49,80 @@ export async function fetchPinData(pinId: string, canonicalUrl: string): Promise
     });
 
     const $ = cheerio.load(htmlRes.data);
-
-    // Look for script tags with JSON state
     let scriptData: any = null;
-    $('script').each((_, elem) => {
-      const content = $(elem).html() || '';
-      if (content.includes('__PJS_DATA__') || content.includes('__INITIAL_STATE__') || content.includes('PinResource')) {
-        try {
-          const jsonMatch = content.match(/(\{.*\})/s);
-          if (jsonMatch) {
-            const parsed = JSON.parse(jsonMatch[1]);
-            if (parsed) scriptData = parsed;
-          }
-        } catch {
-          // ignore JSON parse error for script tags
+
+    // A. Check #__PWS_DATA__ tag first (modern Pinterest layout data)
+    const pwsDataHtml = $('#__PWS_DATA__').html();
+    if (pwsDataHtml) {
+      try {
+        const parsed = JSON.parse(pwsDataHtml);
+        const pinObj = findPinInObject(parsed, pinId);
+        if (pinObj) {
+          logger.info(`Successfully found Pin ID ${pinId} in #__PWS_DATA__`);
+          scriptData = pinObj;
         }
+      } catch (err: any) {
+        logger.warn(`Failed to parse #__PWS_DATA__ JSON: ${err.message}`);
       }
-    });
+    }
+
+    // B. Check __PWS_RELAY_REGISTER_COMPLETED_REQUEST__ scripts (GraphQL response payloads)
+    if (!scriptData) {
+      $('script').each((_, elem) => {
+        const content = $(elem).html() || '';
+        if (content.includes('__PWS_RELAY_REGISTER_COMPLETED_REQUEST__')) {
+          try {
+            const startCall = content.indexOf('__PWS_RELAY_REGISTER_COMPLETED_REQUEST__(');
+            if (startCall !== -1) {
+              const endCall = content.lastIndexOf(');');
+              const firstQuote = content.indexOf('"', startCall);
+              const secondQuote = content.indexOf('"', firstQuote + 1);
+              const commaIndex = content.indexOf(',', secondQuote);
+              
+              if (commaIndex !== -1 && endCall !== -1) {
+                const jsonText = content.substring(commaIndex + 1, endCall).trim();
+                const parsed = JSON.parse(jsonText);
+                const pinObj = findPinInObject(parsed, pinId);
+                if (pinObj) {
+                  logger.info(`Successfully found Pin ID ${pinId} in __PWS_RELAY_REGISTER_COMPLETED_REQUEST__`);
+                  scriptData = pinObj;
+                }
+              }
+            }
+          } catch (err: any) {
+            // ignore malformed JSON or parsing errors for individual script tags
+          }
+        }
+      });
+    }
+
+    // C. Fallback: Legacy JSON state tags (__PJS_DATA__ / __INITIAL_STATE__)
+    if (!scriptData) {
+      $('script').each((_, elem) => {
+        const content = $(elem).html() || '';
+        if (content.includes('__PJS_DATA__') || content.includes('__INITIAL_STATE__') || content.includes('PinResource')) {
+          try {
+            const jsonMatch = content.match(/(\{.*\})/s);
+            if (jsonMatch) {
+              const parsed = JSON.parse(jsonMatch[1]);
+              const pinObj = findPinInObject(parsed, pinId);
+              if (pinObj) {
+                logger.info(`Successfully found Pin ID ${pinId} in legacy scripts`);
+                scriptData = pinObj;
+              }
+            }
+          } catch {
+            // ignore
+          }
+        }
+      });
+    }
 
     if (scriptData) {
-      // Traverse scriptData for pin details
-      const pinObj = findPinInObject(scriptData, pinId);
-      if (pinObj) {
-        const result = parsePinData(pinObj, pinId);
-        if (result && result.mediaUrl) {
-          logger.info(`HTML Script data successfully extracted Pin ID ${pinId}`);
-          return result;
-        }
+      const result = parsePinData(scriptData, pinId);
+      if (result && result.mediaUrl) {
+        logger.info(`HTML Script data successfully extracted Pin ID ${pinId}`);
+        return result;
       }
     }
 
@@ -140,62 +183,166 @@ export async function fetchPinData(pinId: string, canonicalUrl: string): Promise
   };
 }
 
+function decodeBase64(str: string): string {
+  try {
+    return Buffer.from(str, 'base64').toString('utf8');
+  } catch {
+    return '';
+  }
+}
+
+function isPinIdMatch(objId: any, targetPinId: string): boolean {
+  if (!objId || typeof objId !== 'string') return false;
+  if (objId === targetPinId) return true;
+  if (objId.startsWith('UGluO')) {
+    const decoded = decodeBase64(objId);
+    return decoded.includes(targetPinId);
+  }
+  return false;
+}
+
+function findPinInObject(obj: any, pinId: string): any {
+  if (!obj || typeof obj !== 'object') return null;
+  
+  if (
+    (isPinIdMatch(obj.id, pinId) || isPinIdMatch(obj.entityId, pinId)) &&
+    (obj.images || obj.videos || obj.storyPinData || obj.story_pin_data || obj.images_orig)
+  ) {
+    return obj;
+  }
+
+  for (const key of Object.keys(obj)) {
+    try {
+      const res = findPinInObject(obj[key], pinId);
+      if (res) return res;
+    } catch {
+      // recursive safety check
+    }
+  }
+  return null;
+}
+
+function extractVideoUrl(videoData: any): string {
+  if (!videoData || typeof videoData !== 'object') return '';
+  
+  if (typeof videoData.url === 'string' && videoData.url.includes('.mp4')) {
+    return videoData.url;
+  }
+
+  const urls: string[] = [];
+  const searchUrls = (obj: any) => {
+    if (!obj) return;
+    if (typeof obj === 'string') {
+      if (obj.startsWith('http') && (obj.includes('.mp4') || obj.includes('/expMp4/'))) {
+        urls.push(obj);
+      }
+      return;
+    }
+    if (typeof obj === 'object') {
+      const keys = Object.keys(obj).sort((a, b) => {
+        const priority = (k: string) => {
+          if (k.includes('720') || k.includes('1080')) return 1;
+          if (k.includes('EXP') || k.includes('v_')) return 2;
+          return 3;
+        };
+        return priority(a) - priority(b);
+      });
+      for (const key of keys) {
+        searchUrls(obj[key]);
+      }
+    }
+  };
+
+  searchUrls(videoData);
+  if (urls.length > 0) {
+    return urls[0];
+  }
+
+  const hlsUrls: string[] = [];
+  const searchHls = (obj: any) => {
+    if (!obj) return;
+    if (typeof obj === 'string') {
+      if (obj.startsWith('http') && (obj.includes('.m3u8') || obj.includes('/hls/'))) {
+        hlsUrls.push(obj);
+      }
+      return;
+    }
+    if (typeof obj === 'object') {
+      for (const key of Object.keys(obj)) {
+        searchHls(obj[key]);
+      }
+    }
+  };
+  searchHls(videoData);
+  return hlsUrls[0] || '';
+}
+
 function parsePinData(pinData: any, pinId: string): MediaResult | null {
-  const title = cleanTitle(pinData.title || pinData.grid_title || pinData.description || 'Pinterest Pin');
+  const title = cleanTitle(
+    pinData.title ||
+    pinData.grid_title ||
+    pinData.seoTitle ||
+    pinData.description ||
+    pinData.gridDescription ||
+    'Pinterest Pin'
+  );
 
-  // Check Videos
-  const videoList = pinData.videos?.video_list;
-  if (videoList && typeof videoList === 'object') {
-    let bestVideoUrl = '';
-    // Priority: V_720P, V_HLSV4, V_EXP7, V_EXP5, any mp4
-    const qualityKeys = ['V_720P', 'V_1080P', 'V_EXP7', 'V_EXP5', 'V_480P', 'V_360P', 'V_HLSV4'];
-    for (const key of qualityKeys) {
-      if (videoList[key]?.url) {
-        bestVideoUrl = videoList[key].url;
-        if (bestVideoUrl.endsWith('.mp4') || bestVideoUrl.includes('mp4')) break;
-      }
-    }
-
-    if (!bestVideoUrl) {
-      const keys = Object.keys(videoList);
-      if (keys.length > 0 && videoList[keys[0]]?.url) {
-        bestVideoUrl = videoList[keys[0]].url;
-      }
-    }
-
-    const thumbnail = getPinImageUrl(pinData);
-
-    if (bestVideoUrl) {
+  // 1. Check Standard Videos
+  const videoList = pinData.videos?.video_list || pinData.videos;
+  if (videoList) {
+    const videoUrl = extractVideoUrl(videoList);
+    if (videoUrl) {
+      const thumbnail = getPinImageUrl(pinData);
       return {
         success: true,
         pinId,
         title,
         type: 'video',
         thumbnail: upgradeImageUrl(thumbnail),
-        mediaUrl: bestVideoUrl,
+        mediaUrl: videoUrl,
       };
     }
   }
 
-  // Check Story / Carousel Pins
-  const storyPinData = pinData.story_pin_data;
-  if (storyPinData && storyPinData.pages && Array.isArray(storyPinData.pages) && storyPinData.pages.length > 1) {
+  // 2. Check Story / Carousel Pins
+  const storyPin = pinData.storyPinData || pinData.story_pin_data;
+  if (storyPin && storyPin.pages && Array.isArray(storyPin.pages)) {
     const items: CarouselItem[] = [];
-    for (const page of storyPinData.pages) {
+    let isVideoStory = false;
+    let storyVideoUrl = '';
+
+    for (const page of storyPin.pages) {
       const blocks = page.blocks;
       if (blocks && Array.isArray(blocks)) {
         for (const block of blocks) {
-          if (block.type === 'video' && block.video?.video_list) {
-            const vList = block.video.video_list;
-            const firstVid = (Object.values(vList) as any[])[0];
-            const vUrl = vList.V_720P?.url || vList.V_HLSV4?.url || firstVid?.url;
-            if (vUrl) items.push({ url: vUrl, type: 'video' });
-          } else if (block.type === 'image' && block.image?.images) {
-            const imgUrl = getBestImageFromMap(block.image.images);
-            if (imgUrl) items.push({ url: upgradeImageUrl(imgUrl), type: 'image' });
+          if ((block.type === 'video' || block.__typename?.includes('Video') || block.videoDataV2) && block.videoDataV2) {
+            const vUrl = extractVideoUrl(block.videoDataV2);
+            if (vUrl) {
+              isVideoStory = true;
+              storyVideoUrl = vUrl;
+              items.push({ url: vUrl, type: 'video' });
+            }
+          } else if (block.type === 'image' || block.__typename?.includes('Image') || block.image) {
+            const imgUrl = block.image?.images?.orig?.url || block.image?.url;
+            if (imgUrl) {
+              items.push({ url: upgradeImageUrl(imgUrl), type: 'image' });
+            }
           }
         }
       }
+    }
+
+    if (isVideoStory && storyVideoUrl) {
+      const thumbnail = getPinImageUrl(pinData);
+      return {
+        success: true,
+        pinId,
+        title,
+        type: 'video',
+        thumbnail: upgradeImageUrl(thumbnail),
+        mediaUrl: storyVideoUrl,
+        items: items.length > 1 ? items : undefined,
+      };
     }
 
     if (items.length > 0) {
@@ -204,15 +351,15 @@ function parsePinData(pinData: any, pinId: string): MediaResult | null {
         success: true,
         pinId,
         title,
-        type: 'carousel',
+        type: items.length > 1 ? 'carousel' : 'image',
         thumbnail: firstThumbnail,
         mediaUrl: firstThumbnail,
-        items,
+        items: items.length > 1 ? items : undefined,
       };
     }
   }
 
-  // Check Images / GIFs
+  // 3. Check Images / GIFs
   const imageUrl = getPinImageUrl(pinData);
   if (imageUrl) {
     const highResUrl = upgradeImageUrl(imageUrl);
@@ -231,16 +378,11 @@ function parsePinData(pinData: any, pinId: string): MediaResult | null {
 }
 
 function getPinImageUrl(pinData: any): string {
-  if (pinData.images) {
-    return getBestImageFromMap(pinData.images);
-  }
-  return '';
-}
-
-function getBestImageFromMap(images: any): string {
+  const images = pinData.images || pinData.images_orig || pinData.imageSpec_236x;
   if (!images) return '';
   return (
     images.orig?.url ||
+    images.url ||
     images['1200x']?.url ||
     images['736x']?.url ||
     images['474x']?.url ||
@@ -251,7 +393,6 @@ function getBestImageFromMap(images: any): string {
 
 function upgradeImageUrl(url: string): string {
   if (!url) return '';
-  // Replace thumbnail resolutions (/236x/, /474x/, /736x/) with /originals/
   return url.replace(/\/(236x|474x|736x)\//, '/originals/');
 }
 
@@ -260,17 +401,3 @@ function cleanTitle(str: string): string {
   return str.replace(/\s+/g, ' ').trim().slice(0, 150);
 }
 
-function findPinInObject(obj: any, pinId: string): any {
-  if (!obj || typeof obj !== 'object') return null;
-  if (obj.id === pinId && (obj.images || obj.videos)) return obj;
-
-  for (const key of Object.keys(obj)) {
-    try {
-      const res = findPinInObject(obj[key], pinId);
-      if (res) return res;
-    } catch {
-      // recursive safety check
-    }
-  }
-  return null;
-}
