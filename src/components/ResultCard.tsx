@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Download, Copy, Share2, FileVideo, Image as ImageIcon, Film, Layers, Zap } from 'lucide-react';
+import { Download, Copy, Share2, FileVideo, Image as ImageIcon, Film, Layers, Zap, Loader2, Play } from 'lucide-react';
 import { MediaResult } from '@/lib/api';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -13,6 +13,7 @@ interface ResultCardProps {
 
 export function ResultCard({ result }: ResultCardProps) {
   const [toastMessage, setToastMessage] = useState('');
+  const [downloadingUrls, setDownloadingUrls] = useState<Record<string, boolean>>({});
 
   if (!result || !result.success) return null;
 
@@ -39,24 +40,56 @@ export function ResultCard({ result }: ResultCardProps) {
     result.type === 'video' ? 'mp4' : result.type === 'gif' ? 'gif' : 'jpg'
   }`;
 
+  const downloadFile = async (url: string, targetFilename: string) => {
+    if (!url) return;
+    setDownloadingUrls((prev) => ({ ...prev, [url]: true }));
+    try {
+      const downloadUrl = `/api/proxy-download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(targetFilename)}`;
+      const response = await fetch(downloadUrl);
+      if (!response.ok) throw new Error('Download failed');
+
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = targetFilename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl);
+      setToastMessage('Download started successfully!');
+      setTimeout(() => setToastMessage(''), 3000);
+    } catch (error) {
+      console.error('Download error:', error);
+      setToastMessage('Failed to download media. Please try again.');
+      setTimeout(() => setToastMessage(''), 3000);
+    } finally {
+      setDownloadingUrls((prev) => ({ ...prev, [url]: false }));
+    }
+  };
+
+  const isMainDownloading = result.mediaUrl ? downloadingUrls[result.mediaUrl] : false;
+
   return (
     <div className="w-full bg-white dark:bg-stone-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-stone-200/80 dark:border-stone-800 animate-in fade-in slide-in-from-bottom-4 duration-300">
       <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
         {/* Media Preview Container */}
-        <div className="relative w-full md:w-72 h-72 rounded-2xl overflow-hidden bg-stone-100 dark:bg-stone-800 shrink-0 border border-stone-200/80 dark:border-stone-700/80 group">
-          {result.type === 'video' ? (
-            <video
-              src={result.mediaUrl}
-              poster={result.thumbnail}
-              controls
-              className="w-full h-full object-cover rounded-2xl"
-            />
-          ) : (
-            <img
-              src={result.thumbnail || result.mediaUrl}
-              alt={result.title || 'Pinterest Pin'}
-              className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-300"
-            />
+        <div className="relative w-full md:w-72 h-72 rounded-2xl overflow-hidden bg-stone-100 dark:bg-stone-800 shrink-0 border border-stone-200/80 dark:border-stone-700/80 group flex items-center justify-center">
+          <img
+            src={result.thumbnail || result.mediaUrl}
+            alt={result.title || 'Pinterest Pin'}
+            className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-300"
+          />
+
+          {/* Video Play Overlay (Visual Indicator only, not playable) */}
+          {result.type === 'video' && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors duration-300 pointer-events-none">
+              <div className="w-14 h-14 rounded-full bg-white/95 dark:bg-stone-900/95 shadow-lg flex items-center justify-center text-stone-950 dark:text-white transform group-hover:scale-110 transition-transform duration-300">
+                <Play className="w-6 h-6 fill-current ml-0.5" />
+              </div>
+            </div>
           )}
 
           {/* Type Badge Overlay */}
@@ -101,34 +134,46 @@ export function ResultCard({ result }: ResultCardProps) {
                 Carousel Items ({result.items.length}):
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {result.items.map((item, idx) => (
-                  <a
-                    key={idx}
-                    href={item.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    download={`pintsave_carousel_${idx + 1}.jpg`}
-                    className="p-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-xs font-semibold text-stone-800 dark:text-stone-200 flex items-center justify-between hover:bg-brand-50 hover:text-brand-600 transition"
-                  >
-                    <span>Item #{idx + 1}</span>
-                    <Download className="w-3.5 h-3.5" />
-                  </a>
-                ))}
+                {result.items.map((item, idx) => {
+                  const itemFilename = `pintsave_carousel_${idx + 1}.${item.type === 'video' ? 'mp4' : 'jpg'}`;
+                  const isItemDownloading = downloadingUrls[item.url] || false;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => downloadFile(item.url, itemFilename)}
+                      disabled={isItemDownloading}
+                      className="p-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-xs font-semibold text-stone-800 dark:text-stone-200 flex items-center justify-between hover:bg-brand-50 hover:text-brand-600 transition disabled:opacity-50 w-full"
+                    >
+                      <span>Item #{idx + 1}</span>
+                      {isItemDownloading ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Download className="w-3.5 h-3.5" />
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
 
           {/* Action Buttons */}
           <div className="pt-4 flex flex-wrap items-center justify-center md:justify-start gap-3">
-            <a
-              href={`/api/proxy-download?url=${encodeURIComponent(result.mediaUrl || '')}&filename=${encodeURIComponent(filename)}`}
-              download={filename}
+            <Button
+              size="lg"
+              className="w-full sm:w-auto"
+              onClick={() => downloadFile(result.mediaUrl || '', filename)}
+              disabled={isMainDownloading || !result.mediaUrl}
             >
-              <Button size="lg" className="w-full sm:w-auto">
+              {isMainDownloading ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
                 <Download className="w-5 h-5" />
-                <span>Download HD {result.type?.toUpperCase()}</span>
-              </Button>
-            </a>
+              )}
+              <span>
+                {isMainDownloading ? 'Downloading...' : `Download HD ${result.type?.toUpperCase()}`}
+              </span>
+            </Button>
 
             <Button variant="secondary" size="lg" onClick={handleCopyLink}>
               <Copy className="w-4 h-4" />
