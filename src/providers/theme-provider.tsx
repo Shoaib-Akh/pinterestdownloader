@@ -11,9 +11,9 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'system',
+  theme: 'dark',
   setTheme: () => {},
-  resolvedTheme: 'light',
+  resolvedTheme: 'dark',
 });
 
 export function ThemeProvider({
@@ -24,12 +24,16 @@ export function ThemeProvider({
   defaultTheme?: string;
   enableSystem?: boolean;
 }) {
-  const [theme, setThemeState] = useState<Theme>('system');
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setThemeState] = useState<Theme>('dark');
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark');
 
   useEffect(() => {
-    const saved = (localStorage.getItem('pintsave-theme') as Theme) || 'system';
-    setThemeState(saved);
+    const saved = (localStorage.getItem('pintsave-theme') as Theme) || 'dark';
+    if (saved === 'system') {
+      setThemeState('dark');
+    } else {
+      setThemeState(saved);
+    }
   }, []);
 
   useEffect(() => {

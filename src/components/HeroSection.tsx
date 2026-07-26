@@ -1,6 +1,10 @@
-import { Sparkles, ShieldCheck, Zap } from 'lucide-react';
+'use client';
+
+import { useState } from 'react';
+import { Sparkles, ShieldCheck, Zap, Loader2, Play, FileVideo, Image as ImageIcon, Film, Layers } from 'lucide-react';
 import DownloaderForm from './DownloaderForm';
 import { Badge } from './ui/badge';
+import { MediaResult } from '@/lib/api';
 
 interface HeroSectionProps {
   badgeText?: string;
@@ -21,6 +25,9 @@ export default function HeroSection({
   placeholder = 'Paste Pinterest link here (e.g. https://pin.it/...)',
   previewImage = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
 }: HeroSectionProps) {
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<MediaResult | null>(null);
+
   return (
     <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 max-w-6xl mx-auto px-4 sm:px-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -44,7 +51,11 @@ export default function HeroSection({
           </p>
 
           <div className="pt-2">
-            <DownloaderForm placeholder={placeholder} />
+            <DownloaderForm 
+              placeholder={placeholder} 
+              onLoadingChange={setLoading}
+              onResultChange={setResult}
+            />
           </div>
         </div>
 
@@ -58,26 +69,72 @@ export default function HeroSection({
                   <div className="w-3 h-3 rounded-full bg-amber-400" />
                   <div className="w-3 h-3 rounded-full bg-emerald-400" />
                 </div>
-                <Badge variant="mono">LIVE PREVIEW</Badge>
+                <Badge variant="mono">
+                  {loading ? 'EXTRACTING...' : result ? 'READY TO DOWNLOAD' : 'LIVE PREVIEW'}
+                </Badge>
               </div>
 
               <div className="h-64 rounded-xl bg-stone-100 dark:bg-stone-800 relative overflow-hidden flex items-center justify-center">
-                <img
-                  src={previewImage}
-                  alt="Pinterest Pin Preview"
-                  className="w-full h-full object-cover rounded-xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
-                  <div className="text-white text-xs font-semibold flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-brand-500" />
-                    <span>Uncompressed Original Resolution</span>
+                {loading ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-stone-50 dark:bg-stone-900 gap-3 animate-pulse">
+                    <Loader2 className="w-8 h-8 text-brand-500 animate-spin" />
+                    <span className="text-xs text-stone-500 dark:text-stone-400 font-medium">Extracting media links...</span>
                   </div>
-                </div>
+                ) : result ? (
+                  <>
+                    <img
+                      src={result.thumbnail || result.mediaUrl}
+                      alt={result.title || 'Pinterest Pin Preview'}
+                      className="w-full h-full object-cover rounded-xl"
+                    />
+                    
+                    {/* Video Play Overlay */}
+                    {result.type === 'video' && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/10 pointer-events-none">
+                        <div className="w-12 h-12 rounded-full bg-white/95 dark:bg-stone-900/95 shadow-md flex items-center justify-center text-stone-950 dark:text-white">
+                          <Play className="w-5 h-5 fill-current ml-0.5" />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-4">
+                      <span className="text-white text-xs font-bold truncate w-full mb-1">
+                        {result.title || 'Pinterest Media Pin'}
+                      </span>
+                      <div className="text-white/80 text-[10px] font-semibold flex items-center gap-1.5">
+                        <Zap className="w-3.5 h-3.5 text-brand-500" />
+                        <span>Uncompressed Original Resolution</span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={previewImage}
+                      alt="Pinterest Pin Preview"
+                      className="w-full h-full object-cover rounded-xl"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
+                      <div className="text-white text-xs font-semibold flex items-center gap-2">
+                        <Zap className="w-4 h-4 text-brand-500" />
+                        <span>Uncompressed Original Resolution</span>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
               <div className="flex items-center justify-between text-xs text-stone-500 dark:text-stone-400 font-mono">
-                <span>FORMAT: MP4 / JPG / GIF</span>
-                <span className="text-emerald-500 font-bold">✓ 100% WATERMARK FREE</span>
+                <span>
+                  {loading ? 'FORMAT: DETECTING...' : result ? `FORMAT: ${result.type?.toUpperCase()}` : 'FORMAT: MP4 / JPG / GIF'}
+                </span>
+                {result ? (
+                  <span className="text-brand-500 font-bold flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 animate-bounce" /> READY
+                  </span>
+                ) : (
+                  <span className="text-emerald-500 font-bold">✓ 100% WATERMARK FREE</span>
+                )}
               </div>
             </div>
           </div>

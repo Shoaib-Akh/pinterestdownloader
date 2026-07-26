@@ -11,9 +11,15 @@ import { Toast } from './ui/toast';
 
 interface DownloaderFormProps {
   placeholder?: string;
+  onLoadingChange?: (loading: boolean) => void;
+  onResultChange?: (result: MediaResult | null) => void;
 }
 
-export default function DownloaderForm({ placeholder = "Paste Pinterest link here (e.g. https://pin.it/...)" }: DownloaderFormProps) {
+export default function DownloaderForm({
+  placeholder = "Paste Pinterest link here (e.g. https://pin.it/...)",
+  onLoadingChange,
+  onResultChange,
+}: DownloaderFormProps) {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MediaResult | null>(null);
@@ -39,14 +45,18 @@ export default function DownloaderForm({ placeholder = "Paste Pinterest link her
     if (!url.trim()) return;
 
     setLoading(true);
+    onLoadingChange?.(true);
     setError('');
     setResult(null);
+    onResultChange?.(null);
 
     const res = await downloadMedia(url.trim());
 
     setLoading(false);
+    onLoadingChange?.(false);
     if (res.success) {
       setResult(res);
+      onResultChange?.(res);
       setToastMessage('Media successfully extracted!');
       setTimeout(() => setToastMessage(''), 3000);
     } else {

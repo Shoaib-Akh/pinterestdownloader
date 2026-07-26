@@ -38,9 +38,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable} scroll-smooth dark`} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col antialiased bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100 selection:bg-brand-500 selection:text-white">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
