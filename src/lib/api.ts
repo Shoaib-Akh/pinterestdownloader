@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://pintsave-backend.onrender.com';
 
 export interface MediaResult {
   success: boolean;
