@@ -37,6 +37,10 @@ export async function fetchPinData(pinId: string, canonicalUrl: string): Promise
         return result;
       }
     }
+  } catch (err: any) {
+    logger.warn(`PinResource API failed for Pin ID ${pinId}: ${err.message}`);
+  }
+
   // Strategy 2: HTML Script Scraping & Relay completed requests
   try {
     logger.info(`Attempting HTML JSON extraction for Pin ID ${pinId}`);
