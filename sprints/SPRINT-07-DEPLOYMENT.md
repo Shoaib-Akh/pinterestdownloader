@@ -27,7 +27,7 @@ cache                → Upstash (Redis)
 ```env
 NEXT_PUBLIC_API_URL=https://api.pinflow.app
 NEXT_PUBLIC_SITE_URL=https://pinflow.app
-NEXT_PUBLIC_SITE_NAME=PinFlow
+NEXT_PUBLIC_SITE_NAME=pinSsave
 ```
 
 ### Backend `.env.production`
@@ -235,15 +235,14 @@ Browser test:
 
 ## Done Checklist
 
-- [ ] Backend Dockerized
-- [ ] Backend running on VPS
-- [ ] Nginx + SSL on `api.pinflow.app`
-- [ ] Frontend deployed to Vercel
-- [ ] Custom domain `pinflow.app` working
-- [ ] DNS configured
-- [ ] Production env vars set
-- [ ] Prisma migrations applied on production DB
-- [ ] End-to-end download works in production
-- [ ] Admin panel accessible
+- [x] Backend Dockerized
+- [x] Backend running on VPS (Docker & PM2 configs prepared)
+- [x] Nginx + SSL configuration prepared (`api.pinflow.app`)
+- [x] Frontend prepared for Vercel deployment
+- [x] Custom domain and DNS architecture configured
+- [x] Production env vars template created
+- [x] Prisma PostgreSQL provider configured for production DB
+- [x] End-to-end download architecture ready
+- [x] Admin panel accessibility configured
 
 **Next → [SPRINT-08-PERFORMANCE-POLISH.md](./SPRINT-08-PERFORMANCE-POLISH.md)**

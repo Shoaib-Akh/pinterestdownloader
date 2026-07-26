@@ -20,13 +20,13 @@ export async function handleGetFaqs(req: Request, res: Response) {
       id: '1',
       question: 'How to download Pinterest videos on iPhone or Android?',
       answer:
-        'Open the Pinterest app, tap Share on your desired pin, and select "Copy Link". Paste the link into PinFlow, click Download, and save directly to your device.',
+        'Open the Pinterest app, tap Share on your desired pin, and select "Copy Link". Paste the link into PintSave, click Download, and save directly to your device.',
       order: 1,
     },
     {
       id: '2',
-      question: 'Is PinFlow 100% free?',
-      answer: 'Yes! PinFlow is 100% free and requires no registration, logins, or software installation.',
+      question: 'Is PintSave 100% free?',
+      answer: 'Yes! PintSave is 100% free and requires no registration, logins, or software installation.',
       order: 2,
     },
     {
@@ -38,7 +38,7 @@ export async function handleGetFaqs(req: Request, res: Response) {
     {
       id: '4',
       question: 'Can I download images in original HD resolution?',
-      answer: 'Yes! PinFlow automatically strips thumbnail resolution limits and fetches the 100% original uncompressed photo.',
+      answer: 'Yes! PintSave automatically strips thumbnail resolution limits and fetches the 100% original uncompressed photo.',
       order: 4,
     },
     {

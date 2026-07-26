@@ -37,15 +37,15 @@ export async function handleLogin(req: Request, res: Response) {
   }
 
   // 2. Demo fallback credentials if DB is offline or empty
-  if (email.toLowerCase() === 'admin@pinflow.app' && password === 'AdminSecret123!') {
+  if (email.toLowerCase() === 'admin@pintsave.app' && password === 'AdminSecret123!') {
     const token = jwt.sign(
-      { userId: 'admin-demo-id', email: 'admin@pinflow.app', role: 'ADMIN' },
+      { userId: 'admin-demo-id', email: 'admin@pintsave.app', role: 'ADMIN' },
       JWT_SECRET,
       { expiresIn: '7d' }
     );
     return successResponse(res, {
       token,
-      user: { id: 'admin-demo-id', email: 'admin@pinflow.app', role: 'ADMIN' },
+      user: { id: 'admin-demo-id', email: 'admin@pintsave.app', role: 'ADMIN' },
     }, 'Login successful (Demo Mode).');
   }
 

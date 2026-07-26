@@ -1,4 +1,4 @@
-# PinFlow — Master Execution Prompt (2026 Edition)
+# pinSsave — Master Execution Prompt (2026 Edition)
 
 > **Read this file first.** Everything else lives in the `sprints/` folder.
 > Work one sprint at a time. Do not skip ahead.
@@ -7,7 +7,7 @@
 
 ## What This Project Is
 
-**PinFlow** is a production Pinterest media downloader website.
+**pinSsave** is a production Pinterest media downloader website.
 
 - **Frontend** (Next.js) → lives on **Vercel** (free, fast CDN)
 - **Backend** (Express API) → lives on **your VPS** (Google Cloud free tier or similar)
@@ -117,10 +117,10 @@ Full details → [sprints/DEPLOYMENT-GOOGLE-VPS.md](./sprints/DEPLOYMENT-GOOGLE-
 
 | Option | Name | Primary Color | Feel |
 |--------|------|---------------|------|
-| **A (Recommended)** | **PinFlow** | `#6C63FF` Indigo | Premium, modern, not Pinterest-red clone |
+| **A (Recommended)** | **pinSsave** | `#6C63FF` Indigo | Premium, modern, not Pinterest-red clone |
 | B | PintDown | `#E60023` Red | Direct pintdown.site clone |
 
-Use **PinFlow** unless you specifically want a pintdown clone look.
+Use **pinSsave** unless you specifically want a pintdown clone look.
 
 ---
 

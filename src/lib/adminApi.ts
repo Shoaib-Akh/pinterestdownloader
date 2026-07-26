@@ -57,20 +57,20 @@ export interface AdminFAQItem {
 
 export function getAuthToken(): string | null {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem('pinflow_admin_token');
+    return localStorage.getItem('pintsave_admin_token');
   }
   return null;
 }
 
 export function setAuthToken(token: string) {
   if (typeof window !== 'undefined') {
-    localStorage.setItem('pinflow_admin_token', token);
+    localStorage.setItem('pintsave_admin_token', token);
   }
 }
 
 export function removeAuthToken() {
   if (typeof window !== 'undefined') {
-    localStorage.removeItem('pinflow_admin_token');
+    localStorage.removeItem('pintsave_admin_token');
   }
 }
 

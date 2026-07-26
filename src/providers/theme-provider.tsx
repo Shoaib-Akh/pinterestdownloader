@@ -28,7 +28,7 @@ export function ThemeProvider({
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    const saved = (localStorage.getItem('pinflow-theme') as Theme) || 'system';
+    const saved = (localStorage.getItem('pintsave-theme') as Theme) || 'system';
     setThemeState(saved);
   }, []);
 
@@ -48,7 +48,7 @@ export function ThemeProvider({
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    localStorage.setItem('pinflow-theme', newTheme);
+    localStorage.setItem('pintsave-theme', newTheme);
   };
 
   return (

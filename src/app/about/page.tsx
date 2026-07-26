@@ -4,14 +4,14 @@ import { ShieldCheck, Zap, Heart, Mail, Sparkles, Download, CheckCircle2 } from 
 import CTABanner from '@/components/CTABanner';
 
 export const metadata: Metadata = {
-  title: 'About PinFlow — Free HD Pinterest Downloader Engine',
+  title: 'About PintSave — Free HD Pinterest Downloader Engine',
   description:
-    'Learn about PinFlow, the web application created to help content creators, designers, and visual artists save original resolution Pinterest media safely and fast.',
+    'Learn about PintSave, the web application created to help content creators, designers, and visual artists save original resolution Pinterest media safely and fast.',
   openGraph: {
-    title: 'About PinFlow — Free HD Pinterest Downloader Engine',
+    title: 'About PintSave — Free HD Pinterest Downloader Engine',
     description:
-      'Learn about PinFlow, the fast, privacy-focused tool built to save uncompressed Pinterest images, MP4 videos, and animated GIFs.',
-    url: 'https://pinflow.app/about',
+      'Learn about PintSave, the fast, privacy-focused tool built to save uncompressed Pinterest images, MP4 videos, and animated GIFs.',
+    url: 'https://pintsave.app/about',
   },
 };
 
@@ -24,26 +24,26 @@ export default function AboutPage() {
           <Sparkles className="w-3.5 h-3.5" /> Our Mission & Vision
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 dark:text-white">
-          Empowering Visual Creativity with <span className="text-brand-500">PinFlow</span>
+          Empowering Visual Creativity with <span className="text-brand-500">PintSave</span>
         </h1>
         <p className="text-base sm:text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto">
-          PinFlow was engineered from the ground up to give creators, artists, and designers instant access to high-definition Pinterest inspiration without barriers.
+          PintSave was engineered from the ground up to give creators, artists, and designers instant access to high-definition Pinterest inspiration without barriers.
         </p>
       </div>
 
       {/* Content Section */}
       <div className="space-y-8 bg-white dark:bg-stone-900 p-6 sm:p-10 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm">
-        {/* What is PinFlow */}
+        {/* What is PintSave */}
         <section className="space-y-4">
           <h2 className="text-xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
             <Zap className="w-5 h-5 text-brand-500" />
-            What is PinFlow?
+            What is PintSave?
           </h2>
           <p className="text-stone-600 dark:text-stone-300 leading-relaxed">
-            PinFlow is a specialized online media extraction engine built for downloading videos, full 4K images, story pins, and animated GIFs from Pinterest. Whether you are building a physical moodboard for your home renovation, sourcing design references for graphic projects, or archiving tutorial videos for offline viewing, PinFlow ensures you get direct access to original master files.
+            PintSave is a specialized online media extraction engine built for downloading videos, full 4K images, story pins, and animated GIFs from Pinterest. Whether you are building a physical moodboard for your home renovation, sourcing design references for graphic projects, or archiving tutorial videos for offline viewing, PintSave ensures you get direct access to original master files.
           </p>
           <p className="text-stone-600 dark:text-stone-300 leading-relaxed">
-            Unlike traditional save methods that compress photos into low-resolution browser thumbnails, PinFlow bypasses web client thumbnail limits to fetch 100% uncompressed \`/originals/\` media directly from CDN servers.
+            Unlike traditional save methods that compress photos into low-resolution browser thumbnails, PintSave bypasses web client thumbnail limits to fetch 100% uncompressed \`/originals/\` media directly from CDN servers.
           </p>
         </section>
 
@@ -77,7 +77,7 @@ export default function AboutPage() {
         <section className="space-y-4">
           <h2 className="text-xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
             <ShieldCheck className="w-5 h-5 text-brand-500" />
-            Why PinFlow?
+            Why PintSave?
           </h2>
           <ul className="space-y-3">
             <li className="flex items-start gap-3 text-sm text-stone-600 dark:text-stone-300">
@@ -109,7 +109,7 @@ export default function AboutPage() {
             <Heart className="w-4 h-4" /> Disclaimer
           </h3>
           <p>
-            PinFlow is an independent utility tool. PinFlow is <strong>not affiliated with, associated with, endorsed by, or in any way officially connected to Pinterest, Inc.</strong> or any of its subsidiaries. All Pinterest trademarks, names, and logos belong to their respective owners.
+            PintSave is an independent utility tool. PintSave is <strong>not affiliated with, associated with, endorsed by, or in any way officially connected to Pinterest, Inc.</strong> or any of its subsidiaries. All Pinterest trademarks, names, and logos belong to their respective owners.
           </p>
         </section>
 

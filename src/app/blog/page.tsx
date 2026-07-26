@@ -6,13 +6,13 @@ import { getBlogPosts } from '@/lib/api';
 import { BookOpen, Calendar, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'PinFlow Blog — Tutorials, Guides & Pinterest Downloading Tips',
+  title: 'PintSave Blog — Tutorials, Guides & Pinterest Downloading Tips',
   description:
     'Read the latest guides on saving Pinterest videos on iPhone, downloading 4K original images, copyright rules, and Pinterest media tips.',
   openGraph: {
-    title: 'PinFlow Blog — Tutorials & Pinterest Media Guides',
+    title: 'PintSave Blog — Tutorials & Pinterest Media Guides',
     description: 'Master saving Pinterest videos, 4K photos, and GIFs with step-by-step tutorials.',
-    url: 'https://pinflow.app/blog',
+    url: 'https://pintsave.app/blog',
   },
 };
 
@@ -27,7 +27,7 @@ export default async function BlogListPage() {
           <BookOpen className="w-3.5 h-3.5" /> Insights & Tutorials
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 dark:text-white">
-          The PinFlow <span className="text-brand-500">Blog</span>
+          The PintSave <span className="text-brand-500">Blog</span>
         </h1>
         <p className="text-sm sm:text-base text-stone-600 dark:text-stone-400">
           Guides, tutorials, and deep dives into saving high-definition media from Pinterest on iOS, Android, and Web.

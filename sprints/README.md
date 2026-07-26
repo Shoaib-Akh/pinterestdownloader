@@ -1,4 +1,4 @@
-# PinFlow — Sprint Index
+# pinSsave — Sprint Index
 
 Work through these in order. Never skip a sprint.
 

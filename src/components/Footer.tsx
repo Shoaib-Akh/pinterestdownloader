@@ -13,7 +13,7 @@ export default function Footer() {
                 <Download className="w-4 h-4" />
               </div>
               <span className="font-extrabold text-lg tracking-tight text-stone-900 dark:text-white">
-                Pin<span className="text-brand-500">Flow</span>
+                Pint<span className="text-brand-500">Save</span>
               </span>
             </Link>
             <p className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
@@ -58,7 +58,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/about" className="hover:text-brand-500 transition-colors">
-                  About PinFlow
+                  About PintSave
                 </Link>
               </li>
               <li>
@@ -100,7 +100,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-500 dark:text-stone-400">
-          <p>© {new Date().getFullYear()} PinFlow. All rights reserved. Not affiliated with Pinterest, Inc.</p>
+          <p>© {new Date().getFullYear()} PintSave. All rights reserved. Not affiliated with Pinterest, Inc.</p>
           <p className="flex items-center gap-1">
             Built with <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> for creators worldwide.
           </p>

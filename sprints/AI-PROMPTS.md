@@ -1,4 +1,4 @@
-# PinFlow — AI Prompts (Copy-Paste for Cursor)
+# pinSsave — AI Prompts (Copy-Paste for Cursor)
 
 Use these prompts one sprint at a time. Paste into Cursor chat after reading the sprint doc.
 
@@ -17,11 +17,11 @@ Use these prompts one sprint at a time. Paste into Cursor chat after reading the
 ## Sprint 0 Prompt — Project Setup
 
 ```
-Context: PinFlow is a Pinterest media downloader. The frontend is Next.js 14 in /src. 
+Context: pinSsave is a Pinterest media downloader. The frontend is Next.js 14 in /src. 
 The backend will be Express in /backend (not built yet).
 
 Tasks:
-1. Rename all "PintDown" references to "PinFlow" in src/components and src/app
+1. Rename all "PintDown" references to "pinSsave" in src/components and src/app
 2. Create .env.example with NEXT_PUBLIC_API_URL=http://localhost:4000
 3. Update DownloaderForm.tsx to call process.env.NEXT_PUBLIC_API_URL + '/api/download' instead of '/api/download'
 4. Remove src/app/api/download/route.ts (backend will handle this)
@@ -37,7 +37,7 @@ Match existing code style. TypeScript strict mode.
 ## Sprint 1 Prompt — Backend Core
 
 ```
-Build the PinFlow Express backend in /backend following sprints/SPRINT-01-BACKEND-CORE.md.
+Build the pinSsave Express backend in /backend following sprints/SPRINT-01-BACKEND-CORE.md.
 
 Critical: The Pinterest extractor MUST use Pinterest's internal JSON API, NOT HTML scraping.
 Pinterest is a React SPA — cheerio on HTML returns empty results.
@@ -72,7 +72,7 @@ Port 4000. Scripts: dev (nodemon+tsx), build (tsc), start (node dist/app.js).
 ## Sprint 2 Prompt — Database & Full API
 
 ```
-Extend the PinFlow Express backend following sprints/SPRINT-02-DATABASE-API.md.
+Extend the pinSsave Express backend following sprints/SPRINT-02-DATABASE-API.md.
 
 Add:
 1. Prisma schema in backend/prisma/schema.prisma (Download, Analytics, Blog, FAQ, ContactMessage, User models)
@@ -93,7 +93,7 @@ Do not break existing /api/download from Sprint 1.
 ## Sprint 3 Prompt — 2026 UI Design System
 
 ```
-Redesign PinFlow frontend UI following sprints/SPRINT-03-UI-DESIGN-SYSTEM.md.
+Redesign pinSsave frontend UI following sprints/SPRINT-03-UI-DESIGN-SYSTEM.md.
 The current UI looks generic/AI-generated. Make it distinctive and premium for 2026.
 
 Design requirements:
@@ -115,7 +115,7 @@ Build in src/components/ui/:
 
 Update tailwind.config.ts colors and globals.css design tokens.
 Do not connect to backend yet — design system only.
-Brand name: PinFlow everywhere.
+Brand name: pinSsave everywhere.
 ```
 
 ---
@@ -123,7 +123,7 @@ Brand name: PinFlow everywhere.
 ## Sprint 4 Prompt — Core Pages
 
 ```
-Build PinFlow core pages following sprints/SPRINT-04-CORE-PAGES.md.
+Build pinSsave core pages following sprints/SPRINT-04-CORE-PAGES.md.
 Backend runs on NEXT_PUBLIC_API_URL (Express, port 4000).
 
 Create:
@@ -147,7 +147,7 @@ Use design system components from Sprint 3.
 ## Sprint 5 Prompt — SEO Pages
 
 ```
-Build PinFlow SEO and content pages following sprints/SPRINT-05-SEO-PAGES.md.
+Build pinSsave SEO and content pages following sprints/SPRINT-05-SEO-PAGES.md.
 
 Static pages (unique content each):
 - /about, /privacy, /terms, /dmca
@@ -178,7 +178,7 @@ Legal pages: real content, not lorem ipsum. Include Pinterest disclaimer.
 ## Sprint 6 Prompt — Admin Dashboard
 
 ```
-Build PinFlow admin panel following sprints/SPRINT-06-ADMIN-DASHBOARD.md.
+Build pinSsave admin panel following sprints/SPRINT-06-ADMIN-DASHBOARD.md.
 
 Backend additions:
 - POST /api/auth/login — bcrypt password, return JWT
@@ -207,7 +207,7 @@ Store JWT in localStorage. Include Authorization header on all admin API calls.
 ## Sprint 7 Prompt — Deployment
 
 ```
-Prepare PinFlow for production deployment following sprints/SPRINT-07-DEPLOYMENT.md.
+Prepare pinSsave for production deployment following sprints/SPRINT-07-DEPLOYMENT.md.
 
 Create:
 1. backend/Dockerfile — multi-stage Node 20 alpine build
@@ -232,7 +232,7 @@ Document deployment steps in README.md.
 ## Sprint 8 Prompt — Performance & Polish
 
 ```
-Final performance and SEO polish for PinFlow following sprints/SPRINT-08-PERFORMANCE-POLISH.md.
+Final performance and SEO polish for pinSsave following sprints/SPRINT-08-PERFORMANCE-POLISH.md.
 
 Frontend:
 - dynamic import ResultCard (code split)
@@ -258,7 +258,7 @@ Fix any failing items.
 Use this when starting fresh or handing off to another developer/AI:
 
 ```
-You are building PinFlow — a production Pinterest media downloader website.
+You are building pinSsave — a production Pinterest media downloader website.
 
 READ FIRST: MASTER_PROMPT.md and sprints/ folder in the project root.
 
@@ -267,7 +267,7 @@ Architecture:
 - Backend: Express.js TypeScript API on Google Cloud VPS (port 4000)
 - Database: PostgreSQL via Supabase (Prisma ORM)
 - Cache: Redis via Upstash
-- Brand: PinFlow, primary color #6C63FF indigo
+- Brand: pinSsave, primary color #6C63FF indigo
 
 Current state: UI shell exists but is dummy/non-functional. Backend not built.
 Pinterest extractor must use PinResource internal JSON API, NOT HTML scraping.
@@ -320,7 +320,7 @@ Show me the fix.
 
 ### UI looks AI-generated
 ```
-The PinFlow UI looks generic and AI-generated. Redesign following 2026 principles:
+The pinSsave UI looks generic and AI-generated. Redesign following 2026 principles:
 
 REMOVE: centered hero, 6 identical feature cards, purple/rose gradients, system fonts
 ADD: Plus Jakarta Sans font, #6C63FF indigo brand, asymmetric hero layout, bento feature grid, dot grid background, next-themes dark mode

@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@pinflow.app');
+  const [email, setEmail] = useState('admin@pintsave.app');
   const [password, setPassword] = useState('AdminSecret123!');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
             <ShieldCheck className="w-6 h-6" />
           </div>
           <h1 className="text-2xl font-extrabold text-white tracking-tight">
-            PinFlow Admin Portal
+            PintSave Admin Portal
           </h1>
           <p className="text-xs text-slate-400">
             Sign in to access management dashboard and analytics.
@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@pinflow.app"
+                  placeholder="admin@pintsave.app"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all"
                 />
               </div>
@@ -108,7 +108,7 @@ export default function AdminLoginPage() {
 
           <div className="pt-2 text-center">
             <span className="text-[11px] text-slate-500 font-mono">
-              Default credentials: <code className="text-slate-300 font-bold">admin@pinflow.app</code> / <code className="text-slate-300 font-bold">AdminSecret123!</code>
+              Default credentials: <code className="text-slate-300 font-bold">admin@pintsave.app</code> / <code className="text-slate-300 font-bold">AdminSecret123!</code>
             </span>
           </div>
         </div>

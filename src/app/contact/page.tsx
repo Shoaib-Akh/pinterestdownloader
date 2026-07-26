@@ -43,7 +43,7 @@ export default function ContactPage() {
           <MessageSquare className="w-3.5 h-3.5" /> Support & Inquiries
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 dark:text-white mb-3">
-          Contact PinFlow Support
+          Contact PintSave Support
         </h1>
         <p className="text-stone-600 dark:text-stone-400 text-sm sm:text-base max-w-lg mx-auto">
           Have a question, feedback, or DMCA inquiry? Send us a message and our support team will reply within 24 hours.
@@ -140,8 +140,8 @@ export default function ContactPage() {
             <p className="text-xs text-stone-300 leading-relaxed">
               Prefer sending an email directly from your mail client? Feel free to write to us:
             </p>
-            <a href="mailto:support@pinflow.app" className="block font-mono text-sm font-bold text-brand-400 hover:underline">
-              support@pinflow.app
+            <a href="mailto:support@pintsave.app" className="block font-mono text-sm font-bold text-brand-400 hover:underline">
+              support@pintsave.app
             </a>
             <hr className="border-stone-800" />
             <div className="text-xs text-stone-400 space-y-1">

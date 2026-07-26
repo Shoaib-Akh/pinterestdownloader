@@ -11,7 +11,7 @@ This file has been replaced by the sprint-based documentation system.
 | Old | New |
 |-----|-----|
 | Single vague blueprint | 9 detailed sprints with checklists |
-| Mixed PinFlow/PintDown branding | Standardized on PinFlow |
+| Mixed pinSsave/PintDown branding | Standardized on pinSsave |
 | HTML scraping approach | Pinterest internal JSON API |
 | No deployment guide | Full Google VPS + Vercel guide |
 | No page catalog | 22 routes documented |

@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { AlertCircle, Mail, FileCheck, ShieldAlert } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'DMCA Copyright Takedown Policy — PinFlow',
+  title: 'DMCA Copyright Takedown Policy — PintSave',
   description:
-    'PinFlow Digital Millennium Copyright Act (DMCA) policy. Information for copyright owners on submitting takedown notices and counter-notifications.',
+    'PintSave Digital Millennium Copyright Act (DMCA) policy. Information for copyright owners on submitting takedown notices and counter-notifications.',
   openGraph: {
-    title: 'DMCA Copyright Takedown Policy — PinFlow',
-    description: 'Learn how PinFlow responds to copyright infringement claims under the DMCA.',
-    url: 'https://pinflow.app/dmca',
+    title: 'DMCA Copyright Takedown Policy — PintSave',
+    description: 'Learn how PintSave responds to copyright infringement claims under the DMCA.',
+    url: 'https://pintsave.app/dmca',
   },
 };
 
@@ -37,10 +37,10 @@ export default function DMCAPage() {
             1. Statement of Principle
           </h2>
           <p>
-            PinFlow respects the intellectual property rights of creators, artists, and copyright holders. It is our policy to respond expeditiously to clear notices of alleged copyright infringement that comply with the Digital Millennium Copyright Act (&quot;DMCA&quot;).
+            PintSave respects the intellectual property rights of creators, artists, and copyright holders. It is our policy to respond expeditiously to clear notices of alleged copyright infringement that comply with the Digital Millennium Copyright Act (&quot;DMCA&quot;).
           </p>
           <p className="text-xs bg-stone-50 dark:bg-stone-800 p-3 rounded-lg border border-stone-200 dark:border-stone-700 text-stone-500 dark:text-stone-400">
-            Note: PinFlow does not host or store copyrighted media files on its servers. PinFlow acts as a client-side utility tool that retrieves streams hosted on external third-party CDN servers.
+            Note: PintSave does not host or store copyrighted media files on its servers. PintSave acts as a client-side utility tool that retrieves streams hosted on external third-party CDN servers.
           </p>
         </section>
 
@@ -50,7 +50,7 @@ export default function DMCAPage() {
             2. How to Submit a DMCA Takedown Notice
           </h2>
           <p>
-            If you are a copyright owner or an authorized agent and believe that content accessible via PinFlow infringes upon your copyright, you may submit a written DMCA notification containing the following details:
+            If you are a copyright owner or an authorized agent and believe that content accessible via PintSave infringes upon your copyright, you may submit a written DMCA notification containing the following details:
           </p>
           <ol className="list-decimal pl-5 space-y-2">
             <li>
@@ -82,7 +82,7 @@ export default function DMCAPage() {
             Please send formal DMCA notices directly to our designated agent email:
           </p>
           <p className="text-sm font-mono font-bold text-brand-500">
-            dmca@pinflow.app
+            dmca@pintsave.app
           </p>
           <p className="text-xs text-stone-500">
             You may also reach our team via the <Link href="/contact" className="underline text-brand-500">Contact Form</Link>. Notices are usually processed within 24 to 48 business hours.
@@ -99,7 +99,7 @@ export default function DMCAPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-stone-900 dark:text-white">4. Repeat Infringer Policy</h2>
           <p>
-            In accordance with the DMCA and other applicable laws, PinFlow enforces a strict policy of terminating access or blocking domain lookups for IP addresses or users determined to be repeat infringers.
+            In accordance with the DMCA and other applicable laws, PintSave enforces a strict policy of terminating access or blocking domain lookups for IP addresses or users determined to be repeat infringers.
           </p>
         </section>
       </div>

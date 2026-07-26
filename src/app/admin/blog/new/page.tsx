@@ -40,7 +40,7 @@ export default function NewBlogPage() {
 
       <div>
         <h1 className="text-2xl font-extrabold text-white tracking-tight">Create New Article</h1>
-        <p className="text-xs text-slate-400">Write an SEO blog post or guide for PinFlow.</p>
+        <p className="text-xs text-slate-400">Write an SEO blog post or guide for PintSave.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-2xl space-y-6 shadow-xl">

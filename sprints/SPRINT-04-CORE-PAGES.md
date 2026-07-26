@@ -92,13 +92,13 @@ export async function getFAQs() {
 
 ```typescript
 export const metadata: Metadata = {
-  title: 'PinFlow — Download Pinterest Videos, Images & GIFs in HD',
+  title: 'pinSsave — Download Pinterest Videos, Images & GIFs in HD',
   description: 'Free Pinterest downloader. Save videos, photos, and GIFs in original HD quality. No signup, works on iPhone, Android, and desktop.',
   openGraph: {
-    title: 'PinFlow — Pinterest Media Downloader',
+    title: 'pinSsave — Pinterest Media Downloader',
     description: '...',
     url: 'https://pinflow.app',
-    siteName: 'PinFlow',
+    siteName: 'pinSsave',
     type: 'website',
   },
 };

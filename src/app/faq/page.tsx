@@ -68,7 +68,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-stone-600 dark:text-stone-400 text-base sm:text-lg">
-            Everything you need to know about downloading Pinterest videos, photos, and GIFs with PinFlow.
+            Everything you need to know about downloading Pinterest videos, photos, and GIFs with PintSave.
           </p>
 
           <div className="pt-4">

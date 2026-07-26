@@ -76,7 +76,7 @@ export default function AdminFAQPage() {
                 required
                 value={editingFaq.question || ''}
                 onChange={(e) => setEditingFaq({ ...editingFaq, question: e.target.value })}
-                placeholder="e.g. Is PinFlow 100% free?"
+                placeholder="e.g. Is PintSave 100% free?"
                 className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>

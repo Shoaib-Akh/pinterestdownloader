@@ -1,4 +1,4 @@
-# PinFlow — Complete Page Catalog
+# pinSsave — Complete Page Catalog
 
 Every page in the final site, what it does, and why it exists.
 
@@ -46,7 +46,7 @@ Every page in the final site, what it does, and why it exists.
 ---
 
 ### 4. About — `/about`
-**Purpose:** Build trust. Tell users what PinFlow is.  
+**Purpose:** Build trust. Tell users what pinSsave is.  
 **Priority:** 🟢 Nice to have  
 **Built in:** Sprint 5
 

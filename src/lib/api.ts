@@ -46,18 +46,18 @@ export const SAMPLE_BLOG_POSTS: BlogPost[] = [
 3. Tap the **Share icon** (the arrow icon in the bottom right corner).
 4. Tap **Copy Link** to save the URL to your clipboard.
 
-### Step 2: Open PinFlow in Safari or Chrome
+### Step 2: Open PintSave in Safari or Chrome
 1. Switch to Safari or your browser of choice on iOS.
-2. Navigate to **PinFlow** ([https://pinflow.app](https://pinflow.app)).
+2. Navigate to **PintSave** ([https://pintsave.app](https://pintsave.app)).
 3. Paste your copied Pinterest URL into the input field.
 
 ### Step 3: Download and Save to Photos
 1. Tap the **Download** button.
-2. PinFlow will extract the original high-bitrate 100% HD video URL in seconds.
+2. PintSave will extract the original high-bitrate 100% HD video URL in seconds.
 3. Tap **Download MP4 Video**. On iOS Safari, tap *Download* in the pop-up prompt.
 4. Open your Safari **Downloads** manager, tap the downloaded video, tap the **Share icon**, and select **Save Video** to transfer it directly into your iPhone Photos app!
 
-### Why Use PinFlow on iOS?
+### Why Use PintSave on iOS?
 - **No App Installation**: No need to clutter your iPhone with unstable third-party App Store apps that require subscriptions.
 - **Full HD Resolution**: Preserves 1080p high bitrate MP4 source files.
 - **Fast & Private**: Zero registration or user data logging.`
@@ -66,7 +66,7 @@ export const SAMPLE_BLOG_POSTS: BlogPost[] = [
     id: '2',
     title: 'Pinterest Image Downloader: Save Photos in Original HD Quality',
     slug: 'pinterest-image-downloader-hd-guide',
-    excerpt: 'Discover how PinFlow bypasses compressed browser thumbnail constraints to extract original 4K and uncompressed Pinterest photos.',
+    excerpt: 'Discover how PintSave bypasses compressed browser thumbnail constraints to extract original 4K and uncompressed Pinterest photos.',
     coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
     publishedAt: '2026-07-18T14:30:00.000Z',
     createdAt: '2026-07-18T14:30:00.000Z',
@@ -79,8 +79,8 @@ When a creator uploads a high-resolution image to Pinterest, the CDN automatical
 - **736px**: Expanded pin modal preview
 - **Originals**: The uncompressed full resolution photo (4K / 8K)
 
-### How PinFlow Unlocks Original Quality
-PinFlow's extraction engine inspects the pin payload directly to resolve the direct link to the \`/originals/\` file path. This ensures you get the exact pixel-for-pixel master photo uploaded by the photographer or artist.
+### How PintSave Unlocks Original Quality
+PintSave's extraction engine inspects the pin payload directly to resolve the direct link to the \`/originals/\` file path. This ensures you get the exact pixel-for-pixel master photo uploaded by the photographer or artist.
 
 ### Benefits of Saving HD Pinterest Photos
 - **Graphic Design & Moodboards**: Crisp assets for design software like Photoshop and Figma.
@@ -107,7 +107,7 @@ PinFlow's extraction engine inspects the pin payload directly to resolve the dir
 3. **Respect DMCA Takedown Requests**: Content owners have the right to request media removal under the Digital Millennium Copyright Act.
 
 ### Summary
-PinFlow is designed to empower individual users with personal backup capabilities for public media. Always act responsibly and respect creators' intellectual property rights.`
+PintSave is designed to empower individual users with personal backup capabilities for public media. Always act responsibly and respect creators' intellectual property rights.`
   }
 ];
 
@@ -212,12 +212,12 @@ export async function getFAQs() {
       id: '1',
       question: 'How to download Pinterest videos on iPhone or Android?',
       answer:
-        'Open Pinterest app, tap Share on your desired pin, and select "Copy Link". Paste the link into PinFlow, click Download, and save directly to your camera roll.',
+        'Open Pinterest app, tap Share on your desired pin, and select "Copy Link". Paste the link into PintSave, click Download, and save directly to your camera roll.',
     },
     {
       id: '2',
-      question: 'Is PinFlow 100% free?',
-      answer: 'Yes! PinFlow is 100% free with no account signup, software installation, or subscription required.',
+      question: 'Is PintSave 100% free?',
+      answer: 'Yes! PintSave is 100% free with no account signup, software installation, or subscription required.',
     },
     {
       id: '3',
@@ -228,7 +228,7 @@ export async function getFAQs() {
       id: '4',
       question: 'Can I download images in original HD resolution?',
       answer:
-        'Yes! PinFlow automatically strips low-res thumbnail constraints and resolves the 100% original uncompressed photo.',
+        'Yes! PintSave automatically strips low-res thumbnail constraints and resolves the 100% original uncompressed photo.',
     },
     {
       id: '5',

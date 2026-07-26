@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { ShieldCheck, Mail, Lock } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — PinFlow',
+  title: 'Privacy Policy — PintSave',
   description:
-    'Read PinFlow’s Privacy Policy to understand how we protect user privacy, minimize data collection, enforce GDPR compliance, and handle cookies.',
+    'Read PintSave’s Privacy Policy to understand how we protect user privacy, minimize data collection, enforce GDPR compliance, and handle cookies.',
   openGraph: {
-    title: 'Privacy Policy — PinFlow',
-    description: 'PinFlow Privacy Policy detailing transparent data practices and user rights.',
-    url: 'https://pinflow.app/privacy',
+    title: 'Privacy Policy — PintSave',
+    description: 'PintSave Privacy Policy detailing transparent data practices and user rights.',
+    url: 'https://pintsave.app/privacy',
   },
 };
 
@@ -37,14 +37,14 @@ export default function PrivacyPage() {
             1. Overview
           </h2>
           <p>
-            At PinFlow (accessible from https://pinflow.app), protecting our visitors&apos; privacy is one of our highest priorities. This Privacy Policy document outlines the types of information collected and recorded by PinFlow and how we use it.
+            At PintSave (accessible from https://pintsave.app), protecting our visitors&apos; privacy is one of our highest priorities. This Privacy Policy document outlines the types of information collected and recorded by PintSave and how we use it.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-stone-900 dark:text-white">2. Information We Collect</h2>
           <p>
-            We adhere to strict data minimization principles. We do not require account registration, names, phone numbers, or payment credentials to use PinFlow.
+            We adhere to strict data minimization principles. We do not require account registration, names, phone numbers, or payment credentials to use PintSave.
           </p>
           <ul className="list-disc pl-5 space-y-2">
             <li>
@@ -66,14 +66,14 @@ export default function PrivacyPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-stone-900 dark:text-white">4. Cookies and Web Analytics</h2>
           <p>
-            PinFlow uses minimal cookies to store interface state preferences (such as dark mode vs light mode theme choice). We may utilize privacy-friendly web analytics tools (such as Google Analytics or Cloudflare Web Analytics) to measure global traffic trends. These tools use aggregated, anonymized metrics without tracking personal cross-site identities.
+            PintSave uses minimal cookies to store interface state preferences (such as dark mode vs light mode theme choice). We may utilize privacy-friendly web analytics tools (such as Google Analytics or Cloudflare Web Analytics) to measure global traffic trends. These tools use aggregated, anonymized metrics without tracking personal cross-site identities.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-stone-900 dark:text-white">5. Third-Party Services & Links</h2>
           <p>
-            Our web application processes public Pinterest links. PinFlow does not store, host, or re-broadcast media content on internal servers; all media streams originate directly from Pinterest CDN infrastructure. We are not responsible for the privacy practices of third-party external sites.
+            Our web application processes public Pinterest links. PintSave does not store, host, or re-broadcast media content on internal servers; all media streams originate directly from Pinterest CDN infrastructure. We are not responsible for the privacy practices of third-party external sites.
           </p>
         </section>
 
@@ -94,7 +94,7 @@ export default function PrivacyPage() {
             <Mail className="w-4 h-4 text-brand-500" /> Privacy Enquiries
           </h3>
           <p className="text-xs">
-            If you have questions about this Privacy Policy or wish to exercise your data rights, please contact our Data Protection Officer at: <a href="mailto:privacy@pinflow.app" className="text-brand-500 font-semibold hover:underline">privacy@pinflow.app</a>.
+            If you have questions about this Privacy Policy or wish to exercise your data rights, please contact our Data Protection Officer at: <a href="mailto:privacy@pintsave.app" className="text-brand-500 font-semibold hover:underline">privacy@pintsave.app</a>.
           </p>
         </section>
       </div>

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { errorResponse } from '../utils/apiResponse.js';
 
-export const JWT_SECRET = process.env.JWT_SECRET || 'pinflow_super_secret_jwt_key_2026';
+export const JWT_SECRET = process.env.JWT_SECRET || 'pintsave_super_secret_jwt_key_2026';
 
 export interface AuthRequest extends Request {
   user?: {

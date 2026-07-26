@@ -72,7 +72,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold text-xs">
             P
           </div>
-          <span className="font-bold text-white text-base">PinFlow Admin</span>
+          <span className="font-bold text-white text-base">PintSave Admin</span>
         </div>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -97,7 +97,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </div>
               <div>
                 <h1 className="font-extrabold text-base text-white tracking-tight leading-none">
-                  PinFlow
+                  PintSave
                 </h1>
                 <span className="text-[10px] font-mono text-brand-400 uppercase font-bold tracking-wider">
                   Admin Console

@@ -1,4 +1,4 @@
-# Google Free VPS — Complete Guide for PinFlow Backend
+# Google Free VPS — Complete Guide for pinSsave Backend
 
 Should you use Google Cloud free tier for your backend? **Yes — with the right setup.**
 
@@ -8,7 +8,7 @@ Should you use Google Cloud free tier for your backend? **Yes — with the right
 
 | Question | Answer |
 |----------|--------|
-| Is Google free VPS good for PinFlow backend? | ✅ **Yes** — for Express API only |
+| Is Google free VPS good for pinSsave backend? | ✅ **Yes** — for Express API only |
 | Can I run everything on it? | ❌ **No** — not Postgres + Redis + Node together |
 | Best setup? | Backend on VPS, DB on Supabase, Cache on Upstash, Frontend on Vercel |
 | Monthly cost? | **$0** if you stay within free limits |
@@ -19,7 +19,7 @@ Should you use Google Cloud free tier for your backend? **Yes — with the right
 
 ### What's Free Forever
 
-| Resource | Free Limit | Enough for PinFlow? |
+| Resource | Free Limit | Enough for pinSsave? |
 |----------|-----------|---------------------|
 | e2-micro VM | 1 instance, 30 GB disk | ✅ Yes (backend only) |
 | Outbound traffic | 1 GB/month (North America) | ⚠️ Tight — monitor usage |

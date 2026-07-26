@@ -208,7 +208,7 @@ Create `backend/prisma/seed.ts`:
 
 **6 FAQs** (real content, not lorem ipsum):
 1. How to download Pinterest videos on iPhone?
-2. Is PinFlow free?
+2. Is pinSsave free?
 3. Do I need an account?
 4. What quality do I get?
 5. Is it legal?

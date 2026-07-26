@@ -27,7 +27,7 @@ export function ResultCard({ result }: ResultCardProps) {
   const handleShare = () => {
     if (navigator.share && result.mediaUrl) {
       navigator.share({
-        title: result.title || 'PinFlow Media',
+        title: result.title || 'PintSave Media',
         url: result.mediaUrl,
       }).catch(() => {});
     } else {
@@ -35,7 +35,7 @@ export function ResultCard({ result }: ResultCardProps) {
     }
   };
 
-  const filename = `pinflow_${result.pinId || Date.now()}.${
+  const filename = `pintsave_${result.pinId || Date.now()}.${
     result.type === 'video' ? 'mp4' : result.type === 'gif' ? 'gif' : 'jpg'
   }`;
 
@@ -107,7 +107,7 @@ export function ResultCard({ result }: ResultCardProps) {
                     href={item.url}
                     target="_blank"
                     rel="noreferrer"
-                    download={`pinflow_carousel_${idx + 1}.jpg`}
+                    download={`pintsave_carousel_${idx + 1}.jpg`}
                     className="p-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-xs font-semibold text-stone-800 dark:text-stone-200 flex items-center justify-between hover:bg-brand-50 hover:text-brand-600 transition"
                   >
                     <span>Item #{idx + 1}</span>

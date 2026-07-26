@@ -12,8 +12,8 @@ export default function HowItWorks() {
     {
       step: '02',
       icon: Sparkles,
-      title: 'Paste into PinFlow',
-      description: 'Paste the copied URL into the PinFlow input field and click Download.',
+      title: 'Paste into PintSave',
+      description: 'Paste the copied URL into the PintSave input field and click Download.',
     },
     {
       step: '03',

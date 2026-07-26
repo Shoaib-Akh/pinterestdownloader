@@ -101,7 +101,7 @@ Add to home page:
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "PinFlow",
+  "name": "pinSsave",
   "description": "Free Pinterest media downloader",
   "url": "https://pinflow.app",
   "applicationCategory": "UtilityApplication",
@@ -192,7 +192,7 @@ Run through every user flow:
 
 ## You Are Done 🎉
 
-When all checkboxes above are checked, PinFlow is production-ready.
+When all checkboxes above are checked, pinSsave is production-ready.
 
 ### What You Built
 - Full-stack Pinterest downloader
@@ -220,4 +220,4 @@ When all checkboxes above are checked, PinFlow is production-ready.
 - [ ] Security audit complete
 - [ ] Site is live at `pinflow.app`
 
-**Congratulations — PinFlow is shipped.**
+**Congratulations — pinSsave is shipped.**

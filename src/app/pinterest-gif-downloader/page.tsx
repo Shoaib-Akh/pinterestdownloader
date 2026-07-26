@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pinterest GIF Downloader — Free Animated GIF Saver',
     description: 'Download animated Pinterest GIFs instantly with 100% full motion frame retention.',
-    url: 'https://pinflow.app/pinterest-gif-downloader',
+    url: 'https://pintsave.app/pinterest-gif-downloader',
   },
 };
 
@@ -18,7 +18,7 @@ export default function PinterestGifDownloaderPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'PinFlow Pinterest GIF Downloader',
+    name: 'PintSave Pinterest GIF Downloader',
     operatingSystem: 'All',
     applicationCategory: 'MultimediaApplication',
     offers: {
@@ -57,7 +57,7 @@ export default function PinterestGifDownloaderPage() {
               Full Frame Rate Motion Preservation
             </h2>
             <p className="text-xs text-stone-500 dark:text-stone-400">
-              Why PinFlow is the best choice for saving animated GIFs from Pinterest.
+              Why pinSsavee is the best choice for saving animated GIFs from Pinterest.
             </p>
           </div>
 
@@ -106,19 +106,19 @@ export default function PinterestGifDownloaderPage() {
           <div className="bg-white dark:bg-stone-900 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 space-y-2">
             <h3 className="font-bold text-sm text-stone-900 dark:text-white">Why does saving GIFs directly turn them into static pictures?</h3>
             <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              Browsers often save the first keyframe thumbnail of a GIF. PinFlow extracts the complete animated .gif file.
+              Browsers often save the first keyframe thumbnail of a GIF. pinSsavee extracts the complete animated .gif file.
             </p>
           </div>
 
           <div className="bg-white dark:bg-stone-900 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 space-y-2">
             <h3 className="font-bold text-sm text-stone-900 dark:text-white">Can I convert Pinterest GIF to MP4 video?</h3>
             <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              When Pinterest encodes GIFs into lightweight video streams, PinFlow gives you the option to save as either MP4 or native GIF.
+              When Pinterest encodes GIFs into lightweight video streams, pinSsavee gives you the option to save as either MP4 or native GIF.
             </p>
           </div>
 
           <div className="bg-white dark:bg-stone-900 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 space-y-2">
-            <h3 className="font-bold text-sm text-stone-900 dark:text-white">Is PinFlow GIF Downloader free?</h3>
+            <h3 className="font-bold text-sm text-stone-900 dark:text-white">Is pinSsavee GIF Downloader free?</h3>
             <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
               Yes, 100% free with unlimited downloads and no registration required.
             </p>

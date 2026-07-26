@@ -26,7 +26,7 @@ export default function Header() {
           </div>
           <div className="flex items-baseline gap-2">
             <span className="font-extrabold text-xl tracking-tight text-stone-900 dark:text-white">
-              Pin<span className="text-brand-500">Flow</span>
+              Pint<span className="text-brand-500">Save</span>
             </span>
             <span className="hidden sm:inline-block font-mono text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-500 border border-brand-200 dark:border-brand-500/20">
               HD Media

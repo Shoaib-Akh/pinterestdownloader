@@ -18,9 +18,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'PinFlow – Fast, Free Pinterest Video, Image & GIF Downloader',
+  title: 'PintSave – Fast, Free Pinterest Video, Image & GIF Downloader',
   description:
-    'Save Pinterest videos, 4K high-resolution images, and animated GIFs in original HD quality with PinFlow. 100% free, no signup required.',
+    'Save Pinterest videos, 4K high-resolution images, and animated GIFs in original HD quality with PintSave. 100% free, no signup required.',
   keywords: [
     'pinterest downloader',
     'pinterest video downloader',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     'pinterest gif downloader',
     'download pinterest video hd',
     'pinterest saver',
-    'pinflow',
+    'pintsave',
   ],
 };
 

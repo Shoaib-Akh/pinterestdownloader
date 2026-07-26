@@ -14,18 +14,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getBlogPostBySlug(params.slug);
   if (!post) {
     return {
-      title: 'Post Not Found — PinFlow Blog',
+      title: 'Post Not Found — PintSave Blog',
     };
   }
 
   return {
-    title: `${post.title} — PinFlow Guide`,
+    title: `${post.title} — PintSave Guide`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
       description: post.excerpt,
       images: post.coverImage ? [{ url: post.coverImage }] : [],
-      url: `https://pinflow.app/blog/${post.slug}`,
+      url: `https://pintsave.app/blog/${post.slug}`,
     },
   };
 }

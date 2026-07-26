@@ -48,13 +48,13 @@ Use **Option B** if you want less migration work. The sprints assume Option B un
 
 ### 1. Fix Brand Name Everywhere
 
-Pick **PinFlow** (recommended). Search and replace:
+Pick **pinSsave** (recommended). Search and replace:
 
 | Old | New |
 |-----|-----|
-| PintDown | PinFlow |
+| PintDown | pinSsave |
 | pintdown | pinflow |
-| Pint Down | PinFlow |
+| Pint Down | pinSsave |
 
 Files to update:
 - [ ] `src/components/Header.tsx`
@@ -69,7 +69,7 @@ Files to update:
 # Frontend (Next.js)
 NEXT_PUBLIC_API_URL=http://localhost:4000
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_SITE_NAME=PinFlow
+NEXT_PUBLIC_SITE_NAME=pinSsave
 ```
 
 **`backend/.env.example`** (backend — create folder in Sprint 1):
@@ -167,7 +167,7 @@ grep -r "PintDown" src/
 
 ## Done Checklist
 
-- [ ] Brand = PinFlow everywhere in frontend
+- [ ] Brand = pinSsave everywhere in frontend
 - [ ] `.env.example` created
 - [ ] Frontend builds without errors
 - [ ] DownloaderForm points to `NEXT_PUBLIC_API_URL` (backend not built yet — that's Sprint 1)

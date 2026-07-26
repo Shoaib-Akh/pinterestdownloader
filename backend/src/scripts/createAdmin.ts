@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function createAdmin() {
-  const email = process.env.ADMIN_EMAIL || 'admin@pinflow.app';
+  const email = process.env.ADMIN_EMAIL || 'admin@pintsave.app';
   const password = process.env.ADMIN_PASSWORD || 'AdminSecret123!';
 
   console.log(`🔐 Creating or updating admin user: ${email}...`);

@@ -1,7 +1,7 @@
 {
-  "name": "pinflow-backend",
+  "name": "pintsave-backend",
   "version": "1.0.0",
-  "description": "PinFlow Express Backend API",
+  "description": "PintSave Express Backend API",
   "main": "dist/app.js",
   "scripts": {
     "dev": "nodemon --exec tsx src/app.ts",

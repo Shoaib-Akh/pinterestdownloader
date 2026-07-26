@@ -7,7 +7,7 @@ async function main() {
   console.log('🌱 Starting full database seeding...');
 
   // 1. Seed Admin User
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@pinflow.app';
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@pintsave.app';
   const adminPassword = process.env.ADMIN_PASSWORD || 'AdminSecret123!';
   const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
@@ -24,14 +24,14 @@ async function main() {
     {
       question: 'How to download Pinterest videos on iPhone or Android?',
       answer:
-        'Open the Pinterest app, tap Share on your desired pin, and select "Copy Link". Paste the link into PinFlow, click Download, and tap "Download HD Video" to save directly to your device camera roll or gallery.',
+        'Open the Pinterest app, tap Share on your desired pin, and select "Copy Link". Paste the link into PintSave, click Download, and tap "Download HD Video" to save directly to your device camera roll or gallery.',
       order: 1,
       published: true,
     },
     {
-      question: 'Is PinFlow 100% free to use?',
+      question: 'Is PintSave 100% free to use?',
       answer:
-        'Yes! PinFlow is 100% free with no hidden fees, subscription plans, software downloads, or browser extension requirements.',
+        'Yes! PintSave is 100% free with no hidden fees, subscription plans, software downloads, or browser extension requirements.',
       order: 2,
       published: true,
     },
@@ -45,7 +45,7 @@ async function main() {
     {
       question: 'What quality resolution will my downloaded media have?',
       answer:
-        'PinFlow automatically strips low-resolution thumbnail constraints and resolves the 100% original uncompressed photo, high-bitrate MP4 video (720p/1080p), or HD GIF source.',
+        'PintSave automatically strips low-resolution thumbnail constraints and resolves the 100% original uncompressed photo, high-bitrate MP4 video (720p/1080p), or HD GIF source.',
       order: 4,
       published: true,
     },
@@ -86,18 +86,18 @@ async function main() {
 3. Tap the **Share icon** (the arrow icon in the bottom right corner).
 4. Tap **Copy Link** to save the URL to your clipboard.
 
-### Step 2: Open PinFlow in Safari or Chrome
+### Step 2: Open PintSave in Safari or Chrome
 1. Switch to Safari or your browser of choice on iOS.
-2. Navigate to **PinFlow** (https://pinflow.app).
+2. Navigate to **PintSave** (https://pintsave.app).
 3. Paste your copied Pinterest URL into the input field.
 
 ### Step 3: Download and Save to Photos
 1. Tap the **Download** button.
-2. PinFlow will extract the original high-bitrate 100% HD video URL in seconds.
+2. PintSave will extract the original high-bitrate 100% HD video URL in seconds.
 3. Tap **Download MP4 Video**. On iOS Safari, tap *Download* in the pop-up prompt.
 4. Open your Safari **Downloads** manager, tap the downloaded video, tap the **Share icon**, and select **Save Video** to transfer it directly into your iPhone Photos app!
 
-### Why Use PinFlow on iOS?
+### Why Use PintSave on iOS?
 - **No App Installation**: No need to clutter your iPhone with unstable third-party App Store apps that require subscriptions.
 - **Full HD Resolution**: Preserves 1080p high bitrate MP4 source files.
 - **Fast & Private**: Zero registration or user data logging.`,
@@ -109,7 +109,7 @@ async function main() {
       title: 'Pinterest Image Downloader: Save Photos in Original HD Quality',
       slug: 'pinterest-image-downloader-hd-guide',
       excerpt:
-        'Discover how PinFlow bypasses compressed browser thumbnail constraints to extract original 4K and uncompressed Pinterest photos.',
+        'Discover how PintSave bypasses compressed browser thumbnail constraints to extract original 4K and uncompressed Pinterest photos.',
       content: `Pinterest stores images in multiple resolution tiers to keep its web app loading fast. When you right-click and save an image from your web browser grid, you often end up with a low-res thumbnail.
 
 ### Understanding Pinterest Image Resolutions
@@ -119,8 +119,8 @@ When a creator uploads a high-resolution image to Pinterest, the CDN automatical
 - **736px**: Expanded pin modal preview
 - **Originals**: The uncompressed full resolution photo (4K / 8K)
 
-### How PinFlow Unlocks Original Quality
-PinFlow's extraction engine inspects the pin payload directly to resolve the direct link to the \`/originals/\` file path. This ensures you get the exact pixel-for-pixel master photo uploaded by the photographer or artist.
+### How PintSave Unlocks Original Quality
+PintSave's extraction engine inspects the pin payload directly to resolve the direct link to the \`/originals/\` file path. This ensures you get the exact pixel-for-pixel master photo uploaded by the photographer or artist.
 
 ### Benefits of Saving HD Pinterest Photos
 - **Graphic Design & Moodboards**: Crisp assets for design software like Photoshop and Figma.
@@ -147,7 +147,7 @@ PinFlow's extraction engine inspects the pin payload directly to resolve the dir
 3. **Respect DMCA Takedown Requests**: Content owners have the right to request media removal under the Digital Millennium Copyright Act.
 
 ### Summary
-PinFlow is designed to empower individual users with personal backup capabilities for public media. Always act responsibly and respect creators' intellectual property rights.`,
+PintSave is designed to empower individual users with personal backup capabilities for public media. Always act responsibly and respect creators' intellectual property rights.`,
       coverImage: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80',
       published: true,
       publishedAt: new Date('2026-07-15T09:15:00.000Z'),
@@ -165,7 +165,7 @@ PinFlow is designed to empower individual users with personal backup capabilitie
     {
       name: 'Alex Rivera',
       email: 'alex@example.com',
-      message: 'Hi PinFlow Team, love the speed of the downloader! Is there an official browser extension planned?',
+      message: 'Hi PintSave Team, love the speed of the downloader! Is there an official browser extension planned?',
       read: false,
     },
     {

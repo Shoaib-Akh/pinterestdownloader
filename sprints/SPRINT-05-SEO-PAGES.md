@@ -32,10 +32,10 @@ File Path: `file:///Users/mac/Documents/priterstdowlod/pintersdownloder/sprints/
 ## Page Details
 
 ### `/about`
-**Purpose:** Tell users who built PinFlow and why. Builds trust.
+**Purpose:** Tell users who built pinSsave and why. Builds trust.
 
 Content sections:
-- What is PinFlow (2 paragraphs)
+- What is pinSsave (2 paragraphs)
 - How it works (brief)
 - Not affiliated with Pinterest disclaimer
 - Contact link

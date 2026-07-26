@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pinterest Video Downloader — Fast & Free 1080p MP4 Saver',
     description: 'Download Pinterest video pins instantly in HD MP4 format. 100% free, no registration required.',
-    url: 'https://pinflow.app/pinterest-video-downloader',
+    url: 'https://pintsave.app/pinterest-video-downloader',
   },
 };
 
@@ -18,7 +18,7 @@ export default function PinterestVideoDownloaderPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'PinFlow Pinterest Video Downloader',
+    name: 'PintSave Pinterest Video Downloader',
     operatingSystem: 'All',
     applicationCategory: 'MultimediaApplication',
     offers: {
@@ -77,7 +77,7 @@ export default function PinterestVideoDownloaderPage() {
               <div className="w-10 h-10 rounded-xl bg-brand-500 text-white flex items-center justify-center font-bold text-lg">
                 2
               </div>
-              <h3 className="font-bold text-stone-900 dark:text-white text-base">Paste into PinFlow</h3>
+              <h3 className="font-bold text-stone-900 dark:text-white text-base">Paste into PintSave</h3>
               <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
                 Paste the URL into the input field above and hit the <strong>Download</strong> button to begin processing.
               </p>
@@ -110,7 +110,7 @@ export default function PinterestVideoDownloaderPage() {
           <div className="bg-white dark:bg-stone-900 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 space-y-2">
             <h3 className="font-bold text-sm text-stone-900 dark:text-white">What resolution will downloaded videos have?</h3>
             <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              PinFlow extracts the highest available H.264 MP4 bitrate video stream directly from Pinterest servers, offering original 720p or 1080p HD quality.
+              PintSave extracts the highest available H.264 MP4 bitrate video stream directly from Pinterest servers, offering original 720p or 1080p HD quality.
             </p>
           </div>
 
@@ -122,9 +122,9 @@ export default function PinterestVideoDownloaderPage() {
           </div>
 
           <div className="bg-white dark:bg-stone-900 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 space-y-2">
-            <h3 className="font-bold text-sm text-stone-900 dark:text-white">Does PinFlow add watermarks to downloaded videos?</h3>
+            <h3 className="font-bold text-sm text-stone-900 dark:text-white">Does PintSave add watermarks to downloaded videos?</h3>
             <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              No. PinFlow never alters video streams or embeds watermarks. You receive clean, original MP4 files.
+              No. PintSave never alters video streams or embeds watermarks. You receive clean, original MP4 files.
             </p>
           </div>
         </div>

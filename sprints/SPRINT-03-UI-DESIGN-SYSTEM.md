@@ -255,7 +255,7 @@ Header toggle: Sun/Moon icon, no page flash on load.
 - [ ] Install `framer-motion` (minimal use)
 - [ ] Create `src/components/ui/bento-grid.tsx` for features
 - [ ] Update Header — cleaner, less cluttered
-- [ ] Remove all "PintDown" / rose-red branding → PinFlow indigo
+- [ ] Remove all "PintDown" / rose-red branding → pinSsave indigo
 
 ---
 
@@ -278,6 +278,6 @@ Header toggle: Sun/Moon icon, no page flash on load.
 - [ ] Bento feature grid designed
 - [ ] Dark mode with next-themes
 - [ ] Dot grid background
-- [ ] Brand = PinFlow indigo everywhere
+- [ ] Brand = pinSsave indigo everywhere
 
 **Next → [SPRINT-04-CORE-PAGES.md](./SPRINT-04-CORE-PAGES.md)**

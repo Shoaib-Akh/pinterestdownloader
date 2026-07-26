@@ -25,7 +25,7 @@ export default function FAQPreview() {
           Frequently Asked Questions
         </h2>
         <p className="text-stone-600 dark:text-stone-400 text-sm sm:text-base">
-          Quick answers to common questions about saving media with PinFlow.
+          Quick answers to common questions about saving media with PintSave.
         </p>
       </div>
 

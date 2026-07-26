@@ -36,7 +36,7 @@ app.use(errorHandler);
 const PORT = env.PORT || 4000;
 
 app.listen(PORT, () => {
-  logger.info(`🚀 PinFlow Express Backend running on http://localhost:${PORT}`);
+  logger.info(`🚀 PintSave Express Backend running on http://localhost:${PORT}`);
   logger.info(`Environment: ${env.NODE_ENV}`);
 });
 

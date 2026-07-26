@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pinterest Image Downloader — Original HD Photo Saver',
     description: 'Download uncompressed original Pinterest images in 4K resolution directly to your device.',
-    url: 'https://pinflow.app/pinterest-image-downloader',
+    url: 'https://pintsave.app/pinterest-image-downloader',
   },
 };
 
@@ -18,7 +18,7 @@ export default function PinterestImageDownloaderPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'PinFlow Pinterest Image Downloader',
+    name: 'pinSsavee Pinterest Image Downloader',
     operatingSystem: 'All',
     applicationCategory: 'MultimediaApplication',
     offers: {
@@ -57,7 +57,7 @@ export default function PinterestImageDownloaderPage() {
               Why Standard Right-Clicking Reduces Image Quality
             </h2>
             <p className="text-xs text-stone-500 dark:text-stone-400">
-              How PinFlow bypasses compressed client thumbnails to unlock master 4K source files.
+              How PintSave bypasses compressed client thumbnails to unlock master 4K source files.
             </p>
           </div>
 
@@ -75,7 +75,7 @@ export default function PinterestImageDownloaderPage() {
 
             <div className="p-6 rounded-2xl bg-brand-50/50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 space-y-3">
               <h3 className="font-bold text-stone-900 dark:text-white text-base text-brand-500 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4" /> PinFlow HD Extractor
+                <Sparkles className="w-4 h-4" /> PintSave HD Extractor
               </h3>
               <ul className="text-xs text-stone-600 dark:text-stone-300 space-y-2">
                 <li className="flex items-center gap-1.5">
@@ -110,7 +110,7 @@ export default function PinterestImageDownloaderPage() {
           <div className="bg-white dark:bg-stone-900 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 space-y-2">
             <h3 className="font-bold text-sm text-stone-900 dark:text-white">Can I download multiple images from a Carousel Pin?</h3>
             <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              Yes! When you input a Carousel or multi-image pin URL, PinFlow extracts all individual high-resolution slides so you can download them separately.
+              Yes! When you input a Carousel or multi-image pin URL, PintSave extracts all individual high-resolution slides so you can download them separately.
             </p>
           </div>
 
@@ -124,7 +124,7 @@ export default function PinterestImageDownloaderPage() {
           <div className="bg-white dark:bg-stone-900 p-6 rounded-2xl border border-stone-200 dark:border-stone-800 space-y-2">
             <h3 className="font-bold text-sm text-stone-900 dark:text-white">Is there a limit on how many photos I can download?</h3>
             <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-              No. PinFlow provides unlimited free photo downloads without rate caps or daily limits.
+              No. PintSave provides unlimited free photo downloads without rate caps or daily limits.
             </p>
           </div>
         </div>
