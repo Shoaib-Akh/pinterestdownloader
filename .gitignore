@@ -5,3 +5,4 @@ backend/logs/
 node_modules/
 .next/
 dist/
+.vercel
