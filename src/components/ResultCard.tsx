@@ -99,7 +99,7 @@ export function ResultCard({ result }: ResultCardProps) {
           <div className="absolute top-3 left-3">
             <Badge variant="mono">
               {result.type === 'video' && <FileVideo className="w-3 h-3 text-rose-400" />}
-              {result.type === 'image' && <ImageIcon className="w-3 h-3 text-indigo-400" />}
+              {result.type === 'image' && <ImageIcon className="w-3 h-3 text-brand-400" />}
               {result.type === 'gif' && <Film className="w-3 h-3 text-emerald-400" />}
               {result.type === 'carousel' && <Layers className="w-3 h-3 text-amber-400" />}
               {result.type || 'media'}

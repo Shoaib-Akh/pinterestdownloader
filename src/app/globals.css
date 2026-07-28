@@ -4,12 +4,12 @@
 
 @layer base {
   :root {
-    --brand-50:  #f0f0ff;
-    --brand-100: #e0e0ff;
-    --brand-200: #c2c0ff;
-    --brand-500: #6C63FF;   /* Primary Indigo Violet */
-    --brand-600: #5a52e0;
-    --brand-700: #4840c4;
+    --brand-50:  #fff1f2;
+    --brand-100: #ffe4e6;
+    --brand-200: #fecdd3;
+    --brand-500: #E60023;   /* Official Pinterest Primary Red */
+    --brand-600: #cc001f;
+    --brand-700: #ad001a;
 
     --gray-50:  #fafaf9;
     --gray-100: #f5f5f4;

@@ -53,7 +53,7 @@ export default function StatsBar() {
 
           <div className="space-y-1">
             <div className="flex items-center justify-center gap-1.5 text-stone-500 dark:text-stone-400 text-xs font-semibold uppercase tracking-wider">
-              <ShieldCheck className="w-4 h-4 text-indigo-500" />
+              <ShieldCheck className="w-4 h-4 text-brand-500" />
               <span>Security</span>
             </div>
             <p className="font-extrabold text-2xl sm:text-3xl text-stone-900 dark:text-white">

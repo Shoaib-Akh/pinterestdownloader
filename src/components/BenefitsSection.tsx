@@ -8,7 +8,7 @@ export default function BenefitsSection() {
       icon: Compass,
       title: 'Master Quality Visual Assets',
       description: 'Download photos in their original pixel dimensions and videos in high-bitrate MP4 formats. Essential for graphic designers, fashion curators, and architects who need crisp visual moodboards without compression artifacts.',
-      color: 'text-indigo-500 bg-indigo-50 dark:bg-indigo-500/10',
+      color: 'text-brand-500 bg-brand-50 dark:bg-brand-500/10',
     },
     {
       icon: CloudLightning,

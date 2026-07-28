@@ -15,12 +15,17 @@ const config: Config = {
       },
       colors: {
         brand: {
-          50: '#f0f0ff',
-          100: '#e0e0ff',
-          200: '#c2c0ff',
-          500: '#6C63FF',   // Primary Indigo Violet
-          600: '#5a52e0',
-          700: '#4840c4',
+          50: '#fff1f2',
+          100: '#ffe4e6',
+          200: '#fecdd3',
+          300: '#fda4af',
+          400: '#ff4d60',
+          500: '#E60023',   // Official Pinterest Primary Red
+          600: '#cc001f',   // Darker Red for Hover States
+          700: '#ad001a',
+          800: '#8f0015',
+          900: '#750316',
+          950: '#420008',
         },
       },
       borderRadius: {
