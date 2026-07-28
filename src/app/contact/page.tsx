@@ -140,8 +140,8 @@ export default function ContactPage() {
             <p className="text-xs text-stone-300 leading-relaxed">
               Prefer sending an email directly from your mail client? Feel free to write to us:
             </p>
-            <a href="mailto:support@pintsave.app" className="block font-mono text-sm font-bold text-brand-400 hover:underline">
-              support@pintsave.app
+            <a href="mailto:nexaforce1@gmail.com" className="block font-mono text-sm font-bold text-brand-400 hover:underline">
+            nexaforce1@gmail.com
             </a>
             <hr className="border-stone-800" />
             <div className="text-xs text-stone-400 space-y-1">

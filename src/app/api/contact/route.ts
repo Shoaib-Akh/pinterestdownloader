@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { supabase } from '@/lib/supabase';
 
 export async function POST(request: Request) {
   try {
@@ -12,16 +13,56 @@ export async function POST(request: Request) {
       );
     }
 
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    const trimmedMessage = message.trim();
+
+    // 1. Primary insertion via Supabase Client SDK
+    let supabaseSuccess = false;
+    try {
+      const { error: sbError } = await supabase
+        .from('ContactMessage')
+        .insert([
+          {
+            name: trimmedName,
+            email: trimmedEmail,
+            message: trimmedMessage,
+            read: false,
+          },
+        ]);
+
+      if (!sbError) {
+        supabaseSuccess = true;
+      } else {
+        console.warn('Supabase JS insert warning:', sbError.message);
+        // Try snake_case table fallback in case table was created with contact_messages
+        const { error: sbFallbackErr } = await supabase
+          .from('contact_messages')
+          .insert([
+            {
+              name: trimmedName,
+              email: trimmedEmail,
+              message: trimmedMessage,
+              read: false,
+            },
+          ]);
+        if (!sbFallbackErr) supabaseSuccess = true;
+      }
+    } catch (sbErr) {
+      console.warn('Supabase SDK exception:', sbErr);
+    }
+
+    // 2. Secondary insertion via Prisma PostgreSQL client (Supabase DB connection pool)
     try {
       await prisma.contactMessage.create({
         data: {
-          name: name.trim(),
-          email: email.trim(),
-          message: message.trim(),
+          name: trimmedName,
+          email: trimmedEmail,
+          message: trimmedMessage,
         },
       });
     } catch (dbError) {
-      console.warn('DB store contact warning:', dbError);
+      console.warn('Prisma DB store contact warning:', dbError);
     }
 
     return NextResponse.json({
@@ -35,3 +76,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

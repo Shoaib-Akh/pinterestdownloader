@@ -250,10 +250,10 @@ export default function TermsPage() {
           </p>
           <div className="pt-1">
             <a 
-              href="mailto:support@pintsave.app" 
+              href="mailto:nexaforce1@gmail.com" 
               className="inline-flex items-center gap-2 font-mono text-sm text-brand-600 dark:text-brand-400 font-bold bg-white dark:bg-stone-800 px-3.5 py-2 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm hover:border-brand-400 transition"
             >
-              <Mail className="w-4 h-4 text-brand-500" /> support@pintsave.app
+              <Mail className="w-4 h-4 text-brand-500" />nexaforce1@gmail.com
             </a>
           </div>
         </section>
