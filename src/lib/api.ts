@@ -181,6 +181,88 @@ Start saving animated media now using the [Pinterest GIF Downloader](/pinterest-
 
 ### PintSave Compliance & Architecture
 PintSave operates as an automated client-side proxy tool and **does not store copyrighted media files** on internal servers. For formal takedown requests, visit our [DMCA Takedown Policy](/dmca) page or learn more on our [About PintSave](/about) page.`
+  },
+  {
+    id: '7',
+    title: 'How to Download Pinterest Story Pins & Idea Pins with Full Audio',
+    slug: 'how-to-download-pinterest-story-and-idea-pins-audio',
+    excerpt: 'Pinterest Idea Pins are highly engaging but don\'t have a direct download option. Learn how to save Idea Pins with their original high-quality audio tracks using PintSave.',
+    coverImage: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80',
+    publishedAt: '2026-07-13T14:00:00.000Z',
+    createdAt: '2026-07-13T14:00:00.000Z',
+    content: `Pinterest introduced **Idea Pins** (formerly known as Story Pins) to allow creators to share multi-slide video stories, visual guides, and creative journeys. While normal video pins are straightforward, Idea Pins are notoriously difficult to save because Pinterest does not offer a download option within the app.
+
+Furthermore, because Idea Pins combine multiple video segments and audio tracks, typical screen recording options result in layout overlays and low-quality sound.
+
+### The Challenge with Saving Idea Pins
+Unlike standard pins, Idea Pins serve dynamic HTML layouts with nested media elements:
+- **Segmented Videos**: A single Idea Pin can consist of up to 20 individual short video segments.
+- **Separate Audio Streams**: Background music or voiceovers are often mixed dynamically, meaning simple HTML link parsers only extract the video without any audio.
+- **No Web Context Download**: Right-clicking in web browsers only downloads static previews.
+
+### How PintSave Extracts Idea Pins with Audio
+PintSave uses a proprietary media-stitching engine that reads the full manifest file of the Idea Pin. It resolves each individual page video stream, extracts the original audio overlay, and compiles them into a unified, high-definition 1080p MP4 file.
+
+### Step-by-Step Guide to Saving Idea Pins
+1. Open Pinterest and locate the **Idea Pin** you want to download.
+2. Tap the **Share icon** and select **Copy Link**.
+3. Go to the [Pinterest Video Downloader](/pinterest-video-downloader) page on PintSave.
+4. Paste the URL into the extraction field and click **Download**.
+5. PintSave will compile all slides and audio. Click **Download HD MP4** to save the fully combined video directly to your iPhone or Android gallery!
+
+Have questions or need assistance? Reach out to us via the [Contact PintSave Team](/contact) page.`
+  },
+  {
+    id: '8',
+    title: 'Pinterest Board Downloader: How to Batch Download Entire Boards',
+    slug: 'pinterest-board-downloader-batch-download-guide',
+    excerpt: 'Need to backup an entire Pinterest board for design research or offline moodboarding? Here is a complete guide on how to batch extract multiple images and videos simultaneously.',
+    coverImage: 'https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=1200&q=80',
+    publishedAt: '2026-07-11T11:30:00.000Z',
+    createdAt: '2026-07-11T11:30:00.000Z',
+    content: `As designers, architects, and visual storytellers, we often curate huge **Pinterest Boards** filled with thousands of pins for project moodboards and research. But what happens if you need to access these assets offline, import them into design tools like Photoshop/Figma, or back them up in case the board is deleted?
+
+Manually saving hundreds of pins one-by-one is tedious and time-consuming. Here is how you can use PintSave to batch download entire boards efficiently.
+
+### Why Batch Download Pinterest Boards?
+- **Offline Creative Moodboards**: Access your visual assets during flights, remote locations, or offline presentations.
+- **Design Asset Backups**: Protect your curated ideas from copyright takedowns or creator account deletions.
+- **Fast Importing**: Easily import large batches of high-resolution images into collaborative whiteboards.
+
+### How to Use the Batch Extraction Method
+1. Go to your Pinterest account and open the **Board** you want to download.
+2. Copy the board's URL from your web browser address bar (e.g., \`https://pinterest.com/username/board-name/\`).
+3. Open [PintSave Home](/) or our specialized batch interface.
+4. Paste the board link. Our engine will read the public API board metadata and list all individual pins.
+5. Click **Download Zip** to export all uncompressed media files in a single organized archive, or download individual items selectively at original quality.
+
+Always remember to credit the original artists when using these assets in public projects!`
+  },
+  {
+    id: '9',
+    title: 'Troubleshooting Pinterest Downloader Errors: Quick Fixes for Common Issues',
+    slug: 'troubleshooting-pinterest-downloader-errors',
+    excerpt: 'Is your Pinterest download stuck or showing an extraction failed error? Learn about CDN token expirations, private boards, copyright restrictions, and how to fix them.',
+    coverImage: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80',
+    publishedAt: '2026-07-09T09:45:00.000Z',
+    createdAt: '2026-07-09T09:45:00.000Z',
+    content: `PintSave is engineered to be highly reliable, resolving and downloading Pinterest media in seconds. However, occasionally you might encounter an error message like "Unable to parse link" or "Download failed."
+
+Here are the most common reasons why Pinterest downloads fail and how to fix them in under a minute.
+
+### 1. The Pin is on a Private or Secret Board
+**The Problem**: Our server cannot access pins stored on secret boards or private group boards because Pinterest restricts external API access for privacy.
+**The Solution**: Temporarily change the board setting to public, download the media using PintSave, and then switch it back to private.
+
+### 2. URL Copy Formatting Issues
+**The Problem**: Sometimes copying a link from a mobile app includes extra text like "Look at this pin..." or tracking parameters that confuse simple downloaders.
+**The Solution**: Ensure you copy only the clean URL (e.g., \`https://pin.it/XXXX\` or \`https://www.pinterest.com/pin/XXXX\`). PintSave automatically cleans tracking parameters, but if it fails, delete the extra text in the search bar.
+
+### 3. CDN Token Expiration
+**The Problem**: Pinterest CDN links use temporary authorization tokens. If you leave the download page open for a long time before clicking the final download button, the link might expire.
+**The Solution**: Simply refresh the page and paste the link again to generate a fresh, active download URL.
+
+If you run into persistent errors, contact us via the [Contact PintSave Team](/contact) page and we'll investigate!`
   }
 ];
 
@@ -319,3 +401,81 @@ export async function getFAQs() {
     },
   ];
 }
+
+export interface BlogComment {
+  id: string;
+  blogId: string;
+  name: string;
+  content: string;
+  createdAt: string;
+}
+
+export async function getComments(slug: string): Promise<BlogComment[]> {
+  try {
+    const res = await fetch(`${API_BASE}/api/blog/${slug}/comments`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.data)) {
+        return data.data;
+      }
+      if (Array.isArray(data.data)) {
+        return data.data;
+      }
+    }
+  } catch {
+    // Failover to local Next.js api
+  }
+  
+  try {
+    const res = await fetch(`/api/blog/${slug}/comments`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.data)) return data.data;
+      if (Array.isArray(data)) return data;
+    }
+  } catch (err) {
+    console.error('Failed to fetch comments locally:', err);
+  }
+  
+  return [];
+}
+
+export async function addComment(
+  slug: string,
+  payload: { name: string; email: string; content: string }
+): Promise<{ success: boolean; data?: BlogComment; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/api/blog/${slug}/comments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && data.data) {
+        return { success: true, data: data.data };
+      }
+      if (data.data) {
+        return { success: true, data: data.data };
+      }
+    }
+  } catch {
+    // Failover to local Next.js api
+  }
+
+  try {
+    const res = await fetch(`/api/blog/${slug}/comments`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (res.ok && (data.data || data.success)) {
+      return { success: true, data: data.data || data };
+    }
+    return { success: false, error: data.error || 'Failed to post comment.' };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Failed to connect to local comments API.' };
+  }
+}
+

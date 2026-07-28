@@ -53,6 +53,7 @@ model Blog {
   publishedAt DateTime?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  comments    Comment[]
 
   @@index([slug])
   @@index([published])
@@ -74,4 +75,18 @@ model ContactMessage {
   message   String
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  blogId    String
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  name      String
+  email     String
+  content   String
+  approved  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([blogId])
+  @@index([createdAt])
 }

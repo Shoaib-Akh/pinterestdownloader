@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import CTABanner from '@/components/CTABanner';
+import BlogComments from '@/components/BlogComments';
 import { getBlogPostBySlug, SAMPLE_BLOG_POSTS } from '@/lib/api';
 import { Calendar, ArrowLeft, BookOpen, Clock, Tag } from 'lucide-react';
 
@@ -196,6 +197,9 @@ export default async function BlogPostPage({ params }: Props) {
           buttonText="Try PintSave Downloader Now"
         />
       </div>
+
+      {/* Blog Discussion / Comments */}
+      <BlogComments blogSlug={post.slug} blogId={post.id} />
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
