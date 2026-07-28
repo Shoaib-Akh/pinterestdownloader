@@ -13,7 +13,7 @@ export default function FAQPreview() {
   useEffect(() => {
     getFAQs().then((res) => {
       if (res && Array.isArray(res)) {
-        setFaqs(res.slice(0, 3));
+        setFaqs(res.slice(0, 6));
       }
     });
   }, []);
@@ -24,8 +24,8 @@ export default function FAQPreview() {
         <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
           Frequently Asked Questions
         </h2>
-        <p className="text-stone-600 dark:text-stone-400 text-sm sm:text-base">
-          Quick answers to common questions about saving media with PintSave.
+        <p className="text-stone-600 dark:text-stone-400 text-sm sm:text-base leading-relaxed">
+          Clear, straightforward answers about downloading Pinterest videos, original 4K images, and GIFs with PintSave.
         </p>
       </div>
 

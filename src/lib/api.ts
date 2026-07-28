@@ -210,36 +210,39 @@ export async function getFAQs() {
   return [
     {
       id: '1',
-      question: 'How to download Pinterest videos on iPhone or Android?',
+      question: 'How do I download Pinterest videos on my iPhone or Android phone?',
       answer:
-        'Open Pinterest app, tap Share on your desired pin, and select "Copy Link". Paste the link into PintSave, click Download, and save directly to your camera roll.',
+        'To download videos on mobile, open the Pinterest app, locate the video pin, tap the Share icon, and choose "Copy Link". Switch to your Safari or Chrome browser, visit PintSave, paste the link into the box, and tap Download HD. On iOS Safari, tap "Download" when prompted, open the Downloads menu, tap the downloaded video, tap Share, and choose "Save Video" to transfer it directly into your Camera Roll.',
     },
     {
       id: '2',
-      question: 'Is PintSave 100% free?',
-      answer: 'Yes! PintSave is 100% free with no account signup, software installation, or subscription required.',
+      question: 'Can I download images in original 4K resolution instead of web previews?',
+      answer:
+        'Yes! When you browse Pinterest normally, the web interface serves compressed 736px thumbnail images to save bandwidth. PintSave automatically bypasses these web thumbnails, queries the underlying CDN metadata, and fetches the original uncompressed source image in full 4K pixel resolution.',
     },
     {
       id: '3',
-      question: 'Do I need to create an account or sign in?',
-      answer: 'No registration or login is required to download photos, videos, or GIFs.',
+      question: 'Is PintSave completely free, and do I need to register an account?',
+      answer:
+        'PintSave is 100% free with no mandatory account creation, subscription plans, trial caps, or software installation. You can download as many videos, original photos, and GIFs as you want, completely anonymously.',
     },
     {
       id: '4',
-      question: 'Can I download images in original HD resolution?',
+      question: 'Does PintSave add watermarks or brand overlays to saved videos?',
       answer:
-        'Yes! PintSave automatically strips low-res thumbnail constraints and resolves the 100% original uncompressed photo.',
+        'No. We never add watermarks, logos, quality-reducing overlays, or re-compression layers to your downloaded media. You receive the exact original MP4 video stream and image files uploaded by the pin creator.',
     },
     {
       id: '5',
-      question: 'Is it safe and legal to save Pinterest media?',
-      answer: 'Yes, saving media for personal offline backup and inspiration is safe and legal.',
+      question: 'Why did my Pinterest link fail or show an extraction error?',
+      answer:
+        'Extraction errors typically happen if the pin belongs to a private or secret board, if the pin was removed by Pinterest, or if the copied URL was incomplete. Make sure the pin is public and copy the full pin link directly from the official Pinterest share button.',
     },
     {
       id: '6',
-      question: 'Why is my Pinterest link not working?',
+      question: 'Can I save multi-image Pinterest Carousel pins?',
       answer:
-        'Ensure the link is public and copied directly from Pinterest (e.g. pin.it/... or pinterest.com/pin/...). Private boards cannot be downloaded.',
+        'Yes! When you paste a link to a carousel pin, PintSave automatically extracts all individual image and video slides in the carousel, enabling you to preview and download each slide separately in full resolution.',
     },
   ];
 }

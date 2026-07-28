@@ -6,20 +6,20 @@ export default function HowItWorks() {
     {
       step: '01',
       icon: Copy,
-      title: 'Copy Pinterest Link',
-      description: 'Open the Pinterest app or website, tap Share on any pin, and click "Copy Link".',
+      title: 'Copy the Pinterest Pin Link',
+      description: 'Open the Pinterest mobile app or browse pinterest.com in your web browser. Find the video pin, photo, carousel, or GIF you want to download. Tap the Share icon (or the three dots menu on desktop) and select "Copy Link".',
     },
     {
       step: '02',
       icon: Sparkles,
-      title: 'Paste into PintSave',
-      description: 'Paste the copied URL into the PintSave input field and click Download.',
+      title: 'Paste URL into PintSave',
+      description: 'Paste your copied link into the search bar at the top of PintSave. Our system instantly parses the URL, resolves the direct source media link from Pinterest CDN servers, and prepares your file for uncompressed download.',
     },
     {
       step: '03',
       icon: Download,
       title: 'Save Original HD File',
-      description: 'Click Download HD to save original uncompressed photo, MP4 video, or GIF to your device.',
+      description: 'Click "Download HD" to save the master high-bitrate MP4 video, original 4K photo, or animated GIF directly to your iPhone Camera Roll, Android Downloads folder, or desktop computer.',
     },
   ];
 
@@ -27,10 +27,10 @@ export default function HowItWorks() {
     <section className="py-20 max-w-6xl mx-auto px-4 sm:px-6">
       <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-          How It Works in <span className="text-brand-500">3 Simple Steps</span>
+          How to Download Pinterest Media in <span className="text-brand-500">3 Simple Steps</span>
         </h2>
         <p className="text-stone-600 dark:text-stone-400 text-base sm:text-lg">
-          No signups, browser extensions, or complicated setups. Fast and direct.
+          No mandatory accounts, software installation, or tricky browser extensions. Straightforward and instant.
         </p>
       </div>
 

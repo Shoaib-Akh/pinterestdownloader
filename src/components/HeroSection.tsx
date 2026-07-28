@@ -17,14 +17,14 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  badgeText = '100% Free · No Signup',
+  badgeText = '100% Free · No Signup · Watermark-Free',
   title = (
     <>
-      Save any <span className="text-brand-500 underline decoration-brand-200 dark:decoration-brand-900">Pinterest pin</span> in high definition.
+      Download <span className="text-brand-500 underline decoration-brand-200 dark:decoration-brand-900">Pinterest Videos</span> & Images in Original 4K HD
     </>
   ),
-  description = 'Directly extract uncompressed original photos, high-bitrate MP4 videos, and animated GIFs without quality loss or watermarks.',
-  placeholder = 'Paste Pinterest link here (e.g. https://pin.it/...)',
+  description = 'Extract uncompressed original photos, high-bitrate MP4 video reels, and animated GIFs directly from Pinterest. Fast, free, and saved straight to your device.',
+  placeholder = 'Paste Pinterest pin URL here (e.g. https://pin.it/... or pinterest.com/pin/...)',
   previewImage = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
 }: HeroSectionProps) {
   const [loading, setLoading] = useState(false);

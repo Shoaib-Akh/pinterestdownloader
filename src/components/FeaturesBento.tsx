@@ -7,12 +7,12 @@ export default function FeaturesBento() {
     <section id="features" className="py-20 bg-stone-50/50 dark:bg-stone-900/30 border-y border-stone-200/80 dark:border-stone-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <Badge variant="brand">ENGINEERING EXCELLENCE</Badge>
+          <Badge variant="brand">KEY FEATURES & ADVANTAGES</Badge>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-            Designed for <span className="text-brand-500">Unrestricted HD Saving</span>
+            Why Choose Our <span className="text-brand-500">Pinterest Downloader</span>
           </h2>
-          <p className="text-stone-600 dark:text-stone-400 text-base sm:text-lg">
-            High performance Pinterest extraction built for creators, designers, and curators.
+          <p className="text-stone-600 dark:text-stone-400 text-base sm:text-lg leading-relaxed">
+            Built specifically to solve low-resolution downloads, slow speeds, and intrusive popups. Here is why creators, designers, and curators prefer PintSave.
           </p>
         </div>
 
@@ -23,14 +23,14 @@ export default function FeaturesBento() {
               <div className="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-500/10 text-brand-500 flex items-center justify-center">
                 <Zap className="w-6 h-6" />
               </div>
-              <Badge variant="success">UNDER 1.0 SEC</Badge>
+              <Badge variant="success">INSTANT EXTLECTION</Badge>
             </div>
             <div>
-              <h3 className="font-bold text-xl text-stone-900 dark:text-white mb-1">
-                Sub-Second Media Resolution
+              <h3 className="font-bold text-xl text-stone-900 dark:text-white mb-2">
+                Sub-Second Direct Media Extraction
               </h3>
-              <p className="text-sm text-stone-600 dark:text-stone-400 max-w-lg">
-                Queries Pinterest internal PinResource API & Redis cache layer directly to resolve CDN URLs instantly.
+              <p className="text-sm text-stone-600 dark:text-stone-400 max-w-lg leading-relaxed">
+                Our fast backend directly inspects Pinterest CDN metadata endpoints and bypasses rate limits. Get direct MP4 video URLs and image links in under one second without waiting in slow queue lines.
               </p>
             </div>
           </BentoCard>
@@ -41,11 +41,11 @@ export default function FeaturesBento() {
               <Smartphone className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-bold text-lg text-stone-900 dark:text-white mb-1">
-                Universal Mobile Support
+              <h3 className="font-bold text-lg text-stone-900 dark:text-white mb-2">
+                Universal iOS & Android Support
               </h3>
-              <p className="text-xs text-stone-600 dark:text-stone-400">
-                Saves directly to iOS Camera Roll or Android Gallery.
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+                Save media straight into your iPhone Camera Roll or Android Gallery. No app store installation or jailbreaking needed.
               </p>
             </div>
           </BentoCard>
@@ -56,11 +56,11 @@ export default function FeaturesBento() {
               <Sparkles className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-bold text-lg text-stone-900 dark:text-white mb-1">
-                100% Original 4K Photos
+              <h3 className="font-bold text-lg text-stone-900 dark:text-white mb-2">
+                Uncompressed 4K Master Photos
               </h3>
-              <p className="text-xs text-stone-600 dark:text-stone-400">
-                Auto-upgrades 736x thumbnails to /originals/ source files.
+              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
+                Automatically converts compressed 736px web thumbnails into the original high-resolution master file uploaded by creators.
               </p>
             </div>
           </BentoCard>
@@ -71,14 +71,14 @@ export default function FeaturesBento() {
               <div className="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-500/10 text-brand-500 flex items-center justify-center">
                 <ShieldCheck className="w-6 h-6" />
               </div>
-              <Badge variant="mono">ANONYMOUS</Badge>
+              <Badge variant="mono">100% PRIVATE</Badge>
             </div>
             <div>
-              <h3 className="font-bold text-xl text-stone-900 dark:text-white mb-1">
-                100% Anonymous & Private
+              <h3 className="font-bold text-xl text-stone-900 dark:text-white mb-2">
+                Watermark-Free & Completely Anonymous
               </h3>
-              <p className="text-sm text-stone-600 dark:text-stone-400 max-w-lg">
-                No browser extension installation, user tracking cookies, or account signups required.
+              <p className="text-sm text-stone-600 dark:text-stone-400 max-w-lg leading-relaxed">
+                We respect your personal privacy. Enjoy clean downloads without logos, brand overlays, account signups, or tracking cookies storing your download activity.
               </p>
             </div>
           </BentoCard>
