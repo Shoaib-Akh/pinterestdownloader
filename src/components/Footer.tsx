@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Download, Heart } from 'lucide-react';
+import Image from 'next/image';
+import { Heart } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -9,8 +10,8 @@ export default function Footer() {
           {/* Brand Col */}
           <div className="md:col-span-1 space-y-3">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-                <Download className="w-4 h-4" />
+              <div className="w-8 h-8 rounded-lg overflow-hidden shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform shrink-0 border border-stone-200 dark:border-stone-800">
+                <Image src="/icon.png" alt="PintSave Logo" width={32} height={32} className="w-full h-full object-cover" unoptimized />
               </div>
               <span className="font-extrabold text-lg tracking-tight text-stone-900 dark:text-white">
                 Pint<span className="text-brand-500">Save</span>

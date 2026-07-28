@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from '@/providers/theme-provider';
-import { Download, Moon, Sun, Sparkles } from 'lucide-react';
+import { Moon, Sun, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 
 export default function Header() {
@@ -21,8 +22,8 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-            <Download className="w-4 h-4" />
+          <div className="w-9 h-9 rounded-xl overflow-hidden shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform shrink-0 border border-stone-200 dark:border-stone-800">
+            <Image src="/icon.png" alt="PintSave Logo" width={36} height={36} className="w-full h-full object-cover" priority unoptimized />
           </div>
           <div className="flex items-baseline gap-2">
             <span className="font-extrabold text-xl tracking-tight text-stone-900 dark:text-white">

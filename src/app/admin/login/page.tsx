@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { loginAdmin } from '@/lib/adminApi';
-import { Lock, Mail, ShieldCheck, ArrowRight, AlertCircle } from 'lucide-react';
+import { Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function AdminLoginPage() {
@@ -35,8 +36,8 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md space-y-6">
         {/* Logo Branding */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-brand-500 text-white shadow-xl shadow-brand-500/20 mb-2">
-            <ShieldCheck className="w-6 h-6" />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl overflow-hidden shadow-xl shadow-brand-500/20 mb-2 border border-slate-700">
+            <Image src="/icon.png" alt="PintSave Admin Logo" width={48} height={48} className="w-full h-full object-cover" unoptimized />
           </div>
           <h1 className="text-2xl font-extrabold text-white tracking-tight">
             PintSave Admin Portal

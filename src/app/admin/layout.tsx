@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   LayoutDashboard,
   DownloadCloud,
@@ -10,7 +11,6 @@ import {
   HelpCircle,
   Mail,
   LogOut,
-  ShieldCheck,
   Menu,
   X,
   ExternalLink,
@@ -69,8 +69,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Mobile Topbar */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 bg-slate-900 border-b border-slate-800">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold text-xs">
-            P
+          <div className="w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-slate-700">
+            <Image src="/icon.png" alt="PintSave Admin Logo" width={28} height={28} className="w-full h-full object-cover" unoptimized />
           </div>
           <span className="font-bold text-white text-base">PintSave Admin</span>
         </div>
@@ -92,8 +92,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Logo & Brand Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
-                <ShieldCheck className="w-5 h-5" />
+              <div className="w-9 h-9 rounded-xl overflow-hidden shadow-lg shadow-brand-500/20 shrink-0 border border-slate-700">
+                <Image src="/icon.png" alt="PintSave Admin Logo" width={36} height={36} className="w-full h-full object-cover" unoptimized />
               </div>
               <div>
                 <h1 className="font-extrabold text-base text-white tracking-tight leading-none">
