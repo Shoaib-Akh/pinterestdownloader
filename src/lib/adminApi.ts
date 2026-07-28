@@ -82,6 +82,27 @@ function getAuthHeaders(): HeadersInit {
   };
 }
 
+async function adminFetch(url: string, options: RequestInit = {}): Promise<Response> {
+  const headers = getAuthHeaders();
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      ...headers,
+      ...options.headers,
+    },
+  });
+
+  if (res.status === 401) {
+    removeAuthToken();
+    if (typeof window !== 'undefined') {
+      window.location.href = '/admin/login';
+    }
+    throw new Error('Unauthorized');
+  }
+
+  return res;
+}
+
 export async function loginAdmin(email: string, password: string) {
   try {
     const res = await fetch(`${API_BASE}/api/auth/login`, {
@@ -105,12 +126,14 @@ export async function loginAdmin(email: string, password: string) {
 
 export async function fetchAdminStats(): Promise<AdminStats> {
   try {
-    const res = await fetch(`${API_BASE}/api/admin/stats`, {
-      headers: getAuthHeaders(),
+    const res = await adminFetch(`${API_BASE}/api/admin/stats`, {
       cache: 'no-store',
     });
     const data = await res.json();
-    if (data.data) return data.data;
+    if (data.success) {
+      if (data.data) return data.data;
+      return data as unknown as AdminStats;
+    }
   } catch {
     // API error handler
   }
@@ -130,8 +153,7 @@ export async function fetchAdminStats(): Promise<AdminStats> {
 
 export async function fetchAdminDownloads(page = 1, limit = 15) {
   try {
-    const res = await fetch(`${API_BASE}/api/admin/downloads?page=${page}&limit=${limit}`, {
-      headers: getAuthHeaders(),
+    const res = await adminFetch(`${API_BASE}/api/admin/downloads?page=${page}&limit=${limit}`, {
       cache: 'no-store',
     });
     const data = await res.json();
@@ -147,8 +169,7 @@ export async function fetchAdminDownloads(page = 1, limit = 15) {
 
 export async function fetchAdminContacts(): Promise<ContactItem[]> {
   try {
-    const res = await fetch(`${API_BASE}/api/admin/contacts`, {
-      headers: getAuthHeaders(),
+    const res = await adminFetch(`${API_BASE}/api/admin/contacts`, {
       cache: 'no-store',
     });
     const data = await res.json();
@@ -161,9 +182,8 @@ export async function fetchAdminContacts(): Promise<ContactItem[]> {
 
 export async function markContactRead(id: string, read: boolean) {
   try {
-    const res = await fetch(`${API_BASE}/api/admin/contacts/${id}`, {
+    const res = await adminFetch(`${API_BASE}/api/admin/contacts/${id}`, {
       method: 'PATCH',
-      headers: getAuthHeaders(),
       body: JSON.stringify({ read }),
     });
     return await res.json();
@@ -174,8 +194,7 @@ export async function markContactRead(id: string, read: boolean) {
 
 export async function fetchAdminBlogs(): Promise<AdminBlogItem[]> {
   try {
-    const res = await fetch(`${API_BASE}/api/admin/blog`, {
-      headers: getAuthHeaders(),
+    const res = await adminFetch(`${API_BASE}/api/admin/blog`, {
       cache: 'no-store',
     });
     const data = await res.json();
@@ -192,9 +211,8 @@ export async function saveAdminBlog(blog: Partial<AdminBlogItem>) {
     const url = isEdit ? `${API_BASE}/api/admin/blog/${blog.id}` : `${API_BASE}/api/admin/blog`;
     const method = isEdit ? 'PUT' : 'POST';
 
-    const res = await fetch(url, {
+    const res = await adminFetch(url, {
       method,
-      headers: getAuthHeaders(),
       body: JSON.stringify(blog),
     });
     return await res.json();
@@ -205,9 +223,8 @@ export async function saveAdminBlog(blog: Partial<AdminBlogItem>) {
 
 export async function deleteAdminBlog(id: string) {
   try {
-    const res = await fetch(`${API_BASE}/api/admin/blog/${id}`, {
+    const res = await adminFetch(`${API_BASE}/api/admin/blog/${id}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(),
     });
     return await res.json();
   } catch {
@@ -217,8 +234,7 @@ export async function deleteAdminBlog(id: string) {
 
 export async function fetchAdminFAQs(): Promise<AdminFAQItem[]> {
   try {
-    const res = await fetch(`${API_BASE}/api/admin/faq`, {
-      headers: getAuthHeaders(),
+    const res = await adminFetch(`${API_BASE}/api/admin/faq`, {
       cache: 'no-store',
     });
     const data = await res.json();
@@ -235,9 +251,8 @@ export async function saveAdminFAQ(faq: Partial<AdminFAQItem>) {
     const url = isEdit ? `${API_BASE}/api/admin/faq/${faq.id}` : `${API_BASE}/api/admin/faq`;
     const method = isEdit ? 'PUT' : 'POST';
 
-    const res = await fetch(url, {
+    const res = await adminFetch(url, {
       method,
-      headers: getAuthHeaders(),
       body: JSON.stringify(faq),
     });
     return await res.json();
@@ -248,9 +263,8 @@ export async function saveAdminFAQ(faq: Partial<AdminFAQItem>) {
 
 export async function deleteAdminFAQ(id: string) {
   try {
-    const res = await fetch(`${API_BASE}/api/admin/faq/${id}`, {
+    const res = await adminFetch(`${API_BASE}/api/admin/faq/${id}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(),
     });
     return await res.json();
   } catch {

@@ -59,16 +59,18 @@ export async function handleGetAdminStats(req: Request, res: Response) {
     }));
 
     return successResponse(res, {
-      totalDownloads,
-      todayDownloads,
-      weekDownloads,
-      totalPageViews: Math.round(totalDownloads * 3.5),
-      unreadContacts: contactsCount,
-      totalBlogs: blogsCount,
-      totalFaqs: faqsCount,
-      topCountries,
-      topMediaTypes,
-      recentDownloads,
+      data: {
+        totalDownloads,
+        todayDownloads,
+        weekDownloads,
+        totalPageViews: Math.round(totalDownloads * 3.5),
+        unreadContacts: contactsCount,
+        totalBlogs: blogsCount,
+        totalFaqs: faqsCount,
+        topCountries,
+        topMediaTypes,
+        recentDownloads,
+      }
     });
   } catch (err: any) {
     return errorResponse(res, err.message || 'Failed to fetch admin stats.', 500);
