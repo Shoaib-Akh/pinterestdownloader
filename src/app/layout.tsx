@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
@@ -30,6 +31,9 @@ export const metadata: Metadata = {
     'pinterest saver',
     'pintsave',
   ],
+  verification: {
+    google: 'HLUN0VTDgckwJbMntpwk5soeSlJH0-1qY__whGjmkpk',
+  },
   icons: {
     icon: [
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
@@ -49,6 +53,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable} scroll-smooth dark`} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col antialiased bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100 selection:bg-brand-500 selection:text-white">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-BN3DQKHVSW"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-BN3DQKHVSW');
+          `}
+        </Script>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <Header />
           <main className="flex-1">{children}</main>
@@ -58,3 +75,4 @@ export default function RootLayout({
     </html>
   );
 }
+
