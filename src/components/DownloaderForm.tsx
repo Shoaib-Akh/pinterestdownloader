@@ -105,7 +105,7 @@ export default function DownloaderForm({
       )}
 
       {/* Loading Skeleton */}
-      {loading && (
+      {/* {loading && (
         <div className="bg-white dark:bg-stone-900 rounded-3xl p-8 border border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row gap-6">
           <Skeleton className="w-full sm:w-64 h-64 rounded-2xl" />
           <div className="flex-1 space-y-4 py-2">
@@ -114,10 +114,10 @@ export default function DownloaderForm({
             <Skeleton className="h-12 w-48 mt-4" />
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Extraction Result Card */}
-      {result && <ResultCard result={result} />}
+      {/* {result && <ResultCard result={result} />} */}
 
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
     </div>

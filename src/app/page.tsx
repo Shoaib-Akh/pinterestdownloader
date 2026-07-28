@@ -2,6 +2,7 @@ import HeroSection from '@/components/HeroSection';
 import StatsBar from '@/components/StatsBar';
 import HowItWorks from '@/components/HowItWorks';
 import FeaturesBento from '@/components/FeaturesBento';
+import BenefitsSection from '@/components/BenefitsSection';
 import FAQPreview from '@/components/FAQPreview';
 import CTABanner from '@/components/CTABanner';
 
@@ -12,6 +13,7 @@ export default function HomePage() {
       <StatsBar />
       <HowItWorks />
       <FeaturesBento />
+      <BenefitsSection />
       <FAQPreview />
       <CTABanner />
     </div>

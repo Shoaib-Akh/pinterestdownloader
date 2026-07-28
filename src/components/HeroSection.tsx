@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Sparkles, ShieldCheck, Zap, Loader2, Play, FileVideo, Image as ImageIcon, Film, Layers } from 'lucide-react';
+import { Sparkles, ShieldCheck, Zap, Loader2, Play, FileVideo, Image as ImageIcon, Film, Layers, Download } from 'lucide-react';
 import DownloaderForm from './DownloaderForm';
 import { Badge } from './ui/badge';
 import { MediaResult } from '@/lib/api';
+import { Button } from './ui/button';
+import { Toast } from './ui/toast';
 
 interface HeroSectionProps {
   badgeText?: string;
@@ -27,6 +29,47 @@ export default function HeroSection({
 }: HeroSectionProps) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MediaResult | null>(null);
+  const [downloadingUrls, setDownloadingUrls] = useState<Record<string, boolean>>({});
+  const [toastMessage, setToastMessage] = useState('');
+  const [downloadFailed, setDownloadFailed] = useState(false);
+
+  const filename = result ? `pintsave_${result.pinId || Date.now()}.${
+    result.type === 'video' ? 'mp4' : result.type === 'gif' ? 'gif' : 'jpg'
+  }` : 'download';
+
+  const downloadFile = async (url: string, targetFilename: string) => {
+    if (!url) return;
+    setDownloadingUrls((prev) => ({ ...prev, [url]: true }));
+    setDownloadFailed(false);
+    try {
+      const downloadUrl = `/api/proxy-download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(targetFilename)}`;
+      const response = await fetch(downloadUrl);
+      if (!response.ok) throw new Error('Download failed');
+
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = targetFilename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      window.URL.revokeObjectURL(blobUrl);
+      setToastMessage('Download started successfully!');
+      setTimeout(() => setToastMessage(''), 3000);
+    } catch (error) {
+      console.error('Download error:', error);
+      setDownloadFailed(true);
+      setToastMessage('Download failed. Use the direct link fallback.');
+      setTimeout(() => setToastMessage(''), 4000);
+    } finally {
+      setDownloadingUrls((prev) => ({ ...prev, [url]: false }));
+    }
+  };
+
+  const isMainDownloading = result?.mediaUrl ? downloadingUrls[result.mediaUrl] : false;
 
   return (
     <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 max-w-6xl mx-auto px-4 sm:px-6">
@@ -97,13 +140,42 @@ export default function HeroSection({
                       </div>
                     )}
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-4">
                       <span className="text-white text-xs font-bold truncate w-full mb-1">
                         {result.title || 'Pinterest Media Pin'}
                       </span>
-                      <div className="text-white/80 text-[10px] font-semibold flex items-center gap-1.5">
+                      <div className="text-white/80 text-[10px] font-semibold flex items-center gap-1.5 mb-2">
                         <Zap className="w-3.5 h-3.5 text-brand-500" />
                         <span>Uncompressed Original Resolution</span>
+                      </div>
+                      <div className="flex gap-2 w-full mt-1">
+                        <Button
+                          size="sm"
+                          onClick={() => downloadFile(result.mediaUrl || '', filename)}
+                          disabled={isMainDownloading || !result.mediaUrl}
+                          className="flex-1 bg-brand-500 hover:bg-brand-600 text-white font-bold text-[11px] py-1 h-8 rounded-lg flex items-center justify-center gap-1 shadow-md transition-all active:scale-95"
+                        >
+                          {isMainDownloading ? (
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          ) : (
+                            <Download className="w-3.5 h-3.5" />
+                          )}
+                          <span>{isMainDownloading ? 'Downloading...' : 'Download HD'}</span>
+                        </Button>
+
+                        {downloadFailed && result.mediaUrl && (
+                          <a
+                            href={result.mediaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            download={filename}
+                            className="bg-amber-500 hover:bg-amber-600 text-white font-bold text-[11px] px-2.5 h-8 rounded-lg flex items-center justify-center gap-1 shadow-md transition-all active:scale-95 shrink-0"
+                            title="Direct Download Link"
+                          >
+                            <Download className="w-3.5 h-3.5" />
+                            <span>Direct</span>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </>
@@ -140,6 +212,7 @@ export default function HeroSection({
           </div>
         </div>
       </div>
+      {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
     </section>
   );
 }

@@ -14,6 +14,7 @@ interface ResultCardProps {
 export function ResultCard({ result }: ResultCardProps) {
   const [toastMessage, setToastMessage] = useState('');
   const [downloadingUrls, setDownloadingUrls] = useState<Record<string, boolean>>({});
+  const [downloadFailed, setDownloadFailed] = useState(false);
 
   if (!result || !result.success) return null;
 
@@ -43,6 +44,7 @@ export function ResultCard({ result }: ResultCardProps) {
   const downloadFile = async (url: string, targetFilename: string) => {
     if (!url) return;
     setDownloadingUrls((prev) => ({ ...prev, [url]: true }));
+    setDownloadFailed(false);
     try {
       const downloadUrl = `/api/proxy-download?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(targetFilename)}`;
       const response = await fetch(downloadUrl);
@@ -63,8 +65,9 @@ export function ResultCard({ result }: ResultCardProps) {
       setTimeout(() => setToastMessage(''), 3000);
     } catch (error) {
       console.error('Download error:', error);
-      setToastMessage('Failed to download media. Please try again.');
-      setTimeout(() => setToastMessage(''), 3000);
+      setDownloadFailed(true);
+      setToastMessage('Download failed. Use the direct link fallback.');
+      setTimeout(() => setToastMessage(''), 4000);
     } finally {
       setDownloadingUrls((prev) => ({ ...prev, [url]: false }));
     }
@@ -127,7 +130,6 @@ export function ResultCard({ result }: ResultCardProps) {
             </p>
           </div>
 
-          {/* Carousel items grid if present */}
           {result.type === 'carousel' && result.items && result.items.length > 0 && (
             <div className="pt-2">
               <p className="text-xs font-semibold text-stone-700 dark:text-stone-300 mb-2">
@@ -157,7 +159,6 @@ export function ResultCard({ result }: ResultCardProps) {
             </div>
           )}
 
-          {/* Action Buttons */}
           <div className="pt-4 flex flex-wrap items-center justify-center md:justify-start gap-3">
             <Button
               size="lg"
@@ -174,6 +175,20 @@ export function ResultCard({ result }: ResultCardProps) {
                 {isMainDownloading ? 'Downloading...' : `Download HD ${result.type?.toUpperCase()}`}
               </span>
             </Button>
+
+            {downloadFailed && result.mediaUrl && (
+              <a
+                href={result.mediaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download={filename}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all active:scale-95 shrink-0"
+                title="Direct Download Link"
+              >
+                <Download className="w-4 h-4" />
+                <span>Direct Link (Fallback)</span>
+              </a>
+            )}
 
             <Button variant="secondary" size="lg" onClick={handleCopyLink}>
               <Copy className="w-4 h-4" />
