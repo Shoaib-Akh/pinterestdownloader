@@ -148,7 +148,7 @@ export default function DMCAPage() {
             </a>
           </div>
           <p className="text-xs text-stone-500 dark:text-stone-400">
-            You may also reach our legal operations team using our <Link href="/contact" className="text-brand-500 font-semibold underline">Contact Support Form</Link>. Notices sent via email are acknowledged and processed within 24 to 48 business hours.
+            You may also reach our legal operations team using our <Link href="/contacts-us" className="text-brand-500 font-semibold underline">Contact Support Form</Link>. Notices sent via email are acknowledged and processed within 24 to 48 business hours.
           </p>
         </section>
 

@@ -166,7 +166,7 @@ export default function ContactPage() {
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-brand-500 transition-colors">
+                <Link href="/privacy-policy" className="hover:text-brand-500 transition-colors">
                   • Read Privacy Policy
                 </Link>
               </li>

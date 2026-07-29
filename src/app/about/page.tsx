@@ -232,7 +232,7 @@ export default function AboutPage() {
             <p className="text-xs text-stone-500 dark:text-stone-400">Our engineering team reads every user inquiry.</p>
           </div>
           <Link
-            href="/contact"
+            href="/contacts-us"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-500 text-white font-semibold text-sm hover:bg-brand-600 transition-colors shadow-md shadow-brand-500/20 shrink-0"
           >
             <Mail className="w-4 h-4" /> Contact Support Team

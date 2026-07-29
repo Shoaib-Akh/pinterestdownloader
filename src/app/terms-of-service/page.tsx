@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'PintSave Terms and Conditions — Terms of Service & Usage Policy',
     description: 'PintSave Terms and Conditions detailing acceptable use policy, copyright compliance, and trademark disclaimers.',
-    url: 'https://pintsave.app/terms',
+    url: 'https://pintsave.app/terms-of-service',
   },
 };
 
@@ -20,7 +20,7 @@ export default function TermsPage() {
     '@type': 'WebPage',
     name: 'PintSave Terms and Conditions',
     description: 'Official Terms and Conditions and Terms of Service governing the use of PintSave web application.',
-    url: 'https://pintsave.app/terms',
+    url: 'https://pintsave.app/terms-of-service',
   };
 
   return (
@@ -60,7 +60,7 @@ export default function TermsPage() {
             Welcome to <strong>PintSave</strong> (accessible from <code className="bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded text-stone-800 dark:text-stone-200">https://pintsave.app</code>). These Terms and Conditions govern your access to and use of the PintSave website, media extraction tools, APIs, and associated web services.
           </p>
           <p>
-            By accessing, browsing, or using PintSave to process or download any media, you confirm that you have read, understood, and agree to be legally bound by these Terms and Conditions and our <Link href="/privacy" className="text-brand-500 underline font-medium hover:text-brand-600">Privacy Policy</Link>. If you do not agree with any provision of these terms, you must immediately cease accessing and using our service.
+            By accessing, browsing, or using PintSave to process or download any media, you confirm that you have read, understood, and agree to be legally bound by these Terms and Conditions and our <Link href="/privacy-policy" className="text-brand-500 underline font-medium hover:text-brand-600">Privacy Policy</Link>. If you do not agree with any provision of these terms, you must immediately cease accessing and using our service.
           </p>
         </section>
 
@@ -246,7 +246,7 @@ export default function TermsPage() {
             <Mail className="w-5 h-5 text-brand-500" /> Contact Our Legal & Support Team
           </h3>
           <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-            If you have questions regarding these Terms and Conditions or require legal clarification, please submit a query via our <Link href="/contact" className="text-brand-500 font-semibold underline">Contact Form</Link> or email our support desk at:
+            If you have questions regarding these Terms and Conditions or require legal clarification, please submit a query via our <Link href="/contacts-us" className="text-brand-500 font-semibold underline">Contact Form</Link> or email our support desk at:
           </p>
           <div className="pt-1">
             <a 

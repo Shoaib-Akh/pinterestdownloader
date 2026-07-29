@@ -63,7 +63,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-brand-500 transition-colors">
+                <Link href="/contacts-us" className="hover:text-brand-500 transition-colors">
                   Contact Support
                 </Link>
               </li>
@@ -82,12 +82,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs font-medium text-stone-600 dark:text-stone-400">
               <li>
-                <Link href="/privacy" className="hover:text-brand-500 transition-colors">
+                <Link href="/privacy-policy" className="hover:text-brand-500 transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-brand-500 transition-colors">
+                <Link href="/terms-of-service" className="hover:text-brand-500 transition-colors">
                   Terms of Service
                 </Link>
               </li>

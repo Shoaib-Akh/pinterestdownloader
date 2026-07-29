@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'PintSave Privacy Policy — Data Protection & Privacy Rights',
     description: 'PintSave Privacy Policy detailing transparent data practices, zero-log architecture, and user rights.',
-    url: 'https://pintsave.app/privacy',
+    url: 'https://pintsave.app/privacy-policy',
   },
 };
 
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
     '@type': 'WebPage',
     name: 'PintSave Privacy Policy',
     description: 'Official Privacy Policy for PintSave, detailing data collection minimization, zero storage of media files, GDPR compliance, and CCPA privacy rights.',
-    url: 'https://pintsave.app/privacy',
+    url: 'https://pintsave.app/privacy-policy',
   };
 
   return (
@@ -123,7 +123,7 @@ export default function PrivacyPage() {
             4. User-Initiated Communications (Contact Form Submissions)
           </h2>
           <p>
-            If you voluntarily reach out to us via our <Link href="/contact" className="text-brand-500 underline font-medium hover:text-brand-600">Contact Form</Link> or send an email to our support team, we receive the information you choose to provide:
+            If you voluntarily reach out to us via our <Link href="/contacts-us" className="text-brand-500 underline font-medium hover:text-brand-600">Contact Form</Link> or send an email to our support team, we receive the information you choose to provide:
           </p>
           <ul className="list-disc pl-6 space-y-1.5 text-sm">
             <li>Your name or alias</li>
@@ -249,7 +249,7 @@ export default function PrivacyPage() {
             <Mail className="w-5 h-5 text-brand-500" /> Contact Our Data Protection Team
           </h3>
           <p className="text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
-            If you have any questions regarding this Privacy Policy, wish to exercise your data subject privacy rights, or need assistance, please submit a message via our <Link href="/contact" className="text-brand-500 font-semibold underline">Contact Form</Link> or send a direct message to our Data Protection Officer at:
+            If you have any questions regarding this Privacy Policy, wish to exercise your data subject privacy rights, or need assistance, please submit a message via our <Link href="/contacts-us" className="text-brand-500 font-semibold underline">Contact Form</Link> or send a direct message to our Data Protection Officer at:
           </p>
           <div className="pt-1">
             <a 
