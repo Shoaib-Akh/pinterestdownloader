@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { useTheme } from '@/providers/theme-provider';
 import { Moon, Sun, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 
 export default function Header() {
+  const pathname = usePathname();
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -36,25 +38,30 @@ export default function Header() {
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600 dark:text-stone-300">
-          <Link href="/pinterest-video-downloader" className="hover:text-brand-500 transition-colors">
-            Video
-          </Link>
-          <Link href="/pinterest-image-downloader" className="hover:text-brand-500 transition-colors">
-            Image
-          </Link>
-          <Link href="/pinterest-gif-downloader" className="hover:text-brand-500 transition-colors">
-            GIF
-          </Link>
-          <Link href="/blog" className="hover:text-brand-500 transition-colors">
-            Blog
-          </Link>
-          <Link href="/about" className="hover:text-brand-500 transition-colors">
-            About
-          </Link>
-          <Link href="/contacts-us" className="hover:text-brand-500 transition-colors">
-            Contact
-          </Link>
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+          {[
+            { href: '/pinterest-video-downloader', label: 'Video' },
+            { href: '/pinterest-image-downloader', label: 'Image' },
+            { href: '/pinterest-gif-downloader', label: 'GIF' },
+            { href: '/blog', label: 'Blog' },
+            { href: '/about', label: 'About' },
+            { href: '/contacts-us', label: 'Contact' },
+          ].map((link) => {
+            const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`transition-colors duration-200 ${
+                  isActive
+                    ? 'text-brand-500 dark:text-brand-400 font-semibold'
+                    : 'text-stone-600 dark:text-stone-300 hover:text-brand-500 dark:hover:text-brand-400'
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Actions */}
