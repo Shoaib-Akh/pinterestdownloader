@@ -15,7 +15,7 @@ export async function GET(
       const dbPost = await prisma.blog.findUnique({
         where: { slug },
       });
-      if (dbPost && dbPost.published) {
+      if (dbPost) {
         return NextResponse.json({ data: dbPost });
       }
     } catch (dbErr) {

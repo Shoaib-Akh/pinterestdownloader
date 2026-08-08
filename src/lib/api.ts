@@ -305,15 +305,29 @@ export async function sendContactMessage(payload: ContactPayload): Promise<{ suc
 }
 
 export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPost[]; pagination: { page: number; limit: number; total: number; totalPages: number } }> {
+  // 1. Try local Next.js API first
+  try {
+    const baseUrl = typeof window !== 'undefined' ? '' : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
+    const res = await fetch(`${baseUrl}/api/blog?page=${page}&limit=${limit}`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+        return data;
+      }
+    }
+  } catch {}
+
+  // 2. Try remote API server
   try {
     const res = await fetch(`${API_BASE}/api/blog?page=${page}&limit=${limit}`, { cache: 'no-store' });
-    const data = await res.json();
-    if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-      return data;
+    if (res.ok) {
+      const data = await res.json();
+      if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+        return data;
+      }
     }
-  } catch {
-    // Fallback
-  }
+  } catch {}
+
   return {
     data: SAMPLE_BLOG_POSTS,
     pagination: {
@@ -326,15 +340,30 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  // 1. Try local Next.js API first
+  try {
+    const baseUrl = typeof window !== 'undefined' ? '' : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
+    const res = await fetch(`${baseUrl}/api/blog/${slug}`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.data) {
+        return data.data;
+      }
+    }
+  } catch {}
+
+  // 2. Try remote API server
   try {
     const res = await fetch(`${API_BASE}/api/blog/${slug}`, { cache: 'no-store' });
-    const data = await res.json();
-    if (data.data) {
-      return data.data;
+    if (res.ok) {
+      const data = await res.json();
+      if (data.data) {
+        return data.data;
+      }
     }
-  } catch {
-    // Fallback
-  }
+  } catch {}
+
+  // 3. Check sample posts
   const match = SAMPLE_BLOG_POSTS.find((p) => p.slug === slug);
   return match || null;
 }

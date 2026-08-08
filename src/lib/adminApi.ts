@@ -206,6 +206,28 @@ export async function fetchAdminBlogs(): Promise<AdminBlogItem[]> {
 }
 
 export async function saveAdminBlog(blog: Partial<AdminBlogItem>) {
+  // 1. Save to local Next.js admin API
+  try {
+    const isEdit = Boolean(blog.id);
+    const localUrl = isEdit ? `/api/admin/blog/${blog.id}` : `/api/admin/blog`;
+    const method = isEdit ? 'PUT' : 'POST';
+
+    const localRes = await fetch(localUrl, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(blog),
+    });
+    if (localRes.ok) {
+      const data = await localRes.json();
+      if (data.success) {
+        return data;
+      }
+    }
+  } catch (err) {
+    console.warn('Local admin blog save failed, trying remote:', err);
+  }
+
+  // 2. Fallback / Sync with remote API_BASE
   try {
     const isEdit = Boolean(blog.id);
     const url = isEdit ? `${API_BASE}/api/admin/blog/${blog.id}` : `${API_BASE}/api/admin/blog`;
