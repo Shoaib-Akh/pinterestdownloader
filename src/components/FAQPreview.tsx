@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { getFAQs } from '@/lib/api';
 import { Button } from './ui/button';
+import { useLanguage } from '@/providers/language-provider';
 
 export default function FAQPreview() {
+  const { t } = useLanguage();
   const [faqs, setFaqs] = useState<Array<{ id: string; question: string; answer: string }>>([]);
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
@@ -22,10 +24,10 @@ export default function FAQPreview() {
     <section id="faq" className="py-20 max-w-4xl mx-auto px-4 sm:px-6 space-y-10">
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-          Frequently Asked Questions
+          {t('nav_faq', 'Frequently Asked Questions')}
         </h2>
         <p className="text-stone-600 dark:text-stone-400 text-sm sm:text-base leading-relaxed">
-          Clear, straightforward answers about downloading Pinterest videos, original 4K images, and GIFs with PintSave.
+          {t('hero_subtitle', 'Clear, straightforward answers about downloading Pinterest videos, original 4K images, and GIFs with PintSave.')}
         </p>
       </div>
 
@@ -58,7 +60,7 @@ export default function FAQPreview() {
       <div className="text-center pt-4">
         <Link href="/faq">
           <Button variant="outline" size="md">
-            <span>See all questions & answers</span>
+            <span>{t('search_language', 'See all questions & answers')}</span>
             <ArrowRight className="w-4 h-4" />
           </Button>
         </Link>

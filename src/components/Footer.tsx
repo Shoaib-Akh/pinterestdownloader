@@ -1,8 +1,13 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Heart } from 'lucide-react';
+import { useLanguage } from '@/providers/language-provider';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-white dark:bg-stone-950 border-t border-stone-200/80 dark:border-stone-800/80 py-12 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -18,29 +23,29 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
-              The high-speed, free Pinterest downloader engine. Save original HD videos, 4K photos, and GIFs instantly.
+              {t('footer_desc', 'PintSave is the fastest free tool for saving Pinterest videos, 4K images, and GIFs in original HD quality.')}
             </p>
           </div>
 
           {/* Tools */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-white">
-              Downloader Tools
+              {t('footer_quick_links', 'Downloader Tools')}
             </h4>
             <ul className="space-y-2 text-xs font-medium text-stone-600 dark:text-stone-400">
               <li>
                 <Link href="/pinterest-video-downloader" className="hover:text-brand-500 transition-colors">
-                  Pinterest Video Downloader
+                  {t('nav_video', 'Pinterest Video Downloader')}
                 </Link>
               </li>
               <li>
                 <Link href="/pinterest-image-downloader" className="hover:text-brand-500 transition-colors">
-                  Pinterest Image Downloader
+                  {t('nav_image', 'Pinterest Image Downloader')}
                 </Link>
               </li>
               <li>
                 <Link href="/pinterest-gif-downloader" className="hover:text-brand-500 transition-colors">
-                  Pinterest GIF Downloader
+                  {t('nav_gif', 'Pinterest GIF Downloader')}
                 </Link>
               </li>
             </ul>
@@ -49,27 +54,27 @@ export default function Footer() {
           {/* Resources */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-white">
-              Resources & Blog
+              {t('nav_blog', 'Blog')} & {t('nav_faq', 'FAQ')}
             </h4>
             <ul className="space-y-2 text-xs font-medium text-stone-600 dark:text-stone-400">
               <li>
                 <Link href="/blog" className="hover:text-brand-500 transition-colors">
-                  Blog & Tutorials
+                  {t('nav_blog', 'Blog')}
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-brand-500 transition-colors">
-                  About PintSave
+                  {t('nav_about', 'About Us')}
                 </Link>
               </li>
               <li>
                 <Link href="/contacts-us" className="hover:text-brand-500 transition-colors">
-                  Contact Support
+                  {t('nav_contact', 'Contact')}
                 </Link>
               </li>
               <li>
                 <Link href="/#faq" className="hover:text-brand-500 transition-colors">
-                  Frequently Asked Questions
+                  {t('nav_faq', 'FAQ')}
                 </Link>
               </li>
             </ul>
@@ -78,7 +83,7 @@ export default function Footer() {
           {/* Legal */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-white">
-              Legal Compliance
+              {t('footer_legal', 'Legal Compliance')}
             </h4>
             <ul className="space-y-2 text-xs font-medium text-stone-600 dark:text-stone-400">
               <li>
@@ -101,7 +106,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-500 dark:text-stone-400">
-          <p>© {new Date().getFullYear()} PintSave. All rights reserved. Not affiliated with Pinterest, Inc.</p>
+          <p>© {new Date().getFullYear()} PintSave. {t('footer_rights', 'All rights reserved. PintSave is not affiliated with Pinterest.')}</p>
           <p className="flex items-center gap-1.5 font-medium">
             <span>Made by</span>
             <span className="font-bold text-stone-900 dark:text-white hover:text-brand-500 transition-colors">

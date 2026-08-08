@@ -1,6 +1,9 @@
+'use client';
+
 import Link from 'next/link';
-import { Download, Sparkles, Zap, ShieldCheck } from 'lucide-react';
+import { Download, Sparkles, ShieldCheck } from 'lucide-react';
 import { Button } from './ui/button';
+import { useLanguage } from '@/providers/language-provider';
 
 interface CTABannerProps {
   title?: string;
@@ -10,11 +13,17 @@ interface CTABannerProps {
 }
 
 export default function CTABanner({
-  title = "Ready to Save Your Favorite Pinterest Media in Full HD?",
-  description = "Fast, 100% free, uncompressed 4K photo & 1080p MP4 video downloads with zero watermarks or account signups.",
-  buttonText = "Try It Now — Download Free",
-  href = "#downloader",
+  title,
+  description,
+  buttonText,
+  href = '#downloader',
 }: CTABannerProps) {
+  const { t } = useLanguage();
+
+  const bannerTitle = title || t('cta_title', 'Ready to Download Pinterest Media?');
+  const bannerDesc = description || t('cta_subtitle', 'Start saving videos, images, and GIFs in maximum 4K quality instantly.');
+  const bannerBtn = buttonText || t('cta_btn', 'Start Downloading Now');
+
   return (
     <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6">
       <div className="relative rounded-3xl bg-stone-900 dark:bg-stone-900 border border-stone-800 p-8 sm:p-14 overflow-hidden text-center space-y-6 text-white shadow-2xl">
@@ -28,18 +37,18 @@ export default function CTABanner({
         </div>
 
         <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight max-w-2xl mx-auto leading-tight">
-          {title}
+          {bannerTitle}
         </h2>
 
         <p className="text-stone-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-          {description}
+          {bannerDesc}
         </p>
 
         <div className="pt-2">
           <Link href={href}>
             <Button size="lg" className="px-8 py-4 text-base font-bold flex items-center gap-2 mx-auto shadow-lg hover:scale-105 transition-all">
               <Download className="w-5 h-5" />
-              <span>{buttonText}</span>
+              <span>{bannerBtn}</span>
             </Button>
           </Link>
         </div>

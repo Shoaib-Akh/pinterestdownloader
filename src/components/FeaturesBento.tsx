@@ -1,18 +1,23 @@
+'use client';
+
 import { Zap, ShieldCheck, Smartphone, Sparkles } from 'lucide-react';
 import { BentoGrid, BentoCard } from './ui/bento-grid';
 import { Badge } from './ui/badge';
+import { useLanguage } from '@/providers/language-provider';
 
 export default function FeaturesBento() {
+  const { t } = useLanguage();
+
   return (
     <section id="features" className="py-20 bg-stone-50/50 dark:bg-stone-900/30 border-y border-stone-200/80 dark:border-stone-800">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <Badge variant="brand">KEY FEATURES & ADVANTAGES</Badge>
+          <Badge variant="brand">{t('bento_tag', 'KEY FEATURES & ADVANTAGES')}</Badge>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-            Why Choose Our <span className="text-brand-500">Pinterest Downloader</span>
+            {t('bento_title', 'Why Choose Our Pinterest Downloader')}
           </h2>
           <p className="text-stone-600 dark:text-stone-400 text-base sm:text-lg leading-relaxed">
-            Built specifically to solve low-resolution downloads, slow speeds, and intrusive popups. Here is why creators, designers, and curators prefer PintSave.
+            {t('bento_subtitle', 'Built specifically to solve low-resolution downloads and slow speeds.')}
           </p>
         </div>
 
@@ -23,14 +28,14 @@ export default function FeaturesBento() {
               <div className="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-500/10 text-brand-500 flex items-center justify-center">
                 <Zap className="w-6 h-6" />
               </div>
-              <Badge variant="success">INSTANT EXTLECTION</Badge>
+              <Badge variant="success">INSTANT EXTRACTION</Badge>
             </div>
             <div>
               <h3 className="font-bold text-xl text-stone-900 dark:text-white mb-2">
-                Sub-Second Direct Media Extraction
+                {t('bento_fast_title', 'Sub-Second Direct Media Extraction')}
               </h3>
               <p className="text-sm text-stone-600 dark:text-stone-400 max-w-lg leading-relaxed">
-                Our fast backend directly inspects Pinterest CDN metadata endpoints and bypasses rate limits. Get direct MP4 video URLs and image links in under one second without waiting in slow queue lines.
+                {t('bento_fast_desc', 'Instant direct URL extraction powered by high-speed engines.')}
               </p>
             </div>
           </BentoCard>
@@ -42,10 +47,10 @@ export default function FeaturesBento() {
             </div>
             <div>
               <h3 className="font-bold text-lg text-stone-900 dark:text-white mb-2">
-                Universal iOS & Android Support
+                {t('bento_safe_title', '100% Safe & Secure')}
               </h3>
               <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                Save media straight into your iPhone Camera Roll or Android Gallery. No app store installation or jailbreaking needed.
+                {t('bento_safe_desc', 'No registration, login, or personal data tracking required.')}
               </p>
             </div>
           </BentoCard>
@@ -57,10 +62,10 @@ export default function FeaturesBento() {
             </div>
             <div>
               <h3 className="font-bold text-lg text-stone-900 dark:text-white mb-2">
-                Uncompressed 4K Master Photos
+                {t('bento_4k_title', 'Uncompressed 4K Quality')}
               </h3>
               <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                Automatically converts compressed 736px web thumbnails into the original high-resolution master file uploaded by creators.
+                {t('bento_4k_desc', 'Save photos and videos in full original resolution without loss.')}
               </p>
             </div>
           </BentoCard>
@@ -75,10 +80,10 @@ export default function FeaturesBento() {
             </div>
             <div>
               <h3 className="font-bold text-xl text-stone-900 dark:text-white mb-2">
-                Watermark-Free & Completely Anonymous
+                {t('bento_no_wm_title', 'No Watermarks')}
               </h3>
               <p className="text-sm text-stone-600 dark:text-stone-400 max-w-lg leading-relaxed">
-                We respect your personal privacy. Enjoy clean downloads without logos, brand overlays, account signups, or tracking cookies storing your download activity.
+                {t('bento_no_wm_desc', 'Get clean downloads without added branding or watermarks.')}
               </p>
             </div>
           </BentoCard>

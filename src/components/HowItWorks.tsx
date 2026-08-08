@@ -1,25 +1,30 @@
+'use client';
+
 import { Copy, Sparkles, Download } from 'lucide-react';
 import { Card } from './ui/card';
+import { useLanguage } from '@/providers/language-provider';
 
 export default function HowItWorks() {
+  const { t } = useLanguage();
+
   const steps = [
     {
       step: '01',
       icon: Copy,
-      title: 'Copy the Pinterest Pin Link',
-      description: 'Open the Pinterest mobile app or browse pinterest.com in your web browser. Find the video pin, photo, carousel, or GIF you want to download. Tap the Share icon (or the three dots menu on desktop) and select "Copy Link".',
+      title: t('step1_title', 'Copy Pinterest URL'),
+      description: t('step1_desc', 'Open Pinterest app or site and copy the link of the pin you want to save.'),
     },
     {
       step: '02',
       icon: Sparkles,
-      title: 'Paste URL into PintSave',
-      description: 'Paste your copied link into the search bar at the top of PintSave. Our system instantly parses the URL, resolves the direct source media link from Pinterest CDN servers, and prepares your file for uncompressed download.',
+      title: t('step2_title', 'Paste into PintSave'),
+      description: t('step2_desc', 'Paste the link into the search field above and click the Download button.'),
     },
     {
       step: '03',
       icon: Download,
-      title: 'Save Original HD File',
-      description: 'Click "Download HD" to save the master high-bitrate MP4 video, original 4K photo, or animated GIF directly to your iPhone Camera Roll, Android Downloads folder, or desktop computer.',
+      title: t('step3_title', 'Save HD File'),
+      description: t('step3_desc', 'Click Download HD to save high quality media to your device storage.'),
     },
   ];
 
@@ -27,10 +32,10 @@ export default function HowItWorks() {
     <section className="py-20 max-w-6xl mx-auto px-4 sm:px-6">
       <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-          How to Download Pinterest Media in <span className="text-brand-500">3 Simple Steps</span>
+          {t('how_title', 'How to Save Pinterest Media')}
         </h2>
         <p className="text-stone-600 dark:text-stone-400 text-base sm:text-lg">
-          No mandatory accounts, software installation, or tricky browser extensions. Straightforward and instant.
+          {t('how_subtitle', 'Follow these easy steps to download any video, photo, or GIF in seconds.')}
         </p>
       </div>
 

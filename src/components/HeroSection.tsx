@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Sparkles, ShieldCheck, Zap, Loader2, Play, FileVideo, Image as ImageIcon, Film, Layers, Download } from 'lucide-react';
+import { Sparkles, ShieldCheck, Zap, Loader2, Play, Download } from 'lucide-react';
 import DownloaderForm from './DownloaderForm';
 import { Badge } from './ui/badge';
 import { MediaResult } from '@/lib/api';
 import { Button } from './ui/button';
 import { Toast } from './ui/toast';
+import { useLanguage } from '@/providers/language-provider';
 
 interface HeroSectionProps {
   badgeText?: string;
@@ -17,21 +18,26 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({
-  badgeText = '100% Free · No Signup · Watermark-Free',
-  title = (
-    <>
-      Download <span className="text-brand-500 underline decoration-brand-200 dark:decoration-brand-900">Pinterest Videos</span> & Images in Original 4K HD
-    </>
-  ),
-  description = 'Extract uncompressed original photos, high-bitrate MP4 video reels, and animated GIFs directly from Pinterest. Fast, free, and saved straight to your device.',
-  placeholder = 'Paste Pinterest pin URL here (e.g. https://pin.it/... or pinterest.com/pin/...)',
+  badgeText,
+  title,
+  description,
+  placeholder,
   previewImage = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
 }: HeroSectionProps) {
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MediaResult | null>(null);
   const [downloadingUrls, setDownloadingUrls] = useState<Record<string, boolean>>({});
   const [toastMessage, setToastMessage] = useState('');
   const [downloadFailed, setDownloadFailed] = useState(false);
+
+  const heroBadge = badgeText || '100% Free · No Signup · Watermark-Free';
+  const heroTitle = title || (
+    <>
+      {t('hero_title', 'Download Pinterest Videos, Images & GIFs in 4K')}
+    </>
+  );
+  const heroDescription = description || t('hero_subtitle', 'The fastest free tool to download Pinterest media in maximum quality.');
 
   const filename = result ? `pintsave_${result.pinId || Date.now()}.${
     result.type === 'video' ? 'mp4' : result.type === 'gif' ? 'gif' : 'jpg'
@@ -78,7 +84,7 @@ export default function HeroSection({
         <div className="lg:col-span-7 space-y-6 text-left">
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="brand">
-              <Sparkles className="w-3.5 h-3.5" /> {badgeText}
+              <Sparkles className="w-3.5 h-3.5" /> {heroBadge}
             </Badge>
             <Badge variant="secondary">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" /> Original 4K HD
@@ -86,11 +92,11 @@ export default function HeroSection({
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-stone-900 dark:text-white leading-[1.1]">
-            {title}
+            {heroTitle}
           </h1>
 
           <p className="text-base sm:text-lg text-stone-600 dark:text-stone-400 max-w-xl font-normal leading-relaxed">
-            {description}
+            {heroDescription}
           </p>
 
           <div className="pt-2">

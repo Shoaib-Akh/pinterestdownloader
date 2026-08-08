@@ -5,9 +5,8 @@ import { Download, Link as LinkIcon, Loader2, Check } from 'lucide-react';
 import { downloadMedia, MediaResult } from '@/lib/api';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Skeleton } from './ui/skeleton';
-import { ResultCard } from './ResultCard';
 import { Toast } from './ui/toast';
+import { useLanguage } from '@/providers/language-provider';
 
 interface DownloaderFormProps {
   placeholder?: string;
@@ -16,16 +15,19 @@ interface DownloaderFormProps {
 }
 
 export default function DownloaderForm({
-  placeholder = "Paste Pinterest link here (e.g. https://pin.it/...)",
+  placeholder,
   onLoadingChange,
   onResultChange,
 }: DownloaderFormProps) {
+  const { t } = useLanguage();
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MediaResult | null>(null);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+
+  const defaultPlaceholder = placeholder || t('paste_placeholder', 'Paste Pinterest link here...');
 
   const handlePaste = async () => {
     try {
@@ -76,10 +78,10 @@ export default function DownloaderForm({
             type="url"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder={placeholder}
-            icon={<LinkIcon className="w-5 h-5" />}
+            placeholder={defaultPlaceholder}
+            icon={<LinkIcon className="w-5 h-5 text-stone-400" />}
             required
-            className="pr-20"
+            className="pr-20 text-stone-900 dark:text-stone-100 placeholder-stone-400"
           />
           <button
             type="button"
@@ -91,9 +93,9 @@ export default function DownloaderForm({
           </button>
         </div>
 
-        <Button type="submit" size="lg" disabled={loading} className="shrink-0">
+        <Button type="submit" size="lg" disabled={loading} className="shrink-0 font-bold px-7">
           {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
-          <span>{loading ? 'Processing...' : 'Download'}</span>
+          <span>{loading ? t('downloading', 'Processing...') : t('download_btn', 'Download')}</span>
         </Button>
       </form>
 
@@ -103,21 +105,6 @@ export default function DownloaderForm({
           {error}
         </div>
       )}
-
-      {/* Loading Skeleton */}
-      {/* {loading && (
-        <div className="bg-white dark:bg-stone-900 rounded-3xl p-8 border border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row gap-6">
-          <Skeleton className="w-full sm:w-64 h-64 rounded-2xl" />
-          <div className="flex-1 space-y-4 py-2">
-            <Skeleton className="h-6 w-3/4" />
-            <Skeleton className="h-4 w-1/2" />
-            <Skeleton className="h-12 w-48 mt-4" />
-          </div>
-        </div>
-      )} */}
-
-      {/* Extraction Result Card */}
-      {/* {result && <ResultCard result={result} />} */}
 
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
     </div>

@@ -5,6 +5,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { LanguageProvider } from '@/providers/language-provider';
 
 const sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -69,12 +70,13 @@ export default function RootLayout({
           `}
         </Script>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <LanguageProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
   );
 }
-
