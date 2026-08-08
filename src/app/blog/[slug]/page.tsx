@@ -136,56 +136,55 @@ export default async function BlogPostPage({ params }: Props) {
         <ArrowLeft className="w-4 h-4" /> Back to all articles
       </Link>
 
-      {/* Article Header */}
-      <header className="space-y-4">
-        <div className="flex flex-wrap items-center gap-4 text-xs text-stone-500 dark:text-stone-400">
-          <span className="inline-flex items-center gap-1 text-brand-500 font-semibold bg-brand-50 dark:bg-brand-500/10 px-2.5 py-1 rounded-full border border-brand-200 dark:border-brand-500/20">
-            <Tag className="w-3 h-3" /> Pinterest Guide
-          </span>
-          <span className="flex items-center gap-1">
-            <Calendar className="w-3.5 h-3.5" />
-            {new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            })}
-          </span>
-          <span className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" /> 5 min read
-          </span>
-        </div>
+      {/* Article Header (For standard posts) */}
+      {!/<[a-z][\s\S]*>/i.test(post.content || '') && (
+        <header className="space-y-4">
+          <div className="flex flex-wrap items-center gap-4 text-xs text-stone-500 dark:text-stone-400">
+            <span className="inline-flex items-center gap-1 text-brand-500 font-semibold bg-brand-50 dark:bg-brand-500/10 px-2.5 py-1 rounded-full border border-brand-200 dark:border-brand-500/20">
+              <Tag className="w-3 h-3" /> Pinterest Guide
+            </span>
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3.5 h-3.5" />
+              {new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5" /> 5 min read
+            </span>
+          </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-stone-900 dark:text-white leading-tight">
-          {post.title}
-        </h1>
+          {post.title && (
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-stone-900 dark:text-white leading-tight">
+              {post.title}
+            </h1>
+          )}
 
-        <p className="text-stone-600 dark:text-stone-300 text-base sm:text-lg leading-relaxed font-medium">
-          {post.excerpt}
-        </p>
-      </header>
-
-      {/* Cover Image */}
-      {post.coverImage && (
-        <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden shadow-sm bg-stone-200 dark:bg-stone-800">
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 1024px) 100vw, 896px"
-          />
-        </div>
+          {post.excerpt && (
+            <p className="text-stone-600 dark:text-stone-300 text-base sm:text-lg leading-relaxed font-medium">
+              {post.excerpt}
+            </p>
+          )}
+        </header>
       )}
 
       {/* Article Body */}
       <article className="bg-white dark:bg-stone-900 p-6 sm:p-12 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-sm space-y-6">
         {post.content ? (
-          <div className="space-y-6">
-            {renderMarkdownContent(post.content)}
-          </div>
+          /<[a-z][\s\S]*>/i.test(post.content) ? (
+            <div
+              className="article-content"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          ) : (
+            <div className="space-y-6">
+              {renderMarkdownContent(post.content)}
+            </div>
+          )
         ) : (
-          <p>Content loading...</p>
+          <p className="text-stone-500">Content loading...</p>
         )}
       </article>
 
