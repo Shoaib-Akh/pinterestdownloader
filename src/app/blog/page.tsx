@@ -19,7 +19,8 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogListPage() {
-  const { data: posts } = await getBlogPosts(1, 10);
+  const result = await getBlogPosts(1, 10);
+  const posts = result?.data || [];
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 w-full space-y-12">

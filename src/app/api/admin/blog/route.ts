@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { slugify } from '@/lib/api';
 
 export const dynamic = 'force-dynamic';
 
@@ -31,10 +32,12 @@ export async function POST(request: Request) {
       );
     }
 
+    const cleanSlug = slugify(slug) || slug;
+
     const blog = await prisma.blog.create({
       data: {
         title,
-        slug,
+        slug: cleanSlug,
         excerpt: excerpt || null,
         content,
         coverImage: coverImage || null,

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { slugify } from '@/lib/api';
 
 export async function PUT(
   request: Request,
@@ -10,11 +11,13 @@ export async function PUT(
     const body = await request.json();
     const { title, slug, excerpt, content, coverImage, published } = body;
 
+    const cleanSlug = slug ? (slugify(slug) || slug) : undefined;
+
     const blog = await prisma.blog.update({
       where: { id },
       data: {
         ...(title && { title }),
-        ...(slug && { slug }),
+        ...(cleanSlug && { slug: cleanSlug }),
         ...(excerpt !== undefined && { excerpt }),
         ...(content && { content }),
         ...(coverImage !== undefined && { coverImage }),

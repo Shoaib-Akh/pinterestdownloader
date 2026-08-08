@@ -1,3 +1,5 @@
+import { prisma } from '@/lib/prisma';
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://pintsave-backend.onrender.com';
 
 export interface MediaResult {
@@ -304,26 +306,79 @@ export async function sendContactMessage(payload: ContactPayload): Promise<{ suc
   }
 }
 
-export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPost[]; pagination: { page: number; limit: number; total: number; totalPages: number } }> {
-  // 1. Try local Next.js API first
-  try {
-    const baseUrl = typeof window !== 'undefined' ? '' : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
-    const res = await fetch(`${baseUrl}/api/blog?page=${page}&limit=${limit}`, { cache: 'no-store' });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-        return data;
-      }
-    }
-  } catch {}
+export function slugify(text: string): string {
+  if (!text) return '';
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
-  // 2. Try remote API server
+export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPost[]; pagination: { page: number; limit: number; total: number; totalPages: number } }> {
+  // If on server, query Prisma directly or fallback instantly to prevent self-HTTP timeouts
+  if (typeof window === 'undefined') {
+    try {
+      const skip = (page - 1) * limit;
+      const [dbPosts, total] = await Promise.all([
+        prisma.blog.findMany({
+          where: { published: true },
+          orderBy: { createdAt: 'desc' },
+          skip,
+          take: limit,
+        }),
+        prisma.blog.count({ where: { published: true } }),
+      ]);
+
+      if (dbPosts && dbPosts.length > 0) {
+        const formatted: BlogPost[] = dbPosts.map((p) => ({
+          id: p.id,
+          title: p.title,
+          slug: slugify(p.slug) || p.slug,
+          excerpt: p.excerpt || '',
+          content: p.content,
+          coverImage: p.coverImage || undefined,
+          publishedAt: p.publishedAt ? p.publishedAt.toISOString() : p.createdAt.toISOString(),
+          createdAt: p.createdAt.toISOString(),
+        }));
+        return {
+          data: formatted,
+          pagination: {
+            page,
+            limit,
+            total,
+            totalPages: Math.ceil(total / limit),
+          },
+        };
+      }
+    } catch (err) {
+      console.warn('Prisma blog query warning:', err);
+    }
+
+    return {
+      data: SAMPLE_BLOG_POSTS,
+      pagination: {
+        page: 1,
+        limit: 10,
+        total: SAMPLE_BLOG_POSTS.length,
+        totalPages: 1,
+      },
+    };
+  }
+
+  // Client-side fetch
   try {
-    const res = await fetch(`${API_BASE}/api/blog?page=${page}&limit=${limit}`, { cache: 'no-store' });
+    const res = await fetch(`/api/blog?page=${page}&limit=${limit}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-        return data;
+        const cleanData = data.data.map((p: any) => ({
+          ...p,
+          slug: slugify(p.slug) || p.slug,
+        }));
+        return { ...data, data: cleanData };
       }
     }
   } catch {}
@@ -340,32 +395,68 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  // 1. Try local Next.js API first
+  const cleanTarget = slugify(slug) || slug.toLowerCase().trim();
+
+  // If on server, query Prisma directly or fallback instantly
+  if (typeof window === 'undefined') {
+    try {
+      // 1. Exact match
+      let p = await prisma.blog.findUnique({
+        where: { slug },
+      });
+
+      // 2. Try match by clean slug
+      if (!p && cleanTarget !== slug) {
+        p = await prisma.blog.findUnique({
+          where: { slug: cleanTarget },
+        });
+      }
+
+      // 3. Fallback scan matching normalized slugs
+      if (!p) {
+        const allPosts = await prisma.blog.findMany({ where: { published: true } });
+        p = allPosts.find((item) => slugify(item.slug) === cleanTarget || item.slug.toLowerCase().trim() === slug.toLowerCase().trim()) || null;
+      }
+
+      if (p && p.published) {
+        return {
+          id: p.id,
+          title: p.title,
+          slug: slugify(p.slug) || p.slug,
+          excerpt: p.excerpt || '',
+          content: p.content,
+          coverImage: p.coverImage || undefined,
+          publishedAt: p.publishedAt ? p.publishedAt.toISOString() : p.createdAt.toISOString(),
+          createdAt: p.createdAt.toISOString(),
+        };
+      }
+    } catch (err) {
+      console.warn('Prisma blog slug query warning:', err);
+    }
+
+    const match = SAMPLE_BLOG_POSTS.find((item) => slugify(item.slug) === cleanTarget || item.slug === slug);
+    if (match) {
+      return { ...match, slug: slugify(match.slug) || match.slug };
+    }
+    return null;
+  }
+
+  // Client-side fetch
   try {
-    const baseUrl = typeof window !== 'undefined' ? '' : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000');
-    const res = await fetch(`${baseUrl}/api/blog/${slug}`, { cache: 'no-store' });
+    const res = await fetch(`/api/blog/${encodeURIComponent(slug)}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (data.data) {
-        return data.data;
+        return { ...data.data, slug: slugify(data.data.slug) || data.data.slug };
       }
     }
   } catch {}
 
-  // 2. Try remote API server
-  try {
-    const res = await fetch(`${API_BASE}/api/blog/${slug}`, { cache: 'no-store' });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.data) {
-        return data.data;
-      }
-    }
-  } catch {}
-
-  // 3. Check sample posts
-  const match = SAMPLE_BLOG_POSTS.find((p) => p.slug === slug);
-  return match || null;
+  const match = SAMPLE_BLOG_POSTS.find((item) => slugify(item.slug) === cleanTarget || item.slug === slug);
+  if (match) {
+    return { ...match, slug: slugify(match.slug) || match.slug };
+  }
+  return null;
 }
 
 export async function getPublicStats() {
@@ -384,13 +475,24 @@ export async function getPublicStats() {
 }
 
 export async function getFAQs() {
-  try {
-    const res = await fetch(`${API_BASE}/api/faq`, { cache: 'no-store' });
-    const data = await res.json();
-    if (data.data) return data.data;
-  } catch {
-    // Fallback
+  if (typeof window === 'undefined') {
+    try {
+      const dbFaqs = await prisma.fAQ.findMany({
+        where: { published: true },
+        orderBy: { order: 'asc' },
+      });
+      if (dbFaqs && dbFaqs.length > 0) {
+        return dbFaqs;
+      }
+    } catch {}
+  } else {
+    try {
+      const res = await fetch('/api/faq', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.data) return data.data;
+    } catch {}
   }
+
   return [
     {
       id: '1',

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { SAMPLE_BLOG_POSTS } from '@/lib/api';
+import { SAMPLE_BLOG_POSTS, slugify } from '@/lib/api';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,22 +9,35 @@ export async function GET(
   { params }: { params: { slug: string } }
 ) {
   try {
-    const slug = params.slug;
+    const rawSlug = params.slug;
+    const cleanTarget = slugify(rawSlug);
 
     try {
-      const dbPost = await prisma.blog.findUnique({
-        where: { slug },
+      let dbPost = await prisma.blog.findUnique({
+        where: { slug: rawSlug },
       });
+
+      if (!dbPost && cleanTarget) {
+        dbPost = await prisma.blog.findUnique({
+          where: { slug: cleanTarget },
+        });
+      }
+
+      if (!dbPost) {
+        const allPosts = await prisma.blog.findMany({ where: { published: true } });
+        dbPost = allPosts.find((p) => slugify(p.slug) === cleanTarget || p.slug.toLowerCase() === rawSlug.toLowerCase()) || null;
+      }
+
       if (dbPost) {
-        return NextResponse.json({ data: dbPost });
+        return NextResponse.json({ data: { ...dbPost, slug: slugify(dbPost.slug) || dbPost.slug } });
       }
     } catch (dbErr) {
       console.warn('DB blog slug fetch warning:', dbErr);
     }
 
-    const fallbackPost = SAMPLE_BLOG_POSTS.find((p) => p.slug === slug);
+    const fallbackPost = SAMPLE_BLOG_POSTS.find((p) => slugify(p.slug) === cleanTarget || p.slug === rawSlug);
     if (fallbackPost) {
-      return NextResponse.json({ data: fallbackPost });
+      return NextResponse.json({ data: { ...fallbackPost, slug: slugify(fallbackPost.slug) || fallbackPost.slug } });
     }
 
     return NextResponse.json({ data: null, error: 'Post not found' }, { status: 404 });

@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { useTheme } from '@/providers/theme-provider';
 import { useLanguage } from '@/providers/language-provider';
 import LanguageSelector from './LanguageSelector';
-import TopLanguagesBar from './TopLanguagesBar';
 import {
   Moon,
   Sun,
@@ -121,7 +120,7 @@ export default function Header() {
                 {isActive && (
                   <motion.div
                     layoutId="activeNavTab"
-                    className="absolute bottom-0 left-2.5 right-2.5 h-0.5 bg-brand-500 rounded-full"
+                    className="absolute bottom-0 left-2.5 right-2.5 h-0.5 bg-brand-500 rounded-full pointer-events-none"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -132,11 +131,6 @@ export default function Header() {
 
         {/* Action Controls */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* Top 4 Quick Languages */}
-          <div className="hidden xl:block">
-            <TopLanguagesBar />
-          </div>
-
           {/* Language Selector Dropdown */}
           <LanguageSelector variant="navbar" />
 
@@ -184,14 +178,6 @@ export default function Header() {
             className="lg:hidden overflow-hidden bg-white/95 dark:bg-stone-950/95 backdrop-blur-2xl border-b border-stone-200 dark:border-stone-800"
           >
             <div className="max-w-7xl mx-auto px-4 py-5 space-y-5">
-              
-              {/* Quick Languages Bar in Mobile */}
-              <div>
-                <div className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-2 px-1">
-                  Quick Languages
-                </div>
-                <TopLanguagesBar />
-              </div>
 
               {/* Downloader Tools Header */}
               <div>
