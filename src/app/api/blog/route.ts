@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { SAMPLE_BLOG_POSTS } from '@/lib/api';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,16 +27,8 @@ export async function GET(request: Request) {
       console.warn('DB blog query warning:', dbErr);
     }
 
-    if (!posts || posts.length === 0) {
-      return NextResponse.json({
-        data: SAMPLE_BLOG_POSTS,
-        pagination: {
-          page: 1,
-          limit,
-          total: SAMPLE_BLOG_POSTS.length,
-          totalPages: 1,
-        },
-      });
+    if (!posts) {
+      posts = [];
     }
 
     return NextResponse.json({
@@ -46,13 +37,14 @@ export async function GET(request: Request) {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit),
+        totalPages: Math.ceil(total / limit) || 1,
       },
     });
   } catch (error: any) {
-    return NextResponse.json({
-      data: SAMPLE_BLOG_POSTS,
-      pagination: { page: 1, limit: 10, total: SAMPLE_BLOG_POSTS.length, totalPages: 1 },
-    });
+    console.error('API /api/blog error:', error);
+    return NextResponse.json(
+      { data: [], pagination: { page: 1, limit: 10, total: 0, totalPages: 1 }, error: 'Failed to fetch blog posts from database' },
+      { status: 500 }
+    );
   }
 }

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import CTABanner from '@/components/CTABanner';
 import BlogComments from '@/components/BlogComments';
-import { getBlogPostBySlug, SAMPLE_BLOG_POSTS } from '@/lib/api';
+import { getBlogPostBySlug, getBlogPosts } from '@/lib/api';
 import { Calendar, ArrowLeft, BookOpen, Clock, Tag } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -124,7 +124,8 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const relatedPosts = SAMPLE_BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const allPostsResult = await getBlogPosts(1, 10);
+  const relatedPosts = (allPostsResult?.data || []).filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14 w-full space-y-8">

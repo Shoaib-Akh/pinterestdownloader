@@ -63,29 +63,8 @@ export async function POST(
       where: { slug },
     });
 
-    // If blog doesn't exist in the database (e.g. if we are on a static fallback),
-    // let's create the blog post shell in the database so the comments relation works!
     if (!blog) {
-      // Find the template content in static posts to seed it
-      const { SAMPLE_BLOG_POSTS } = require('@/lib/api');
-      const staticPost = SAMPLE_BLOG_POSTS.find((p: any) => p.slug === slug);
-      
-      if (staticPost) {
-        blog = await prisma.blog.create({
-          data: {
-            id: staticPost.id.startsWith('blog-') ? staticPost.id : `blog-${staticPost.id}`,
-            title: staticPost.title,
-            slug: staticPost.slug,
-            excerpt: staticPost.excerpt,
-            content: staticPost.content || '',
-            coverImage: staticPost.coverImage,
-            published: true,
-            publishedAt: new Date(staticPost.publishedAt || staticPost.createdAt),
-          }
-        });
-      } else {
-        return NextResponse.json({ success: false, error: 'Blog post not found' }, { status: 404 });
-      }
+      return NextResponse.json({ success: false, error: 'Blog post not found' }, { status: 404 });
     }
 
     const newComment = await prisma.comment.create({

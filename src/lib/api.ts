@@ -318,7 +318,7 @@ export function slugify(text: string): string {
 }
 
 export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPost[]; pagination: { page: number; limit: number; total: number; totalPages: number } }> {
-  // If on server, query Prisma directly or fallback instantly to prevent self-HTTP timeouts
+  // If on server, query Prisma directly
   if (typeof window === 'undefined') {
     try {
       const skip = (page - 1) * limit;
@@ -332,37 +332,36 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
         prisma.blog.count({ where: { published: true } }),
       ]);
 
-      if (dbPosts && dbPosts.length > 0) {
-        const formatted: BlogPost[] = dbPosts.map((p) => ({
-          id: p.id,
-          title: p.title,
-          slug: slugify(p.slug) || p.slug,
-          excerpt: p.excerpt || '',
-          content: p.content,
-          coverImage: p.coverImage || undefined,
-          publishedAt: p.publishedAt ? p.publishedAt.toISOString() : p.createdAt.toISOString(),
-          createdAt: p.createdAt.toISOString(),
-        }));
-        return {
-          data: formatted,
-          pagination: {
-            page,
-            limit,
-            total,
-            totalPages: Math.ceil(total / limit),
-          },
-        };
-      }
+      const formatted: BlogPost[] = (dbPosts || []).map((p) => ({
+        id: p.id,
+        title: p.title,
+        slug: slugify(p.slug) || p.slug,
+        excerpt: p.excerpt || '',
+        content: p.content,
+        coverImage: p.coverImage || undefined,
+        publishedAt: p.publishedAt ? p.publishedAt.toISOString() : p.createdAt.toISOString(),
+        createdAt: p.createdAt.toISOString(),
+      }));
+
+      return {
+        data: formatted,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit) || 1,
+        },
+      };
     } catch (err) {
       console.warn('Prisma blog query warning:', err);
     }
 
     return {
-      data: SAMPLE_BLOG_POSTS,
+      data: [],
       pagination: {
         page: 1,
         limit: 10,
-        total: SAMPLE_BLOG_POSTS.length,
+        total: 0,
         totalPages: 1,
       },
     };
@@ -373,7 +372,7 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
     const res = await fetch(`/api/blog?page=${page}&limit=${limit}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
-      if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+      if (data.data && Array.isArray(data.data)) {
         const cleanData = data.data.map((p: any) => ({
           ...p,
           slug: slugify(p.slug) || p.slug,
@@ -384,11 +383,11 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
   } catch {}
 
   return {
-    data: SAMPLE_BLOG_POSTS,
+    data: [],
     pagination: {
       page: 1,
       limit: 10,
-      total: SAMPLE_BLOG_POSTS.length,
+      total: 0,
       totalPages: 1,
     },
   };
@@ -397,7 +396,7 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   const cleanTarget = slugify(slug) || slug.toLowerCase().trim();
 
-  // If on server, query Prisma directly or fallback instantly
+  // If on server, query Prisma directly
   if (typeof window === 'undefined') {
     try {
       // 1. Exact match
@@ -434,10 +433,6 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       console.warn('Prisma blog slug query warning:', err);
     }
 
-    const match = SAMPLE_BLOG_POSTS.find((item) => slugify(item.slug) === cleanTarget || item.slug === slug);
-    if (match) {
-      return { ...match, slug: slugify(match.slug) || match.slug };
-    }
     return null;
   }
 
@@ -452,10 +447,6 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     }
   } catch {}
 
-  const match = SAMPLE_BLOG_POSTS.find((item) => slugify(item.slug) === cleanTarget || item.slug === slug);
-  if (match) {
-    return { ...match, slug: slugify(match.slug) || match.slug };
-  }
   return null;
 }
 

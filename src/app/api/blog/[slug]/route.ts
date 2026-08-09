@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { SAMPLE_BLOG_POSTS, slugify } from '@/lib/api';
+import { slugify } from '@/lib/api';
 
 export const dynamic = 'force-dynamic';
 
@@ -33,11 +33,6 @@ export async function GET(
       }
     } catch (dbErr) {
       console.warn('DB blog slug fetch warning:', dbErr);
-    }
-
-    const fallbackPost = SAMPLE_BLOG_POSTS.find((p) => slugify(p.slug) === cleanTarget || p.slug === rawSlug);
-    if (fallbackPost) {
-      return NextResponse.json({ data: { ...fallbackPost, slug: slugify(fallbackPost.slug) || fallbackPost.slug } });
     }
 
     return NextResponse.json({ data: null, error: 'Post not found' }, { status: 404 });
