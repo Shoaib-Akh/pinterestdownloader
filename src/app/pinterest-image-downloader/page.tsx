@@ -16,6 +16,7 @@ import {
   HeartHandshake
 } from 'lucide-react';
 import { useLanguage } from '@/providers/language-provider';
+import AdBanner from '@/components/AdBanner';
 
 export default function PinterestImageDownloaderPage() {
   const { t } = useLanguage();
@@ -34,6 +35,10 @@ export default function PinterestImageDownloaderPage() {
         placeholder={t('paste_placeholder', 'Paste Pinterest image link here...')}
         previewImage="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80"
       />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <AdBanner />
+      </div>
 
       {/* 2. HOW IT WORKS SECTION */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6">

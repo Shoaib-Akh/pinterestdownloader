@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import CTABanner from '@/components/CTABanner';
 import BlogComments from '@/components/BlogComments';
+import AdBanner from '@/components/AdBanner';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/api';
 import { Calendar, ArrowLeft, BookOpen, Clock, Tag } from 'lucide-react';
 
@@ -188,6 +189,9 @@ export default async function BlogPostPage({ params }: Props) {
           <p className="text-stone-500">Content loading...</p>
         )}
       </article>
+
+      {/* AdSense Banner */}
+      <AdBanner />
 
       {/* CTA Banner Section */}
       <div className="pt-4">

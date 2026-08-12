@@ -11,6 +11,7 @@ import {
   FileImage
 } from 'lucide-react';
 import { useLanguage } from '@/providers/language-provider';
+import AdBanner from '@/components/AdBanner';
 
 export default function PinterestGifDownloaderPage() {
   const { t } = useLanguage();
@@ -29,6 +30,10 @@ export default function PinterestGifDownloaderPage() {
         placeholder={t('paste_placeholder', 'Paste Pinterest GIF link here...')}
         previewImage="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80"
       />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <AdBanner />
+      </div>
 
       {/* 2. HOW IT WORKS SECTION */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6">

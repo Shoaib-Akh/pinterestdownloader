@@ -4,6 +4,7 @@ import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CookieBanner from '@/components/CookieBanner';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { LanguageProvider } from '@/providers/language-provider';
 
@@ -69,11 +70,18 @@ export default function RootLayout({
             gtag('config', 'G-BN3DQKHVSW');
           `}
         </Script>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6686252669097490"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <LanguageProvider>
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
+            <CookieBanner />
           </LanguageProvider>
         </ThemeProvider>
       </body>

@@ -11,6 +11,7 @@ import {
   Moon,
   Sun,
   Sparkles,
+  Download,
   Menu,
   X,
   Video,
@@ -148,13 +149,13 @@ export default function Header() {
             )}
           </button>
 
-          {/* Fast Save Action Button */}
-          <Link href="/#downloader" className="hidden sm:inline-block">
-            <Button size="sm" className="shadow-brand-500/25 hover:shadow-brand-500/40 whitespace-nowrap">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-              <span>{t('fast_save', 'Fast Save')}</span>
+          {/* Download App Action Button */}
+          <a href="/app-release.apk" download="app-release.apk" className="hidden sm:inline-block">
+            <Button size="sm" className="shadow-brand-500/25 hover:shadow-brand-500/40 whitespace-nowrap gap-1.5 bg-brand-500 hover:bg-brand-600 text-white font-semibold">
+              <Download className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+              <span>{t('download_app', 'Download App')}</span>
             </Button>
-          </Link>
+          </a>
 
           {/* Mobile Hamburger Button */}
           <button
@@ -251,15 +252,16 @@ export default function Header() {
 
               {/* CTA Action in Mobile Menu */}
               <div className="pt-2">
-                <Link
-                  href="/#downloader"
+                <a
+                  href="/app-release.apk"
+                  download="app-release.apk"
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-brand-500 text-white font-bold text-sm shadow-lg shadow-brand-500/25 hover:bg-brand-600 transition-all"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-300" />
-                  <span>{t('fast_save', 'Fast Save')}</span>
+                  <Download className="w-4 h-4 text-amber-300 animate-pulse" />
+                  <span>{t('download_app', 'Download App')}</span>
                   <ArrowRight className="w-4 h-4 ml-1" />
-                </Link>
+                </a>
               </div>
 
             </div>

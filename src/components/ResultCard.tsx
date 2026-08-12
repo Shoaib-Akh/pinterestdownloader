@@ -6,6 +6,7 @@ import { MediaResult } from '@/lib/api';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Toast } from './ui/toast';
+import AdBanner from './AdBanner';
 
 interface ResultCardProps {
   result: MediaResult;
@@ -203,6 +204,10 @@ export function ResultCard({ result }: ResultCardProps) {
       </div>
 
       {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage('')} />}
+
+      <div className="mt-6 border-t border-stone-100 dark:border-stone-800 pt-4">
+        <AdBanner />
+      </div>
     </div>
   );
 }

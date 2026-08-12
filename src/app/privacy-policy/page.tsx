@@ -135,25 +135,31 @@ export default function PrivacyPage() {
           </p>
         </section>
 
-        {/* SECTION 5: COOKIES & LOCAL STORAGE */}
+        {/* SECTION 5: COOKIES, ADVERTISING & LOCAL STORAGE */}
         <section className="space-y-4">
           <h2 className="text-xl font-bold text-stone-900 dark:text-white flex items-center gap-2 border-b border-stone-100 dark:border-stone-800 pb-3">
             <Globe className="w-5 h-5 text-brand-500" />
-            5. Cookies, Local Storage & Interface Preferences
+            5. Cookies, Google AdSense & Third-Party Advertising
           </h2>
           <p>
-            PintSave uses minimal functional cookies and browser <code className="bg-stone-100 dark:bg-stone-800 px-1 py-0.5 rounded text-xs font-mono">localStorage</code> items strictly necessary to operate our website:
+            PintSave uses cookies and browser <code className="bg-stone-100 dark:bg-stone-800 px-1 py-0.5 rounded text-xs font-mono">localStorage</code> items to enhance site functionality and serve relevant advertisements:
           </p>
           <ul className="list-disc pl-6 space-y-2 text-sm">
             <li>
-              <strong>Theme Preference Cookie:</strong> Remembers your preference for Dark Mode vs. Light Mode theme styling across browser sessions.
+              <strong>Google AdSense & Third-Party Vendors:</strong> Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to PintSave or other websites.
             </li>
             <li>
-              <strong>Privacy Consent Preference:</strong> Stores your acknowledgement of our cookie notice so the banner does not repeatedly prompt you on every page load.
+              <strong>Advertising Cookies:</strong> Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our site and/or other sites on the Internet.
+            </li>
+            <li>
+              <strong>Personalized Advertising Opt-Out:</strong> Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-brand-500 underline">Google Ads Settings</a> or by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-brand-500 underline">www.aboutads.info</a>.
+            </li>
+            <li>
+              <strong>Functional Cookies:</strong> Stores user interface preferences such as Dark Mode / Light Mode theme settings and cookie consent acknowledgment.
             </li>
           </ul>
           <p className="text-sm">
-            You can clear or block cookies at any time through your browser's security settings. Disabling cookies will not affect your ability to paste links and download media on PintSave.
+            You can clear or block cookies at any time through your web browser security settings.
           </p>
         </section>
 
