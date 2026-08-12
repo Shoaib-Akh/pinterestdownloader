@@ -1,95 +1,150 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import CTABanner from '@/components/CTABanner';
 import { getBlogPosts } from '@/lib/api';
-import { BookOpen, Calendar, ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'PintSave Blog — Tutorials, Guides & Pinterest Downloading Tips',
+  title: 'Latest Video & Media Guides — PintSave Blog',
   description:
-    'Read the latest guides on saving Pinterest videos on iPhone, downloading 4K original images, copyright rules, and Pinterest media tips.',
+    'Read our practical guides on saving online videos responsibly, choosing trustworthy tools, 4K quality photo downloads, and media tips.',
   openGraph: {
-    title: 'PintSave Blog — Tutorials & Pinterest Media Guides',
-    description: 'Master saving Pinterest videos, 4K photos, and GIFs with step-by-step tutorials.',
+    title: 'Latest Video & Media Guides — PintSave Blog',
+    description: 'Read our practical guides on saving online videos, 4K photo downloads, and media tips.',
     url: 'https://pintsave.app/blog',
   },
 };
 
+function getPostCategory(title: string): string {
+  const lower = title.toLowerCase();
+  if (lower.includes('quality') || lower.includes('4k') || lower.includes('hd') || lower.includes('resolution')) {
+    return 'QUALITY GUIDE';
+  }
+  if (lower.includes('compress') || lower.includes('gif') || lower.includes('freezing') || lower.includes('editing')) {
+    return 'EDITING TIPS';
+  }
+  if (lower.includes('mp3') || lower.includes('audio') || lower.includes('story') || lower.includes('idea')) {
+    return 'AUDIO GUIDE';
+  }
+  if (lower.includes('legal') || lower.includes('copyright') || lower.includes('fair use')) {
+    return 'LEGAL & SAFETY';
+  }
+  if (lower.includes('board') || lower.includes('batch')) {
+    return 'FEATURE GUIDE';
+  }
+  if (lower.includes('troubleshoot') || lower.includes('error') || lower.includes('fix')) {
+    return 'TROUBLESHOOTING';
+  }
+  return 'GUIDE';
+}
+
+function getReadTime(content?: string, excerpt?: string): string {
+  const text = ((content || '') + ' ' + (excerpt || '')).trim();
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(5, Math.ceil(words / 140));
+  return `${minutes} MIN READ`;
+}
+
+function formatDate(dateString?: string): string {
+  if (!dateString) return 'AUG 08, 2026';
+  try {
+    const d = new Date(dateString);
+    if (isNaN(d.getTime())) return 'AUG 08, 2026';
+    return d
+      .toLocaleDateString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+      })
+      .toUpperCase();
+  } catch {
+    return 'AUG 08, 2026';
+  }
+}
+
 export default async function BlogListPage() {
-  const result = await getBlogPosts(1, 10);
+  const result = await getBlogPosts(1, 20);
   const posts = result?.data || [];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 w-full space-y-12">
-      {/* Header Hero */}
-      <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 text-xs font-semibold uppercase tracking-wider border border-brand-200 dark:border-brand-500/20">
-          <BookOpen className="w-3.5 h-3.5" /> Insights & Tutorials
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16 w-full space-y-10">
+      {/* Header Section matching reference UI */}
+      <div className="flex items-end justify-between border-b border-stone-200 dark:border-stone-800 pb-5">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-900 dark:text-white">
+            Latest guides
+          </h1>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-stone-900 dark:text-white">
-          The PintSave <span className="text-brand-500">Blog</span>
-        </h1>
-        <p className="text-sm sm:text-base text-stone-600 dark:text-stone-400">
-          Guides, tutorials, and deep dives into saving high-definition media from Pinterest on iOS, Android, and Web.
-        </p>
+        <div className="text-xs sm:text-sm font-semibold text-stone-500 dark:text-stone-400">
+          {posts.length} articles &middot; updated weekly
+        </div>
       </div>
 
-      {/* Blog Posts Grid */}
-      <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
-        {posts.map((post) => (
-          <article
-            key={post.id}
-            className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-sm overflow-hidden flex flex-col hover:shadow-md transition-all group"
-          >
-            {post.coverImage && (
-              <div className="relative h-48 w-full overflow-hidden bg-stone-100 dark:bg-stone-800">
-                <Image
-                  src={post.coverImage}
-                  alt={post.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-            )}
+      {/* Pure Text Listing (No Images) using Site Brand Colors */}
+      <div className="divide-y divide-stone-200 dark:divide-stone-800">
+        {posts.map((post) => {
+          const category = getPostCategory(post.title);
+          const readTime = getReadTime(post.content, post.excerpt);
+          const formattedDate = formatDate(post.publishedAt || post.createdAt);
 
-            <div className="p-6 flex flex-col flex-grow space-y-3">
-              <div className="flex items-center gap-2 text-xs text-stone-500 dark:text-stone-400">
-                <Calendar className="w-3.5 h-3.5 text-brand-500" />
-                <time dateTime={post.publishedAt || post.createdAt}>
-                  {new Date(post.publishedAt || post.createdAt).toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                  })}
-                </time>
-              </div>
+          return (
+            <article
+              key={post.id}
+              className="group py-7 sm:py-9 transition-colors"
+            >
+              <Link href={`/blog/${post.slug}`} className="block">
+                <div className="flex items-start justify-between gap-6 sm:gap-10">
+                  {/* Left Text Content */}
+                  <div className="space-y-3.5 flex-1 min-w-0">
+                    {/* Category Tag, Date & Reading Time */}
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-bold tracking-wider">
+                      <span className="text-brand-600 dark:text-brand-400 uppercase">
+                        {category}
+                      </span>
+                      <span className="text-stone-500 dark:text-stone-400 uppercase font-medium">
+                        {formattedDate}
+                      </span>
+                      <span className="text-stone-500 dark:text-stone-400 uppercase font-medium">
+                        {readTime}
+                      </span>
+                    </div>
 
-              <h2 className="text-lg font-bold text-stone-900 dark:text-white leading-snug group-hover:text-brand-500 transition-colors line-clamp-2">
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </h2>
+                    {/* Article Title */}
+                    <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
+                      {post.title}
+                    </h2>
 
-              <p className="text-xs text-stone-600 dark:text-stone-400 leading-relaxed line-clamp-3 flex-grow">
-                {post.excerpt}
-              </p>
+                    {/* Description Excerpt */}
+                    <p className="text-sm sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed max-w-3xl line-clamp-2">
+                      {post.excerpt}
+                    </p>
 
-              <div className="pt-2">
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-500 hover:text-brand-600 group-hover:translate-x-1 transition-transform"
-                >
-                  Read Article <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </article>
-        ))}
+                    {/* Footer Info & Read Link */}
+                    <div className="pt-1 flex flex-wrap items-center gap-3 text-xs font-medium text-stone-500 dark:text-stone-400">
+                      <span>By PintSave Editorial Team</span>
+                      <span className="inline-flex items-center gap-1 font-bold text-stone-900 dark:text-stone-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                        Read article <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right Circle Arrow Button */}
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full border border-stone-200 dark:border-stone-700/80 text-brand-600 dark:text-brand-400 group-hover:border-brand-500 dark:group-hover:border-brand-400 group-hover:bg-brand-50 dark:group-hover:bg-brand-950/40 transition-all shrink-0 mt-1">
+                    <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </div>
+                </div>
+              </Link>
+            </article>
+          );
+        })}
       </div>
 
-      <CTABanner />
+      {/* CTA Banner at bottom */}
+      <div className="pt-6">
+        <CTABanner />
+      </div>
     </div>
   );
 }

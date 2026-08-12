@@ -343,25 +343,27 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
         createdAt: p.createdAt.toISOString(),
       }));
 
-      return {
-        data: formatted,
-        pagination: {
-          page,
-          limit,
-          total,
-          totalPages: Math.ceil(total / limit) || 1,
-        },
-      };
+      if (formatted && formatted.length > 0) {
+        return {
+          data: formatted,
+          pagination: {
+            page,
+            limit,
+            total,
+            totalPages: Math.ceil(total / limit) || 1,
+          },
+        };
+      }
     } catch (err) {
       console.warn('Prisma blog query warning:', err);
     }
 
     return {
-      data: [],
+      data: SAMPLE_BLOG_POSTS,
       pagination: {
         page: 1,
         limit: 10,
-        total: 0,
+        total: SAMPLE_BLOG_POSTS.length,
         totalPages: 1,
       },
     };
@@ -372,7 +374,7 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
     const res = await fetch(`/api/blog?page=${page}&limit=${limit}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
-      if (data.data && Array.isArray(data.data)) {
+      if (data.data && Array.isArray(data.data) && data.data.length > 0) {
         const cleanData = data.data.map((p: any) => ({
           ...p,
           slug: slugify(p.slug) || p.slug,
@@ -383,11 +385,11 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
   } catch {}
 
   return {
-    data: [],
+    data: SAMPLE_BLOG_POSTS,
     pagination: {
       page: 1,
       limit: 10,
-      total: 0,
+      total: SAMPLE_BLOG_POSTS.length,
       totalPages: 1,
     },
   };
@@ -432,9 +434,13 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     } catch (err) {
       console.warn('Prisma blog slug query warning:', err);
     }
-
-    return null;
   }
+
+  // Fallback scan in SAMPLE_BLOG_POSTS
+  const sampleMatch = SAMPLE_BLOG_POSTS.find(
+    (item) => slugify(item.slug) === cleanTarget || item.slug.toLowerCase().trim() === cleanTarget
+  );
+  if (sampleMatch) return sampleMatch;
 
   // Client-side fetch
   try {
