@@ -8,7 +8,7 @@ import AdBanner from '@/components/AdBanner';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/api';
 import { Calendar, ArrowLeft, BookOpen, Clock, Tag } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 interface Props {
   params: { slug: string };

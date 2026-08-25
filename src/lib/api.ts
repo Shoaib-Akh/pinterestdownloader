@@ -317,17 +317,29 @@ export function slugify(text: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
-export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPost[]; pagination: { page: number; limit: number; total: number; totalPages: number } }> {
+export async function getBlogPosts(page = 1, limit = 6): Promise<{ data: BlogPost[]; pagination: { page: number; limit: number; total: number; totalPages: number } }> {
+  const safePage = Math.max(1, page);
+  const safeLimit = Math.max(1, limit);
+  const skip = (safePage - 1) * safeLimit;
+
   // If on server, query Prisma directly
   if (typeof window === 'undefined') {
     try {
-      const skip = (page - 1) * limit;
       const [dbPosts, total] = await Promise.all([
         prisma.blog.findMany({
           where: { published: true },
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            excerpt: true,
+            coverImage: true,
+            publishedAt: true,
+            createdAt: true,
+          },
           orderBy: { createdAt: 'desc' },
           skip,
-          take: limit,
+          take: safeLimit,
         }),
         prisma.blog.count({ where: { published: true } }),
       ]);
@@ -337,20 +349,19 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
         title: p.title,
         slug: slugify(p.slug) || p.slug,
         excerpt: p.excerpt || '',
-        content: p.content,
         coverImage: p.coverImage || undefined,
         publishedAt: p.publishedAt ? p.publishedAt.toISOString() : p.createdAt.toISOString(),
         createdAt: p.createdAt.toISOString(),
       }));
 
-      if (formatted && formatted.length > 0) {
+      if (formatted && (formatted.length > 0 || total > 0)) {
         return {
           data: formatted,
           pagination: {
-            page,
-            limit,
+            page: safePage,
+            limit: safeLimit,
             total,
-            totalPages: Math.ceil(total / limit) || 1,
+            totalPages: Math.max(1, Math.ceil(total / safeLimit)),
           },
         };
       }
@@ -358,23 +369,24 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
       console.warn('Prisma blog query warning:', err);
     }
 
+    const paginatedSample = SAMPLE_BLOG_POSTS.slice(skip, skip + safeLimit);
     return {
-      data: SAMPLE_BLOG_POSTS,
+      data: paginatedSample,
       pagination: {
-        page: 1,
-        limit: 10,
+        page: safePage,
+        limit: safeLimit,
         total: SAMPLE_BLOG_POSTS.length,
-        totalPages: 1,
+        totalPages: Math.max(1, Math.ceil(SAMPLE_BLOG_POSTS.length / safeLimit)),
       },
     };
   }
 
   // Client-side fetch
   try {
-    const res = await fetch(`/api/blog?page=${page}&limit=${limit}`, { cache: 'no-store' });
+    const res = await fetch(`/api/blog?page=${safePage}&limit=${safeLimit}`, { next: { revalidate: 60 } });
     if (res.ok) {
       const data = await res.json();
-      if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+      if (data.data && Array.isArray(data.data) && (data.data.length > 0 || (data.pagination && data.pagination.total > 0))) {
         const cleanData = data.data.map((p: any) => ({
           ...p,
           slug: slugify(p.slug) || p.slug,
@@ -384,13 +396,14 @@ export async function getBlogPosts(page = 1, limit = 10): Promise<{ data: BlogPo
     }
   } catch {}
 
+  const paginatedSample = SAMPLE_BLOG_POSTS.slice(skip, skip + safeLimit);
   return {
-    data: SAMPLE_BLOG_POSTS,
+    data: paginatedSample,
     pagination: {
-      page: 1,
-      limit: 10,
+      page: safePage,
+      limit: safeLimit,
       total: SAMPLE_BLOG_POSTS.length,
-      totalPages: 1,
+      totalPages: Math.max(1, Math.ceil(SAMPLE_BLOG_POSTS.length / safeLimit)),
     },
   };
 }

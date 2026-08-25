@@ -6,8 +6,8 @@ export const dynamic = 'force-dynamic';
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1', 10);
-    const limit = parseInt(searchParams.get('limit') || '10', 10);
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10) || 1);
+    const limit = Math.max(1, Math.min(50, parseInt(searchParams.get('limit') || '6', 10) || 6));
     const skip = (page - 1) * limit;
 
     let posts: any[] = [];
@@ -17,6 +17,15 @@ export async function GET(request: Request) {
       [posts, total] = await Promise.all([
         prisma.blog.findMany({
           where: { published: true },
+          select: {
+            id: true,
+            title: true,
+            slug: true,
+            excerpt: true,
+            coverImage: true,
+            publishedAt: true,
+            createdAt: true,
+          },
           orderBy: { createdAt: 'desc' },
           skip,
           take: limit,
@@ -37,13 +46,13 @@ export async function GET(request: Request) {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit) || 1,
+        totalPages: Math.max(1, Math.ceil(total / limit)),
       },
     });
   } catch (error: any) {
     console.error('API /api/blog error:', error);
     return NextResponse.json(
-      { data: [], pagination: { page: 1, limit: 10, total: 0, totalPages: 1 }, error: 'Failed to fetch blog posts from database' },
+      { data: [], pagination: { page: 1, limit: 6, total: 0, totalPages: 1 }, error: 'Failed to fetch blog posts from database' },
       { status: 500 }
     );
   }
