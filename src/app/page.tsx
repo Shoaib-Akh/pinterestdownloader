@@ -13,13 +13,13 @@ export default function HomePage() {
     <div className="space-y-4">
       <HeroSection />
       <div className="max-w-7xl mx-auto px-4">
-        <AdBanner />
+        <AdBanner variant="banner" />
       </div>
       <StatsBar />
       <HowItWorks />
       <FeaturesBento />
       <div className="max-w-7xl mx-auto px-4">
-        <AdBanner />
+        <AdBanner variant="native" />
       </div>
       <BenefitsSection />
       <HomeContentGuide />

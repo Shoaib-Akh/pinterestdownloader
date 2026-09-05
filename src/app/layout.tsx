@@ -55,7 +55,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${mono.variable} scroll-smooth dark`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable} scroll-smooth`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('pintsave-theme');
+                  var theme = saved || 'system';
+                  var isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                  if (isDark) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-screen flex flex-col antialiased bg-white dark:bg-stone-950 text-stone-900 dark:text-stone-100 selection:bg-brand-500 selection:text-white">
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BN3DQKHVSW"
@@ -70,13 +90,24 @@ export default function RootLayout({
             gtag('config', 'G-BN3DQKHVSW');
           `}
         </Script>
-        <Script
+        {/* Google AdSense (Commented out) */}
+        {/* <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6686252669097490"
           crossOrigin="anonymous"
           strategy="afterInteractive"
+        /> */}
+
+        {/* CPM Ad Network Scripts */}
+        <Script
+          src="https://pl31196201.profitableratecpmnetwork.com/7c/3a/d7/7c3ad7c435d2378ed2c061d1eb400553.js"
+          strategy="afterInteractive"
         />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+        <Script
+          src="https://pl31196204.profitableratecpmnetwork.com/84/81/d7/8481d7ccfd8e37dd0c73bfe532d6a169.js"
+          strategy="afterInteractive"
+        />
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
           <LanguageProvider>
             <Header />
             <main className="flex-1">{children}</main>

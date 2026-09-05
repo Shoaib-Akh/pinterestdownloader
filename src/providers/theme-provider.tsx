@@ -11,44 +11,63 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'dark',
+  theme: 'system',
   setTheme: () => {},
-  resolvedTheme: 'dark',
+  resolvedTheme: 'light',
 });
 
 export function ThemeProvider({
   children,
+  attribute = 'class',
+  defaultTheme = 'system',
+  enableSystem = true,
 }: {
   children: React.ReactNode;
   attribute?: string;
   defaultTheme?: string;
   enableSystem?: boolean;
 }) {
-  const [theme, setThemeState] = useState<Theme>('dark');
-  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setThemeState] = useState<Theme>((defaultTheme as Theme) || 'system');
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    const saved = (localStorage.getItem('pintsave-theme') as Theme) || 'dark';
-    if (saved === 'system') {
-      setThemeState('dark');
-    } else {
+    const saved = localStorage.getItem('pintsave-theme') as Theme | null;
+    if (saved && (saved === 'light' || saved === 'dark' || saved === 'system')) {
       setThemeState(saved);
+    } else {
+      setThemeState((defaultTheme as Theme) || 'system');
     }
-  }, []);
+  }, [defaultTheme]);
 
   useEffect(() => {
     const root = document.documentElement;
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = theme === 'dark' || (theme === 'system' && systemDark);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-    if (isDark) {
-      root.classList.add('dark');
-      setResolvedTheme('dark');
-    } else {
-      root.classList.remove('dark');
-      setResolvedTheme('light');
-    }
-  }, [theme]);
+    const applyTheme = () => {
+      const systemDark = mediaQuery.matches;
+      const isDark =
+        theme === 'dark' || (enableSystem && theme === 'system' && systemDark);
+
+      if (isDark) {
+        root.classList.add('dark');
+        setResolvedTheme('dark');
+      } else {
+        root.classList.remove('dark');
+        setResolvedTheme('light');
+      }
+    };
+
+    applyTheme();
+
+    const handleChange = () => {
+      if (theme === 'system') {
+        applyTheme();
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [theme, enableSystem]);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
@@ -65,3 +84,4 @@ export function ThemeProvider({
 export function useTheme() {
   return useContext(ThemeContext);
 }
+

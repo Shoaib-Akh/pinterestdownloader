@@ -50,7 +50,7 @@ export default function Header() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  const isDark = resolvedTheme === 'dark' || theme === 'dark';
+  const isDark = resolvedTheme === 'dark';
 
   const navLinks: NavItem[] = [
     { href: '/pinterest-video-downloader', label: 'Video', icon: Video, badge: 'HD' },
@@ -145,7 +145,7 @@ export default function Header() {
             {mounted && isDark ? (
               <Sun className="w-4 h-4 text-amber-400 rotate-0 transition-transform duration-300" />
             ) : (
-              <Moon className="w-4 h-4 text-stone-700 transition-transform duration-300" />
+              <Moon className="w-4 h-4 text-stone-700 dark:text-stone-300 transition-transform duration-300" />
             )}
           </button>
 
