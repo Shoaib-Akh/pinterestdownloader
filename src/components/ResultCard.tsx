@@ -42,17 +42,8 @@ export function ResultCard({ result }: ResultCardProps) {
     result.type === 'video' ? 'mp4' : result.type === 'gif' ? 'gif' : 'jpg'
   }`;
 
-const DIRECT_AD_LINK =
-  'https://www.profitableratecpmnetwork.com/gcp8wu6fej?key=45d8347966c62c7dd43007fe355a68e3';
-
   const downloadFile = async (url: string, targetFilename: string) => {
     if (!url) return;
-
-    // Trigger direct smartlink ad in a new tab
-    if (typeof window !== 'undefined') {
-      window.open(DIRECT_AD_LINK, '_blank', 'noopener,noreferrer');
-    }
-
     setDownloadingUrls((prev) => ({ ...prev, [url]: true }));
     setDownloadFailed(false);
     try {

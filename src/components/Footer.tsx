@@ -73,7 +73,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#faq" className="hover:text-brand-500 transition-colors">
+                <Link href="/faq" className="hover:text-brand-500 transition-colors">
                   {t('nav_faq', 'FAQ')}
                 </Link>
               </li>

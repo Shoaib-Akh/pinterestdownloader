@@ -1,21 +1,33 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { DownloadCloud, Flame, ShieldCheck, Zap } from 'lucide-react';
+import { Zap, ShieldCheck } from 'lucide-react';
 import { getPublicStats } from '@/lib/api';
 
+const PLACEHOLDER_TOTAL = 15420;
+const PLACEHOLDER_TODAY = 342;
+
 export default function StatsBar() {
-  const [stats, setStats] = useState({
-    totalDownloads: 15420,
-    todayDownloads: 342,
-    supportedTypes: ['image', 'video', 'gif', 'carousel'],
-  });
+  const [stats, setStats] = useState<{
+    totalDownloads: number;
+    todayDownloads: number;
+    supportedTypes: string[];
+  } | null>(null);
 
   useEffect(() => {
     getPublicStats().then((res) => {
-      if (res) setStats(res);
+      if (
+        res &&
+        // Only show real stats — hide if API returned the hardcoded placeholders
+        !(res.totalDownloads === PLACEHOLDER_TOTAL && res.todayDownloads === PLACEHOLDER_TODAY)
+      ) {
+        setStats(res);
+      }
     });
   }, []);
+
+  // Don't render anything if stats are not available or still placeholder
+  if (!stats) return null;
 
   return (
     <div className="w-full border-y border-stone-200/80 dark:border-stone-800 bg-stone-50/50 dark:bg-stone-900/50 py-8">
@@ -23,7 +35,6 @@ export default function StatsBar() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1">
             <div className="flex items-center justify-center gap-1.5 text-stone-500 dark:text-stone-400 text-xs font-semibold uppercase tracking-wider">
-              <DownloadCloud className="w-4 h-4 text-brand-500" />
               <span>Total Downloads</span>
             </div>
             <p className="font-extrabold text-2xl sm:text-3xl text-stone-900 dark:text-white font-mono">
@@ -33,7 +44,6 @@ export default function StatsBar() {
 
           <div className="space-y-1">
             <div className="flex items-center justify-center gap-1.5 text-stone-500 dark:text-stone-400 text-xs font-semibold uppercase tracking-wider">
-              <Flame className="w-4 h-4 text-amber-500" />
               <span>Downloads Today</span>
             </div>
             <p className="font-extrabold text-2xl sm:text-3xl text-stone-900 dark:text-white font-mono">
