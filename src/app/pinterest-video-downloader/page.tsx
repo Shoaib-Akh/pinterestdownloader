@@ -48,6 +48,35 @@ export default function PinterestVideoDownloaderPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
+      {/* INTRODUCTION & EDITORIAL GUIDE */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-2 space-y-6">
+        <div className="bg-stone-50 dark:bg-stone-900/60 p-6 sm:p-8 rounded-3xl border border-stone-200/80 dark:border-stone-800 space-y-4">
+          <Badge variant="brand">DIRECT HIGH-BITRATE MP4 EXTRACTION</Badge>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
+            How PintSave Preserves Full 1080p Video Bitrates and Audio Sync
+          </h2>
+          <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
+            Unlike static pins, Pinterest video pins, Idea Pins, and tutorial clips use adaptive bitrate streaming (HLS / m3u8 playlists) that dynamically downgrades playback clarity depending on network conditions. When users attempt screen recording or standard video capture, the resulting files frequently suffer from washed-out colors, frame drops, low audio bitrates, and ugly on-screen UI buttons.
+          </p>
+          <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
+            PintSave inspects the underlying video manifest directly at the source, extracting the highest available progressive MP4 stream uploaded by the original creator. This guarantees crisp 1080p Full HD resolution, crystal-clear stereo audio tracks, and absolute zero watermarks, allowing creators and educators to archive tutorials, fashion clips, and cooking recipes without compromise.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Full 1080p Bitrate</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Direct stream retrieval ensures sharp details, high dynamic range, and smooth 30/60fps playback.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Synchronized Stereo Audio</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Audio channels are kept natively synced with video tracks, eliminating drift or muffled audio.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Native Gallery Saving</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Downloads as a standard .mp4 container recognized by Apple Photos, Google Photos, and VLC.</p>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* 1. HERO SECTION */}
       <HeroSection
         badgeText={t('hero_badge', '100% Free · No Watermark · 1080p MP4')}

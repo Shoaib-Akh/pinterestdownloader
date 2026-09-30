@@ -23,6 +23,35 @@ export default function PinterestImageDownloaderPage() {
 
   return (
     <div className="space-y-16">
+      {/* INTRODUCTION & EDITORIAL GUIDE */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-2 space-y-6">
+        <div className="bg-stone-50 dark:bg-stone-900/60 p-6 sm:p-8 rounded-3xl border border-stone-200/80 dark:border-stone-800 space-y-4">
+          <Badge variant="brand">UNCOMPRESSED DPI EXTRACTION</Badge>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
+            How to Download Pinterest Images Without Sacrificing Resolution
+          </h2>
+          <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
+            Pinterest delivers feed images inside responsive containers capped at 236px, 474px, or 736px display widths to preserve mobile bandwidth and speed up scrolling. Unfortunately, standard browser interactions like &quot;Save Image As&quot; merely download these downscaled thumbnails, producing pixelated results when enlarged for wallpapers, physical prints, or client design moodboards.
+          </p>
+          <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
+            PintSave traverses Pinterest&apos;s asset manifest to locate the original master upload URL stored on the underlying Akamai and Cloudflare CDNs. By bypassing web display downsampling, you can retrieve the full 2K, 4K, and ultra-high-resolution original photography directly in JPG, PNG, or WebP format with 100% original color accuracy and zero added watermarks.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Master File Quality</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Retrieves the pristine high-resolution source file without aggressive browser re-compression.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Design & Print Ready</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Ideal for graphic designers, moodboard curation, desktop wallpapers, and physical printing.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Zero Data Retention</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Files are delivered directly through encrypted HTTPS streams without storing copies on our servers.</p>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* 1. HERO SECTION */}
       <HeroSection
         badgeText={t('hero_badge', '100% Free · No Watermark · Original 4K')}

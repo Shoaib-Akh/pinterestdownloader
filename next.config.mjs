@@ -20,6 +20,12 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      { source: '/contact', destination: '/contacts-us', permanent: true },
+      { source: '/contacts', destination: '/contacts-us', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

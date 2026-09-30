@@ -18,6 +18,35 @@ export default function PinterestGifDownloaderPage() {
 
   return (
     <div className="space-y-16">
+      {/* INTRODUCTION & EDITORIAL GUIDE */}
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-2 space-y-6">
+        <div className="bg-stone-50 dark:bg-stone-900/60 p-6 sm:p-8 rounded-3xl border border-stone-200/80 dark:border-stone-800 space-y-4">
+          <Badge variant="brand">ORIGINAL ANIMATION PRESERVATION</Badge>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
+            Why Standard Right-Click Saving Breaks Pinterest Animated GIFs
+          </h2>
+          <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
+            When browsing Pinterest on desktop or mobile, animated graphics and GIF pins are frequently converted into lightweight preview formats or WebP loops to preserve bandwidth. If you attempt to save an animation through standard browser right-click menus or mobile screenshot shortcuts, you typically receive a static first frame, a broken looping file, or a heavily compressed preview that loses its original timing and vibrancy.
+          </p>
+          <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
+            PintSave resolves this limitation by communicating directly with the source content delivery networks (CDNs). Our system extracts the raw, uncompressed master animation file—retaining full 60fps frame rates, accurate color palettes, and seamless loop markers so your downloaded media looks identical to the creator&apos;s original render.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Full Frame Continuity</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Preserves every intermediate frame without stutter, frame-skipping, or motion blur artifacts.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Universal Software Support</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Ready to insert into Figma, PowerPoint, Keynote, Photoshop, Discord, or Notion workspaces.</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white dark:bg-stone-800/80 border border-stone-200/60 dark:border-stone-700/60">
+              <h4 className="font-bold text-stone-900 dark:text-white text-sm">Instant Cloud Fetching</h4>
+              <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">Direct endpoint retrieval delivers your download prompt in milliseconds without third-party popups.</p>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* 1. HERO SECTION */}
       <HeroSection
         badgeText={t('hero_badge', '100% Free · Animated GIFs · Original Quality')}
