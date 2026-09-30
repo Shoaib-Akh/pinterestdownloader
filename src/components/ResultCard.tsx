@@ -48,10 +48,10 @@ const DIRECT_AD_LINK =
   const downloadFile = async (url: string, targetFilename: string) => {
     if (!url) return;
 
-    // Trigger direct smartlink ad in a new tab
-    if (typeof window !== 'undefined') {
-      window.open(DIRECT_AD_LINK, '_blank', 'noopener,noreferrer');
-    }
+    // Trigger direct smartlink ad in a new tab (Commented out for AdSense approval)
+    // if (typeof window !== 'undefined') {
+    //   window.open(DIRECT_AD_LINK, '_blank', 'noopener,noreferrer');
+    // }
 
     setDownloadingUrls((prev) => ({ ...prev, [url]: true }));
     setDownloadFailed(false);

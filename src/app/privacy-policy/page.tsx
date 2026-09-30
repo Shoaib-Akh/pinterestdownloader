@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'PintSave Privacy Policy — Data Protection & Privacy Rights',
     description: 'PintSave Privacy Policy detailing transparent data practices, zero-log architecture, and user rights.',
-    url: 'https://pintsave.app/privacy-policy',
+    url: 'https://pintsave.site/privacy-policy',
   },
 };
 
@@ -20,7 +20,7 @@ export default function PrivacyPage() {
     '@type': 'WebPage',
     name: 'PintSave Privacy Policy',
     description: 'Official Privacy Policy for PintSave, detailing data collection minimization, zero storage of media files, GDPR compliance, and CCPA privacy rights.',
-    url: 'https://pintsave.app/privacy-policy',
+    url: 'https://pintsave.site/privacy-policy',
   };
 
   return (
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
             1. Introduction & Commitment to Privacy
           </h2>
           <p>
-            At <strong>PintSave</strong> (accessible from <code className="bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded text-stone-800 dark:text-stone-200">https://pintsave.app</code>), we hold user privacy as a fundamental digital right. We operate under a strict policy of <strong>data minimization and user anonymity</strong>. Whether you access PintSave to download Pinterest videos, original 4K photos, or animated GIFs, we are dedicated to handling your interaction with complete transparency and security.
+            At <strong>PintSave</strong> (accessible from <code className="bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded text-stone-800 dark:text-stone-200">https://pintsave.site</code>), we hold user privacy as a fundamental digital right. We operate under a strict policy of <strong>data minimization and user anonymity</strong>. Whether you access PintSave to download Pinterest videos, original 4K photos, or animated GIFs, we are dedicated to handling your interaction with complete transparency and security.
           </p>
           <p>
             This Privacy Policy document clearly explains what minimal information is processed when you use our web application, why it is processed, how it is safeguarded, and what legal privacy rights you possess under global regulations including the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA).
@@ -259,10 +259,10 @@ export default function PrivacyPage() {
           </p>
           <div className="pt-1">
             <a 
-              href="mailto:privacy@pintsave.app" 
+              href="mailto:privacy@pintsave.site" 
               className="inline-flex items-center gap-2 font-mono text-sm text-brand-600 dark:text-brand-400 font-bold bg-white dark:bg-stone-800 px-3.5 py-2 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm hover:border-brand-400 transition"
             >
-              <Mail className="w-4 h-4 text-brand-500" /> privacy@pintsave.app
+              <Mail className="w-4 h-4 text-brand-500" /> privacy@pintsave.site
             </a>
           </div>
         </section>

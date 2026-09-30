@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'PintSave DMCA Copyright Policy — Official Takedown Guide',
     description: 'Learn how PintSave responds to copyright infringement claims under the DMCA and protects creator rights.',
-    url: 'https://pintsave.app/dmca',
+    url: 'https://pintsave.site/dmca',
   },
 };
 
@@ -20,7 +20,7 @@ export default function DMCAPage() {
     '@type': 'WebPage',
     name: 'PintSave DMCA Copyright Policy',
     description: 'Official Digital Millennium Copyright Act (DMCA) policy for PintSave detailing takedown notice procedures and counter-notifications.',
-    url: 'https://pintsave.app/dmca',
+    url: 'https://pintsave.site/dmca',
   };
 
   return (
@@ -57,7 +57,7 @@ export default function DMCAPage() {
             1. Statement of Principle & Commitment to Copyright Protection
           </h2>
           <p>
-            At <strong>PintSave</strong> (accessible from <code className="bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded text-stone-800 dark:text-stone-200">https://pintsave.app</code>), we deeply respect the intellectual property rights of visual artists, content creators, photographers, and copyright holders. It is our strict policy to respond expeditiously to clear, valid notices of alleged copyright infringement that comply with the Digital Millennium Copyright Act of 1998 (17 U.S.C. § 512) ("DMCA").
+            At <strong>PintSave</strong> (accessible from <code className="bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded text-stone-800 dark:text-stone-200">https://pintsave.site</code>), we deeply respect the intellectual property rights of visual artists, content creators, photographers, and copyright holders. It is our strict policy to respond expeditiously to clear, valid notices of alleged copyright infringement that comply with the Digital Millennium Copyright Act of 1998 (17 U.S.C. § 512) ("DMCA").
           </p>
           <p>
             This DMCA Copyright Policy outlines the procedures for copyright owners to submit formal takedown notices, explains how our technical blocklisting systems process valid claims, and describes the counter-notification process available under applicable federal laws.
@@ -141,10 +141,10 @@ export default function DMCAPage() {
           </p>
           <div className="pt-1">
             <a 
-              href="mailto:dmca@pintsave.app" 
+              href="mailto:dmca@pintsave.site" 
               className="inline-flex items-center gap-2 font-mono text-sm text-brand-600 dark:text-brand-400 font-bold bg-white dark:bg-stone-800 px-4 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 shadow-sm hover:border-brand-400 transition"
             >
-              <Mail className="w-4 h-4 text-brand-500" /> dmca@pintsave.app
+              <Mail className="w-4 h-4 text-brand-500" /> dmca@pintsave.site
             </a>
           </div>
           <p className="text-xs text-stone-500 dark:text-stone-400">

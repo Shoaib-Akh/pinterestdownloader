@@ -98,7 +98,8 @@ export default function RootLayout({
           strategy="afterInteractive"
         /> */}
 
-        {/* CPM Ad Network Scripts */}
+        {/* CPM Ad Network Scripts (Temporarily commented out for AdSense approval) */}
+        {/*
         <Script
           src="https://pl31196201.profitableratecpmnetwork.com/7c/3a/d7/7c3ad7c435d2378ed2c061d1eb400553.js"
           strategy="afterInteractive"
@@ -107,6 +108,7 @@ export default function RootLayout({
           src="https://pl31196204.profitableratecpmnetwork.com/84/81/d7/8481d7ccfd8e37dd0c73bfe532d6a169.js"
           strategy="afterInteractive"
         />
+        */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
           <LanguageProvider>
             <Header />

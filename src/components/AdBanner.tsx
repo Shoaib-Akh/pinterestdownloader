@@ -105,6 +105,11 @@ export default function AdBanner({
   </body>
 </html>`;
 
+  // CPM network ads temporarily commented out for AdSense approval review.
+  // To re-enable, uncomment the JSX below:
+  return null;
+
+  /*
   return (
     <div className={`w-full my-6 flex flex-col items-center justify-center overflow-hidden min-h-[90px] ${className}`}>
       <div className="text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500 mb-1 select-none font-medium">
@@ -132,6 +137,7 @@ export default function AdBanner({
       </div>
     </div>
   );
+  */
 }
 
 export function NativeAdBanner({ className = '' }: { className?: string }) {
