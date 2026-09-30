@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: post.title,
       description: post.excerpt,
       images: post.coverImage ? [{ url: post.coverImage }] : [],
-      url: `https://pintsave.site/blog/${post.slug}`,
+      url: `https://pintsave.app/blog/${post.slug}`,
     },
   };
 }

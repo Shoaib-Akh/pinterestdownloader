@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'PintSave Terms and Conditions — Terms of Service & Usage Policy',
     description: 'PintSave Terms and Conditions detailing acceptable use policy, copyright compliance, and trademark disclaimers.',
-    url: 'https://pintsave.site/terms-of-service',
+    url: 'https://pintsave.app/terms-of-service',
   },
 };
 
@@ -20,7 +20,7 @@ export default function TermsPage() {
     '@type': 'WebPage',
     name: 'PintSave Terms and Conditions',
     description: 'Official Terms and Conditions and Terms of Service governing the use of PintSave web application.',
-    url: 'https://pintsave.site/terms-of-service',
+    url: 'https://pintsave.app/terms-of-service',
   };
 
   return (
@@ -57,7 +57,7 @@ export default function TermsPage() {
             1. Agreement & Acceptance of Terms
           </h2>
           <p>
-            Welcome to <strong>PintSave</strong> (accessible from <code className="bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded text-stone-800 dark:text-stone-200">https://pintsave.site</code>). These Terms and Conditions govern your access to and use of the PintSave website, media extraction tools, APIs, and associated web services.
+            Welcome to <strong>PintSave</strong> (accessible from <code className="bg-stone-100 dark:bg-stone-800 px-1.5 py-0.5 rounded text-stone-800 dark:text-stone-200">https://pintsave.app</code>). These Terms and Conditions govern your access to and use of the PintSave website, media extraction tools, APIs, and associated web services.
           </p>
           <p>
             By accessing, browsing, or using PintSave to process or download any media, you confirm that you have read, understood, and agree to be legally bound by these Terms and Conditions and our <Link href="/privacy-policy" className="text-brand-500 underline font-medium hover:text-brand-600">Privacy Policy</Link>. If you do not agree with any provision of these terms, you must immediately cease accessing and using our service.
@@ -178,7 +178,7 @@ export default function TermsPage() {
             <li>A statement confirming your good-faith belief that use of the material is unauthorized.</li>
           </ul>
           <p className="text-xs text-stone-500 dark:text-stone-400">
-            Submit copyright notices via email to: <a href="mailto:dmca@pintsave.site" className="text-brand-500 font-semibold hover:underline">dmca@pintsave.site</a> or through our <Link href="/dmca" className="text-brand-500 underline">DMCA Policy Page</Link>.
+            Submit copyright notices via email to: <a href="mailto:dmca@pintsave.app" className="text-brand-500 font-semibold hover:underline">dmca@pintsave.app</a> or through our <Link href="/dmca" className="text-brand-500 underline">DMCA Policy Page</Link>.
           </p>
         </section>
 

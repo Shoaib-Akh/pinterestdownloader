@@ -726,7 +726,7 @@ export async function getFAQs() {
       {
         id: '7',
         question: 'How do I report a broken download or request a feature?',
-        answer: 'If you encounter a broken download, please use the contact form on the Support page or email us directly at support@pintsave.site. Include the problematic Pinterest URL and a brief description. For feature requests, you can also open an issue on our GitHub repository or leave feedback via the in‑app feedback widget.',
+        answer: 'If you encounter a broken download, please use the contact form on the Support page or email us directly at support@pintsave.app. Include the problematic Pinterest URL and a brief description. For feature requests, you can also open an issue on our GitHub repository or leave feedback via the in‑app feedback widget.',
       },
       {
         id: '8',
