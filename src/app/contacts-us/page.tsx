@@ -138,15 +138,21 @@ export default function ContactPage() {
               <Mail className="w-4 h-4 text-brand-400" /> Support Direct Email
             </h3>
             <p className="text-xs text-stone-300 leading-relaxed">
-              Prefer sending an email directly from your mail client? Feel free to write to us:
+              Prefer sending an email directly from your mail client? Reach our support desk at PintSave (operated by NexaForce):
             </p>
-            <a href="mailto:nexaforce1@gmail.com" className="block font-mono text-sm font-bold text-brand-400 hover:underline">
-            nexaforce1@gmail.com
-            </a>
+            <div className="space-y-1.5 font-mono text-sm">
+              <a href="mailto:support@pintsave.site" className="block font-bold text-brand-400 hover:underline">
+                support@pintsave.site
+              </a>
+              <a href="mailto:nexaforce1@gmail.com" className="block text-xs text-stone-400 hover:text-stone-200">
+                nexaforce1@gmail.com
+              </a>
+            </div>
             <hr className="border-stone-800" />
             <div className="text-xs text-stone-400 space-y-1">
               <p><strong>Response Time:</strong> Within 24 hours</p>
               <p><strong>Operating Hours:</strong> Mon - Sun (24/7)</p>
+              <p><strong>Website:</strong> https://pintsave.site</p>
             </div>
           </div>
 
@@ -156,7 +162,7 @@ export default function ContactPage() {
             </h4>
             <ul className="text-xs space-y-2 text-stone-600 dark:text-stone-400">
               <li>
-                <Link href="/#faq" className="hover:text-brand-500 transition-colors">
+                <Link href="/faq" className="hover:text-brand-500 transition-colors">
                   • Frequently Asked Questions (FAQ)
                 </Link>
               </li>
@@ -168,6 +174,11 @@ export default function ContactPage() {
               <li>
                 <Link href="/privacy-policy" className="hover:text-brand-500 transition-colors">
                   • Read Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-brand-500 transition-colors">
+                  • About PintSave Mission
                 </Link>
               </li>
             </ul>

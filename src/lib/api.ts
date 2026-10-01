@@ -31,6 +31,13 @@ export interface ContactPayload {
   message: string;
 }
 
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  order?: number;
+}
+
 export const SAMPLE_BLOG_POSTS: BlogPost[] = [
   {
     id: '1',
@@ -495,6 +502,17 @@ export async function sendContactMessage(payload: ContactPayload): Promise<{ suc
   }
 }
 
+export function formatBlogTitle(title: string): string {
+  if (!title) return '';
+  let clean = title.trim();
+  const hyphenCount = (clean.match(/-/g) || []).length;
+  const spaceCount = (clean.match(/\s/g) || []).length;
+  if (hyphenCount >= 2 && spaceCount <= 1) {
+    clean = clean.replace(/-/g, ' ');
+  }
+  return clean;
+}
+
 export function slugify(text: string): string {
   if (!text) return '';
   return text
@@ -535,7 +553,7 @@ export async function getBlogPosts(page = 1, limit = 6): Promise<{ data: BlogPos
 
       const formatted: BlogPost[] = (dbPosts || []).map((p) => ({
         id: p.id,
-        title: p.title,
+        title: formatBlogTitle(p.title),
         slug: slugify(p.slug) || p.slug,
         excerpt: p.excerpt || '',
         coverImage: p.coverImage || undefined,
@@ -578,6 +596,7 @@ export async function getBlogPosts(page = 1, limit = 6): Promise<{ data: BlogPos
       if (data.data && Array.isArray(data.data) && (data.data.length > 0 || (data.pagination && data.pagination.total > 0))) {
         const cleanData = data.data.map((p: any) => ({
           ...p,
+          title: formatBlogTitle(p.title),
           slug: slugify(p.slug) || p.slug,
         }));
         return { ...data, data: cleanData };
@@ -624,7 +643,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       if (p && p.published) {
         return {
           id: p.id,
-          title: p.title,
+          title: formatBlogTitle(p.title),
           slug: slugify(p.slug) || p.slug,
           excerpt: p.excerpt || '',
           content: p.content,
@@ -661,26 +680,25 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 export async function getPublicStats() {
   try {
     const res = await fetch(`${API_BASE}/api/stats/public`, { cache: 'no-store' });
+    if (!res.ok) return null;
     const data = await res.json();
-    if (data.success) return data;
+    if (data.success && data.totalDownloads && data.totalDownloads !== 15420) {
+      return data;
+    }
   } catch {
-    // Fallback
+    // Network / API offline - return null to avoid showing fake placeholder numbers
   }
-  return {
-    totalDownloads: 15420,
-    todayDownloads: 342,
-    supportedTypes: ['image', 'video', 'gif', 'carousel'],
-  };
+  return null;
 }
 
-export async function getFAQs() {
+export async function getFAQs(): Promise<FAQItem[]> {
   if (typeof window === 'undefined') {
     try {
       const dbFaqs = await prisma.fAQ.findMany({
         where: { published: true },
         orderBy: { order: 'asc' },
       });
-      if (dbFaqs && dbFaqs.length > 0) {
+      if (dbFaqs && dbFaqs.length >= 10) {
         return dbFaqs;
       }
     } catch {}
@@ -688,62 +706,72 @@ export async function getFAQs() {
     try {
       const res = await fetch('/api/faq', { cache: 'no-store' });
       const data = await res.json();
-      if (data.data) return data.data;
+      if (data.data && Array.isArray(data.data) && data.data.length >= 10) return data.data;
     } catch {}
   }
 
-    return [
-      {
-        id: '1',
-        question: 'How do I download Pinterest videos on my iPhone or Android phone?',
-        answer: 'To download videos on mobile, open the Pinterest app, locate the video pin, tap the Share icon, and choose "Copy Link". Switch to your Safari or Chrome browser, visit PintSave, paste the link into the box, and tap Download HD. On iOS Safari, tap "Download" when prompted, open the Downloads menu, tap the downloaded video, tap Share, and choose "Save Video" to transfer it directly into your Camera Roll. This process works similarly on Android Chrome, where the video will appear in your Downloads folder automatically.',
-      },
-      {
-        id: '2',
-        question: 'Can I download images in original 4K resolution instead of web previews?',
-        answer: 'Yes! When you browse Pinterest normally, the web interface serves compressed 736px thumbnail images to save bandwidth. PintSave automatically bypasses these web thumbnails, queries the underlying CDN metadata, and fetches the original uncompressed source image in full 4K pixel resolution. This gives you a pristine, loss‑free file suitable for print, design work, or high‑resolution wallpapers.',
-      },
-      {
-        id: '3',
-        question: 'Is PintSave completely free, and do I need to register an account?',
-        answer: 'PintSave is 100% free with no mandatory account creation, subscription plans, trial caps, or software installation. You can download as many videos, original photos, and GIFs as you want, completely anonymously. We do not store any personal data beyond what is needed for the download request, and no email or login is required.',
-      },
-      {
-        id: '4',
-        question: 'Does PintSave add watermarks or brand overlays to saved videos?',
-        answer: 'No. We never add watermarks, logos, quality‑reducing overlays, or re‑compression layers to your downloaded media. You receive the exact original MP4 video stream and image files uploaded by the pin creator, preserving the creator’s original quality without any branding from PintSave.',
-      },
-      {
-        id: '5',
-        question: 'Why did my Pinterest link fail or show an extraction error?',
-        answer: 'Extraction errors typically happen if the pin belongs to a private or secret board, if the pin was removed by Pinterest, or if the copied URL was incomplete. Make sure the pin is public, copy the full pin link directly from the official Pinterest share button, and avoid any extra URL parameters that might have been added by third‑party services.',
-      },
-      {
-        id: '6',
-        question: 'Can I save multi‑image Pinterest Carousel pins?',
-        answer: 'Yes! When you paste a link to a carousel pin, PintSave automatically extracts all individual image and video slides in the carousel, enabling you to preview and download each slide separately in full resolution. This is ideal for mood boards, design references, or creating your own animated slideshows.',
-      },
-      {
-        id: '7',
-        question: 'How do I report a broken download or request a feature?',
-        answer: 'If you encounter a broken download, please use the contact form on the Support page or email us directly at support@pintsave.site. Include the problematic Pinterest URL and a brief description. For feature requests, you can also open an issue on our GitHub repository or leave feedback via the in‑app feedback widget.',
-      },
-      {
-        id: '8',
-        question: 'Is there a limit to how many files I can download per day?',
-        answer: 'There is currently no hard limit imposed by PintSave. However, extremely high traffic from a single IP may trigger automated rate limiting to protect the service from abuse. For typical personal use, you can download dozens of pins per day without any restrictions.',
-      },
-      {
-        id: '9',
-        question: 'Will my downloaded media contain any tracking or hidden scripts?',
-        answer: 'All media files served by PintSave are direct binary streams from Pinterest’s CDN. We do not embed any tracking pixels, scripts, or additional metadata beyond the original file. The downloaded files are clean and ready for immediate use in your projects.',
-      },
-      {
-        id: '10',
-        question: 'How does PintSave ensure privacy and security of my downloads?',
-        answer: 'PintSave runs entirely on a server‑less edge architecture that processes the download request in real time and discards all logs after the operation completes. No personal data is stored, and the download is performed over HTTPS to protect against eavesdropping.',
-      },
-    ];
+  return [
+    {
+      id: '1',
+      question: 'How do I download Pinterest videos on my iPhone or Android phone?',
+      answer: 'To download videos on mobile, open the Pinterest app, locate the video pin, tap the Share icon, and choose "Copy Link". Switch to your Safari or Chrome browser, visit PintSave, paste the link into the box, and tap Download HD. On iOS Safari, tap "Download" when prompted, open the Downloads menu, tap the downloaded video, tap Share, and choose "Save Video" to transfer it directly into your Camera Roll. This process works similarly on Android Chrome, where the video will appear in your Downloads folder automatically.',
+    },
+    {
+      id: '2',
+      question: 'Can I download images in original 4K resolution instead of web previews?',
+      answer: 'Yes! When you browse Pinterest normally, the web interface serves compressed 736px thumbnail images to save bandwidth. PintSave automatically bypasses these web thumbnails, queries the underlying CDN metadata, and fetches the original uncompressed source image in full 4K pixel resolution. This gives you a pristine, loss‑free file suitable for print, design work, or high‑resolution wallpapers.',
+    },
+    {
+      id: '3',
+      question: 'Is PintSave completely free, and do I need to register an account or pay?',
+      answer: 'PintSave is 100% free with no mandatory account creation, subscription plans, trial caps, or software installation. You can download as many videos, original photos, and GIFs as you want, completely anonymously. We do not store any personal data beyond what is needed for the download request, and no email or login is required.',
+    },
+    {
+      id: '4',
+      question: 'Does PintSave add watermarks or brand overlays to saved videos?',
+      answer: 'No. We never add watermarks, logos, quality‑reducing overlays, or re‑compression layers to your downloaded media. You receive the exact original MP4 video stream and image files uploaded by the pin creator, preserving the creator’s original quality without any branding from PintSave.',
+    },
+    {
+      id: '5',
+      question: 'Why did my Pinterest link fail or show an extraction error?',
+      answer: 'Extraction errors typically happen if the pin belongs to a private or secret board, if the pin was removed by Pinterest, or if the copied URL was incomplete. Make sure the pin is public, copy the full pin link directly from the official Pinterest share button, and avoid any extra URL parameters that might have been added by third‑party services.',
+    },
+    {
+      id: '6',
+      question: 'Can I save multi‑image Pinterest Carousel pins in full resolution?',
+      answer: 'Yes! When you paste a link to a carousel pin, PintSave automatically extracts all individual image and video slides in the carousel, enabling you to preview and download each slide separately in full resolution. This is ideal for mood boards, design references, or creating your own animated slideshows.',
+    },
+    {
+      id: '7',
+      question: 'How do I preserve animation on Pinterest GIFs without freezing into static images?',
+      answer: 'PintSave directly targets the multi-frame animated GIF file on Pinterest CDNs. Rather than saving the static initial thumbnail that mobile browsers grab on long-press, PintSave downloads the full GIF89a stream with all animation frames, loop tags, and alpha transparency channels intact.',
+    },
+    {
+      id: '8',
+      question: 'Can I download Idea Pins (Story Pins) with background audio and music tracks?',
+      answer: 'Yes! PintSave identifies both the video segments and the associated stereo audio layers within Idea Pins and story reels, compiling them into a single, synchronized 1080p MP4 file with crisp 320kbps stereo sound.',
+    },
+    {
+      id: '9',
+      question: 'Is it legal to download Pinterest media for personal offline use?',
+      answer: 'Downloading publicly shared Pinterest pins for personal offline inspiration, study, private vision boards, or educational analysis falls under Fair Use principles. However, you should never sell, redistribute, or use third-party assets in commercial client work without licensing from the copyright holder.',
+    },
+    {
+      id: '10',
+      question: 'Does PintSave host or store my downloaded media files on its servers?',
+      answer: 'PintSave does not host, store, or archive any media files on its servers. All extractions function as transient, encrypted pass-through streams directly between Pinterest CDN endpoints and your browser.',
+    },
+    {
+      id: '11',
+      question: 'Where do downloaded Pinterest files save on my device?',
+      answer: 'On Android and PC/Mac, files save directly to your default Downloads folder. On iPhone and iPad Safari, downloads land in the Files app / Downloads directory, and can be sent to Apple Photos by opening the file in Safari Downloads, tapping Share, and choosing "Save Video" or "Save Image".',
+    },
+    {
+      id: '12',
+      question: 'How do I report a broken download or request support?',
+      answer: 'If you encounter a broken pin link or need help, please submit a message through our Contact Us page (/contacts-us) or email our support desk directly at support@pintsave.site. We respond to all inquiries within 24 hours.',
+    },
+  ];
 }
 
 export interface BlogComment {

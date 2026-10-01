@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'PintSave Privacy Policy — Comprehensive Data Protection & Privacy Rights',
   description:
     'Read PintSave’s Privacy Policy. Learn about our zero-log architecture, data minimization practices, GDPR & CCPA rights, and how we protect user privacy.',
+  alternates: {
+    canonical: 'https://pintsave.site/privacy-policy',
+  },
   openGraph: {
     title: 'PintSave Privacy Policy — Data Protection & Privacy Rights',
     description: 'PintSave Privacy Policy detailing transparent data practices, zero-log architecture, and user rights.',

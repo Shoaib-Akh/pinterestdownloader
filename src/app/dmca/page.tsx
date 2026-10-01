@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'PintSave DMCA Copyright Policy — Official Takedown & Compliance Guide',
   description:
     'Read PintSave’s Digital Millennium Copyright Act (DMCA) Policy. Information for copyright owners, designated agent contact details, takedown notices, and counter-notifications.',
+  alternates: {
+    canonical: 'https://pintsave.site/dmca',
+  },
   openGraph: {
     title: 'PintSave DMCA Copyright Policy — Official Takedown Guide',
     description: 'Learn how PintSave responds to copyright infringement claims under the DMCA and protects creator rights.',

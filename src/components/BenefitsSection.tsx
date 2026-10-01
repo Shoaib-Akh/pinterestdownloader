@@ -11,38 +11,38 @@ export default function BenefitsSection() {
   const benefits = [
     {
       icon: Compass,
-      title: t('bento_4k_title', 'Master Quality Visual Assets'),
-      description: t('bento_4k_desc', 'Download photos in their original pixel dimensions and videos in high-bitrate MP4 formats. Essential for graphic designers, fashion curators, and architects who need crisp visual moodboards without compression artifacts.'),
+      title: t('benefit_quality_title', 'Master Quality Visual Assets'),
+      description: t('benefit_quality_desc', 'Download photos in their original pixel dimensions and videos in high-bitrate MP4 formats. Essential for graphic designers, fashion curators, and architects who need crisp visual moodboards without compression artifacts.'),
       color: 'text-brand-500 bg-brand-50 dark:bg-brand-500/10',
     },
     {
       icon: CloudLightning,
-      title: t('bento_fast_title', 'Zero Latency & Fast Extraction'),
-      description: t('bento_fast_desc', 'Our system instantly processes Pinterest CDN endpoints, skipping slow middleman servers. Your MP4 video or 4K photo download link is ready in less than 1 second, saving you time during creative research.'),
+      title: t('benefit_speed_title', 'Zero Latency & Fast Extraction'),
+      description: t('benefit_speed_desc', 'Our system instantly processes Pinterest CDN endpoints, skipping slow middleman servers. Your MP4 video or 4K photo download link is ready in less than 1 second, saving you time during creative research.'),
       color: 'text-amber-500 bg-amber-50 dark:bg-amber-500/10',
     },
     {
       icon: Smartphone,
-      title: t('bento_safe_title', 'Seamless Mobile & Desktop Compatibility'),
-      description: t('bento_safe_desc', 'Whether you are on an iPhone using Safari, an Android phone using Chrome, or a desktop computer, PintSave adapts effortlessly. Files save directly into your Photos app or downloads directory.'),
+      title: t('benefit_devices_title', 'Seamless Mobile & Desktop Compatibility'),
+      description: t('benefit_devices_desc', 'Whether you are on an iPhone using Safari, an Android phone using Chrome, or a desktop computer, PintSave adapts effortlessly. Files save directly into your Photos app or downloads directory.'),
       color: 'text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10',
     },
     {
       icon: Infinity,
-      title: t('bento_no_wm_title', 'Unlimited Downloads Forever'),
-      description: t('bento_no_wm_desc', 'Save as many pins, video clips, and GIFs as your projects require. We never cap your daily downloads, throttle your speeds, or force you to sign up for paid subscription plans.'),
+      title: t('benefit_unlimited_title', 'Unlimited Downloads Forever'),
+      description: t('benefit_unlimited_desc', 'Save as many pins, video clips, and GIFs as your projects require. We never cap your daily downloads, throttle your speeds, or force you to sign up for paid subscription plans.'),
       color: 'text-rose-500 bg-rose-50 dark:bg-rose-500/10',
     },
     {
       icon: Users,
-      title: t('bento_safe_title', 'Complete Anonymous Privacy'),
-      description: t('bento_safe_desc', 'You do not need to share your email address, register an account, or log in with social profiles. Download media privately without tracking cookies or user profile logs.'),
+      title: t('benefit_privacy_title', 'Complete Anonymous Privacy'),
+      description: t('benefit_privacy_desc', 'You do not need to share your email address, register an account, or log in with social profiles. Download media privately without tracking cookies or user profile logs.'),
       color: 'text-sky-500 bg-sky-50 dark:bg-sky-500/10',
     },
     {
       icon: Download,
-      title: t('step3_title', 'Carousel & Multi-Media Support'),
-      description: t('step3_desc', 'Extract multi-slide carousel pins effortlessly. PintSave identifies each individual image or video slide in a carousel, letting you download specific assets or entire sets in HD.'),
+      title: t('benefit_carousel_title', 'Carousel & Multi-Media Support'),
+      description: t('benefit_carousel_desc', 'Extract multi-slide carousel pins effortlessly. PintSave identifies each individual image or video slide in a carousel, letting you download specific assets or entire sets in HD.'),
       color: 'text-purple-500 bg-purple-50 dark:bg-purple-500/10',
     },
   ];
@@ -50,12 +50,12 @@ export default function BenefitsSection() {
   return (
     <section id="benefits" className="py-20 max-w-6xl mx-auto px-4 sm:px-6">
       <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-        <Badge variant="brand">{t('bento_tag', 'USER BENEFITS')}</Badge>
+        <Badge variant="brand">{t('benefits_tag', 'USER BENEFITS')}</Badge>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-stone-900 dark:text-white tracking-tight">
-          {t('bento_title', 'Supercharge Your Creative Workflow')}
+          {t('benefits_title', 'Supercharge Your Creative Workflow')}
         </h2>
         <p className="text-stone-600 dark:text-stone-400 text-base sm:text-lg leading-relaxed">
-          {t('bento_subtitle', 'Discover why thousands of visual artists, content creators, interior designers, and everyday Pinterest users rely on PintSave daily.')}
+          {t('benefits_subtitle', 'Discover why thousands of visual artists, content creators, interior designers, and everyday Pinterest users rely on PintSave daily.')}
         </p>
       </div>
 

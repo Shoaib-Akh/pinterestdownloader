@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'PintSave Terms and Conditions — Official Terms of Service & Usage Policy',
   description:
     'Read the official Terms and Conditions governing your use of PintSave. Understand acceptable personal use rules, DMCA guidelines, liability limits, and trademark disclaimers.',
+  alternates: {
+    canonical: 'https://pintsave.site/terms-of-service',
+  },
   openGraph: {
     title: 'PintSave Terms and Conditions — Terms of Service & Usage Policy',
     description: 'PintSave Terms and Conditions detailing acceptable use policy, copyright compliance, and trademark disclaimers.',

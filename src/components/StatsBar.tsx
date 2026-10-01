@@ -18,6 +18,7 @@ export default function StatsBar() {
     getPublicStats().then((res) => {
       if (
         res &&
+        res.totalDownloads > 0 &&
         !(res.totalDownloads === PLACEHOLDER_TOTAL && res.todayDownloads === PLACEHOLDER_TODAY)
       ) {
         setStats(res);

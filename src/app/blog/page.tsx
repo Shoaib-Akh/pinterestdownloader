@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import CTABanner from '@/components/CTABanner';
-import { getBlogPosts } from '@/lib/api';
+import { getBlogPosts, formatBlogTitle } from '@/lib/api';
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const revalidate = 60;
@@ -56,8 +56,8 @@ function getPostCategory(title: string): string {
 
 function getReadTime(content?: string, excerpt?: string): string {
   const text = ((content || '') + ' ' + (excerpt || '')).trim();
-  const words = text.split(/\s+/).filter(Boolean).length;
-  const minutes = Math.max(5, Math.ceil(words / 140));
+  const words = text.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(words / 200));
   return `${minutes} MIN READ`;
 }
 
@@ -151,7 +151,8 @@ export default async function BlogListPage({ searchParams }: Props) {
       {posts.length > 0 ? (
         <div className="divide-y divide-stone-200 dark:divide-stone-800">
           {posts.map((post) => {
-            const category = getPostCategory(post.title);
+            const cleanTitle = formatBlogTitle(post.title);
+            const category = getPostCategory(cleanTitle);
             const readTime = getReadTime(post.content, post.excerpt);
             const formattedDate = formatDate(post.publishedAt || post.createdAt);
 
@@ -179,7 +180,7 @@ export default async function BlogListPage({ searchParams }: Props) {
 
                       {/* Article Title */}
                       <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-snug">
-                        {post.title}
+                        {cleanTitle}
                       </h2>
 
                       {/* Description Excerpt */}

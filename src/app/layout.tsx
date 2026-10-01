@@ -21,6 +21,10 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://pintsave.site'),
+  alternates: {
+    canonical: 'https://pintsave.site',
+  },
   title: 'PintSave – Fast, Free Pinterest Video, Image & GIF Downloader',
   description:
     'Save Pinterest videos, 4K high-resolution images, and animated GIFs in original HD quality with PintSave. 100% free, no signup required.',
@@ -90,25 +94,13 @@ export default function RootLayout({
             gtag('config', 'G-BN3DQKHVSW');
           `}
         </Script>
-        {/* Google AdSense (Commented out) */}
+        {/* Google AdSense (Commented out until approval) */}
         {/* <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6686252669097490"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         /> */}
-
-        {/* CPM Ad Network Scripts (Temporarily commented out for AdSense approval) */}
-        {/*
-        <Script
-          src="https://pl31196201.profitableratecpmnetwork.com/7c/3a/d7/7c3ad7c435d2378ed2c061d1eb400553.js"
-          strategy="afterInteractive"
-        />
-        <Script
-          src="https://pl31196204.profitableratecpmnetwork.com/84/81/d7/8481d7ccfd8e37dd0c73bfe532d6a169.js"
-          strategy="afterInteractive"
-        />
-        */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem={true}>
           <LanguageProvider>
             <Header />

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import CTABanner from '@/components/CTABanner';
 import BlogComments from '@/components/BlogComments';
 import AdBanner from '@/components/AdBanner';
-import { getBlogPostBySlug, getBlogPosts } from '@/lib/api';
+import { getBlogPostBySlug, getBlogPosts, formatBlogTitle } from '@/lib/api';
 import { Calendar, ArrowLeft, BookOpen, Clock, Tag } from 'lucide-react';
 
 export const revalidate = 60;
@@ -22,16 +22,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const cleanTitle = formatBlogTitle(post.title);
+
   return {
-    title: `${post.title} — PintSave Guide`,
+    title: `${cleanTitle} — PintSave Guide`,
     description: post.excerpt,
+    alternates: {
+      canonical: `https://pintsave.site/blog/${post.slug}`,
+    },
     openGraph: {
-      title: post.title,
+      title: cleanTitle,
       description: post.excerpt,
       images: post.coverImage ? [{ url: post.coverImage }] : [],
       url: `https://pintsave.site/blog/${post.slug}`,
     },
   };
+}
+
+function getReadTime(content?: string, excerpt?: string): string {
+  const text = ((content || '') + ' ' + (excerpt || '')).trim();
+  const words = text.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(words / 200));
+  return `${minutes} min read`;
 }
 
 // Markdown parser helper to cleanly format blog headers, bold text, lists, and internal links
@@ -44,7 +56,8 @@ function formatInline(text: string) {
       const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
       if (match) {
         const linkText = match[1];
-        const linkUrl = match[2];
+        const rawUrl = match[2];
+        const linkUrl = rawUrl.replace(/https?:\/\/(www\.)?pintsave\.app/g, 'https://pintsave.site');
         const isInternal = linkUrl.startsWith('/') || linkUrl.includes('pintsave');
         return (
           <a
@@ -154,13 +167,13 @@ export default async function BlogPostPage({ params }: Props) {
               })}
             </span>
             <span className="flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" /> 5 min read
+              <Clock className="w-3.5 h-3.5" /> {getReadTime(post.content, post.excerpt)}
             </span>
           </div>
 
           {post.title && (
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-stone-900 dark:text-white leading-tight">
-              {post.title}
+              {formatBlogTitle(post.title)}
             </h1>
           )}
 
@@ -220,7 +233,7 @@ export default async function BlogPostPage({ params }: Props) {
               >
                 <div className="space-y-2">
                   <h4 className="font-bold text-sm text-stone-900 dark:text-white group-hover:text-brand-500 transition-colors line-clamp-2">
-                    {related.title}
+                    {formatBlogTitle(related.title)}
                   </h4>
                   <p className="text-xs text-stone-500 dark:text-stone-400 line-clamp-3">
                     {related.excerpt}

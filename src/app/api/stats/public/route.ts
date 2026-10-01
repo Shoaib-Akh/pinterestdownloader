@@ -5,8 +5,9 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    let totalDownloads = 15420;
-    let todayDownloads = 342;
+    let totalDownloads = 0;
+    let todayDownloads = 0;
+    let hasRealData = false;
 
     try {
       const [totalCount, todayCount] = await Promise.all([
@@ -20,10 +21,22 @@ export async function GET() {
         }),
       ]);
 
-      if (totalCount > 0) totalDownloads = totalCount;
-      if (todayCount > 0) todayDownloads = todayCount;
+      if (totalCount > 0) {
+        totalDownloads = totalCount;
+        todayDownloads = todayCount;
+        hasRealData = true;
+      }
     } catch (dbErr) {
       console.warn('DB public stats query warning:', dbErr);
+    }
+
+    if (!hasRealData) {
+      return NextResponse.json({
+        success: false,
+        totalDownloads: 0,
+        todayDownloads: 0,
+        supportedTypes: ['image', 'video', 'gif', 'carousel'],
+      });
     }
 
     return NextResponse.json({
@@ -34,10 +47,9 @@ export async function GET() {
     });
   } catch (error: any) {
     return NextResponse.json({
-      success: true,
-      totalDownloads: 15420,
-      todayDownloads: 342,
-      supportedTypes: ['image', 'video', 'gif', 'carousel'],
-    });
+      success: false,
+      error: 'Unable to retrieve statistics',
+    }, { status: 500 });
   }
 }
+

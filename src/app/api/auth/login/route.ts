@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     const normalizedEmail = email.trim().toLowerCase();
     const isAdminMatch =
       (userInDb && userInDb.role === 'ADMIN' && userInDb.password === password) ||
-      (normalizedEmail === 'admin@pintsave.app' && password === 'AdminSecret123!') ||
+      (normalizedEmail === 'admin@pintsave.site' && password === 'AdminSecret123!') ||
       (normalizedEmail === 'admin@pintsave.com' && password === 'admin123');
 
     if (!isAdminMatch) {

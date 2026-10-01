@@ -15,6 +15,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.warn('Sitemap DB query warning:', err);
   }
 
+  if (!blogPosts || blogPosts.length === 0) {
+    const { SAMPLE_BLOG_POSTS } = await import('@/lib/api');
+    blogPosts = SAMPLE_BLOG_POSTS.map((p) => ({
+      slug: p.slug,
+      publishedAt: p.publishedAt ? new Date(p.publishedAt) : new Date(p.createdAt),
+      createdAt: new Date(p.createdAt),
+    }));
+  }
+
   const blogUrls = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${slugify(post.slug) || post.slug}`,
     lastModified: new Date(post.publishedAt || post.createdAt),
